@@ -2,6 +2,57 @@
 
   'use strict';
 
+  /**
+   * Exclusive execution control utility.
+   */
+  var lock = (function () {
+    var table, i;
+    table = {};
+    i = 0;
+    return function (func) {
+      var id;
+      id = i;
+      i += 1;
+      return function () {
+        var args, free;
+        if (table[id]) return;
+        table[id] = true;
+        free = function () { table[id] = false; };
+        args = [free];
+        func.apply(this, args.concat(toArray(arguments)));
+      };
+    };
+  })();
+
+  /**
+   * Convert arguments into a real array.
+   */
+  var toArray = function (args) {
+    var i, l, result;
+    result = [];
+    for (i = 0, l = args.length; i < l; i++) result[i] = args[i];
+    return result;
+  };
+
+  /**
+   * Bind the func to the context.
+   */
+  var bind = function (func, context) {
+    if (func.bind) {
+      // Use native Function#bind if it's available.
+      return func.bind(context);
+    } else {
+      return function () {
+        func.apply(context, arguments);
+      };
+    }
+  };
+
+  /**
+   * Default template function.
+   */
+  var identity = function (obj) { return obj; };
+
   var Completer = (function () {
     var html, css;
 
