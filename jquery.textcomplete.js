@@ -28,7 +28,7 @@
       }
     };
 
-    function Completer(el) {
+    function Completer(el, strategies) {
       var $wrapper, $list;
 
       $wrapper = $(html.wrapper).css(css.wrapper);
@@ -37,6 +37,7 @@
       this.el = el;
       this.$el = $(el);
       this.$el.wrap($wrapper).before($list);
+      this.strategies = strategies;
     }
 
     $.extend(Completer.prototype, {
@@ -85,15 +86,33 @@
 
       getTextFromHeadToCaret: function () {
         return this.el.value.substring(0, this.el.selectionEnd);
+      },
+
+      /**
+       * Parse the value of textarea and extract search query.
+       */
+      extractSearchQuery: function (text) {
+        // If a search query found, it returns used strategy and the query
+        // term. If the caret is currently in a code block or search query does
+        // not found, it returns an empty array.
+
+        var name, strategy, match;
+        for (name in this.strategies)
+            if (this.strategies.hasOwnProperty(name)) {
+          strategy = strategies[name];
+          match = text.match(strategy.match);
+          if (match) { return [strategy, match[strategy.index || 1]]; }
+        }
+        return [];
       }
     });
 
     return Completer;
   })();
 
-  $.fn.textcomplete = function () {
+  $.fn.textcomplete = function (strategies) {
     this.each(function () {
-      window.c = new Completer(this);
+      window.c = new Completer(this, strategies);
     });
   };
 
