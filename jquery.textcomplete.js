@@ -147,9 +147,9 @@
         var name, strategy, match;
         for (name in this.strategies)
             if (this.strategies.hasOwnProperty(name)) {
-          strategy = strategies[name];
+          strategy = this.strategies[name];
           match = text.match(strategy.match);
-          if (match) { return [strategy, match[strategy.index || 1]]; }
+          if (match) { return [strategy, match[strategy.index]]; }
         }
         return [];
       }
