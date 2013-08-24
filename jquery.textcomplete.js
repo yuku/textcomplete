@@ -232,6 +232,110 @@
     return Completer;
   })();
 
+  /**
+   * Dropdown menu manager class.
+   */
+  var ListView = (function () {
+
+    function ListView($el, completer) {
+      this.$el = $el;
+      this.index = 0;
+      this.completer = completer;
+
+      this.$el.on('click', 'a', bind(this.onClick, this));
+    }
+
+    $.extend(ListView.prototype, {
+      shown: false,
+
+      render: function (strategy, data) {
+        var html, i, l, val;
+        this.data = data;
+        l = data.length;
+        if (l) {
+          html = '';
+          for (i = 0; i < l; i++) {
+            val = data[i];
+            html += '<li><a data-value="' + val + '">';
+            html +=   strategy.template(val);
+            html += '</a></li>';
+          }
+          this.$el.html(html);
+          this.index = 0;
+          this.activate();
+        } else {
+          this.deactivate();
+        }
+      },
+
+      activateIndexedItem: function () {
+        var $item;
+        this.$el.find('.active').removeClass('active');
+        this.getActiveItem().addClass('active');
+      },
+
+      getActiveItem: function () {
+        return $(this.$el.children().get(this.index));
+      },
+
+      activate: function () {
+        if (!this.shown) {
+          this.$el.show();
+          this.shown = true;
+        }
+        this.activateIndexedItem();
+      },
+
+      deactivate: function () {
+        if (this.shown) {
+          this.$el.hide();
+          this.shown = false;
+          this.data = this.index = null;
+        }
+      },
+
+      setPosition: function (position) {
+        this.$el.css(position);
+      },
+
+      select: function (value) {
+        this.completer.onSelect(value);
+        this.deactivate();
+      },
+
+      onKeydown: function (e) {
+        var $item;
+        if (!this.shown) return;
+        if (e.keyCode === 38) {         // UP
+          if (this.index === 0) {
+            this.deactivate();
+          } else {
+            e.preventDefault();
+            this.index -= 1;
+            this.activateIndexedItem();
+          }
+        } else if (e.keyCode === 40) {  // DOWN
+          if (this.index === this.data.length - 1) {
+            this.deactivate();
+          } else {
+            e.preventDefault();
+            this.index += 1;
+            this.activateIndexedItem();
+          }
+        } else if (e.keyCode === 13) {  // ENTER
+          e.preventDefault();
+          this.select(this.getActiveItem().children().data('value'));
+        }
+      },
+
+      onClick: function (e) {
+        this.select($(e.target).data('value'));
+      }
+    });
+
+    return ListView;
+  })();
+
   $.fn.textcomplete = function (strategies) {
     this.each(function () {
       window.c = new Completer(this, strategies);
