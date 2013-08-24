@@ -104,7 +104,7 @@
         // Consequently, the span element's position is the thing what we want.
 
         if (!this.el.selectionEnd) return;
-        var css, styles, i, l, div, $div, span, position;
+        var css, styles, i, l, div, $div, span, $span, position;
 
         css = {
           position: 'absolute',
@@ -113,24 +113,21 @@
           top: 0,
           left: -9999
         };
-        styles = ['height', 'width', 'padding-top', 'padding-right',
-          'padding-bottom', 'padding-left', 'lineHeight', 'textDecoration',
-          'letterSpacing', 'font-family', 'font-size', 'font-style',
-          'font-variant', 'font-weight'];
+        styles = ['border-bottom-width', 'border-left-width',
+          'border-right-width', 'border-top-width', 'font-family',
+          'font-size', 'font-style', 'font-variant', 'font-weight',
+          'height', 'letter-spacing', 'word-spacing', 'line-height',
+          'padding-bottom', 'padding-left', 'padding-right', 'padding-top',
+          'text-decoration', 'width'];
         for (i = 0, l = styles.length; i < l; i++) {
           css[styles[i]] = this.$el.css(styles[i]);
         }
 
-        div = document.createElement('div');
-        $div = $(div);
-        $div.css(css);
+        $div = $('<div></div>').css(css).text(this.getTextFromHeadToCaret());
+        $span = $('<span></span>').text('&nbsp;').appendTo($div);
         this.$el.before($div);
-        div.textContent = this.getTextFromHeadToCaret();
-        div.scrollTop = div.scrollHeight;
-        span = document.createElement('span');
-        span.textContent = '&nbsp;';
-        div.appendChild(span);
-        position = $(span).position();
+        position = $span.position();
+        position.top += $span.height() + 6;  // heuristic
         $div.remove();
         return position;
       },
