@@ -100,7 +100,13 @@
 
       this.$el.on('keyup', bind(this.onKeyup, this));
       this.$el.on('keydown', bind(this.listView.onKeydown, this.listView));
-      this.$el.on('blur', bind(this.listView.deactivate, this.listView));
+
+      // Global click event handler
+      $(document).on('click', bind(function (e) {
+        if (!e.originalEvent.internal) {
+          this.listView.deactivate();
+        }
+      }, this));
     }
 
     $.extend(Completer.prototype, {
@@ -322,13 +328,14 @@
             this.index += 1;
             this.activateIndexedItem();
           }
-        } else if (e.keyCode === 13) {  // ENTER
+        } else if (e.keyCode === 13 || e.keyCode === 9) {  // ENTER or TAB
           e.preventDefault();
           this.select(this.getActiveItem().children().data('value'));
         }
       },
 
       onClick: function (e) {
+        e.originalEvent.internal = true;
         this.select($(e.target).data('value'));
       }
     });
