@@ -92,6 +92,18 @@
     }
 
     $.extend(Completer.prototype, {
+
+      /**
+       * Show autocomplete list next to the caret.
+       */
+      renderList: function (data) {
+        if (!this.listView.shown) {
+          this.listView.setPosition(this.getCaretPosition());
+        }
+        data = data.slice(0, this.strategy.maxCount);
+        this.listView.render(this.strategy, data);
+      },
+
       // Callbacks
       // =========
 
