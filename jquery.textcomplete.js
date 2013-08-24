@@ -152,7 +152,15 @@
           if (match) { return [strategy, match[strategy.index]]; }
         }
         return [];
-      }
+      },
+
+      search: lock(function (free, searchQuery) {
+        var term, strategy;
+        this.strategy = searchQuery[0];
+        term = searchQuery[1];
+        this.strategy.search(term, this.searchCallbackFactory(free));
+      })
+
     });
 
     return Completer;
