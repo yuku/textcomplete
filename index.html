@@ -1,14 +1,40 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href="jquery.textcomplete.css" rel="stylesheet" media="screen"/>
     </head>
     <body>
         <textarea></textarea>
         <script src="vendor/javascripts/jquery.js"></script>
         <script src="jquery.textcomplete.js"></script>
         <script>
+            names = [
+                'yaotti',
+                'yuku',
+                'tatata111',
+                'kony',
+                'camelmasa'
+            ];
             $(function () {
-                $('textarea').textcomplete();
+                $('textarea').textcomplete({
+                    mention: {
+                        match: /(^|\s)@(\w*)$/,
+                        search: function (term, callback) {
+                            var data, i, l, regexp;
+                            data = [];
+                            regexp = new RegExp('^' + term);
+                            for (i = 0, l = names.length; i < l; i++) {
+                                if (regexp.test(names[i])) {
+                                    data.push(names[i]);
+                                }
+                            }
+                            callback(data);
+                        },
+                        replace: function (value) {
+                            return '$1@' + value + ' ';
+                        }
+                    }
+                });
             });
         </script>
     </body>
