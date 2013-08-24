@@ -358,6 +358,8 @@
     this.each(function () {
       new Completer(this, strategies);
     });
+
+    return this;
   };
 
 })(window.jQuery);
