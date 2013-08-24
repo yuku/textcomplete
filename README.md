@@ -3,6 +3,8 @@ Autocomplete for Textarea
 
 Introduces autocompleting power to textareas, like a GitHub comment form has.
 
+[Demo](http://yuku-t.com/jquery-textcomplete/).
+
 How to use
 ----------
 
