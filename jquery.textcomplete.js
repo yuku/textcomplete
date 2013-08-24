@@ -337,8 +337,19 @@
   })();
 
   $.fn.textcomplete = function (strategies) {
+    var name, strategy;
+    for (name in strategies) if (strategies.hasOwnProperty(name)) {
+      strategy = strategies[name];
+      if (!strategy.template) {
+        strategy.template = identity;
+      }
+      if (strategy.index == null) {
+        strategy.index = 2;
+      }
+      strategy.maxCount || (strategy.maxCount = 10);
+    }
     this.each(function () {
-      window.c = new Completer(this, strategies);
+      new Completer(this, strategies);
     });
   };
 
