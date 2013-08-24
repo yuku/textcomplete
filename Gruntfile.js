@@ -12,8 +12,10 @@ module.exports = function (grunt) {
 
     uglify: {
       options: {
-        banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
-          '<%= grunt.template.today("yyyy-mm-dd") %> */'
+        banner:
+          '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
+          '<%= grunt.template.today("yyyy-mm-dd") %> */',
+        sourceMap: 'jquery.textcomplete.min.map'
       },
       all: {
         files: {
