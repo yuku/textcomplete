@@ -1,6 +1,6 @@
 $(function () {
 
-  $('textarea').textcomplete({
+  var $textarea = $('textarea').textcomplete({
     // emoji strategy
     emoji: {
       match: /(^|\s):(\w*)$/,
@@ -15,8 +15,16 @@ $(function () {
       },
       replace: function (value) {
         return '$1:' + value + ': ';
-      }
+      },
+      maxCount: 5
     }
   });
 
+
+  var textarea = $textarea.get(0);
+
+  textarea.value = ':a';
+  textarea.selectionStart = textarea.selectionEnd = 3;
+  textarea.focus();
+  $textarea.keyup();
 });
