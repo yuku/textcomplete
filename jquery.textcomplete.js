@@ -92,6 +92,44 @@
     }
 
     $.extend(Completer.prototype, {
+      // Callbacks
+      // =========
+
+      searchCallbackFactory: function (free) {
+        var self = this;
+        return function (data) {
+          self.renderList(data);
+          free();
+        };
+      },
+
+      /**
+       * Keyup event handler.
+       */
+      onKeyup: function (e) {
+        var searchQuery, term;
+
+        searchQuery = this.extractSearchQuery(this.getTextFromHeadToCaret());
+        if (searchQuery.length) {
+          term = searchQuery[1];
+          if (this.term === term) return; // Ignore shift-key or something.
+          this.term = term;
+          this.search(searchQuery);
+        } else {
+          this.term = null;
+          this.listView.deactivate();
+        }
+      },
+
+      onSelect: function (value) {
+        var pre, post;
+        pre = this.getTextFromHeadToCaret();
+        post = this.el.value.substring(this.el.selectionEnd);
+        pre = pre.replace(this.strategy.match, this.strategy.replace(value));
+        this.el.value = pre + post;
+        this.el.focus();
+        this.el.selectionStart = this.el.selectionEnd = pre.length;
+      },
       /**
        * Returns caret's relative coordinates from textarea's left top corner.
        */
