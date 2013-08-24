@@ -57,9 +57,8 @@
     var html, css;
 
     html = {
-      wrapper: '<div class="js-textcomplete"></div>',
-      list: '<span class="js-textcomplete-list"></span>',
-      item: '<span class="js-textcomplete-item"></span>'
+      wrapper: '<div class="textcomplete-wrapper"></div>',
+      list: '<ul class="dropdown-menu"></ul>'
     };
     css = {
       wrapper: {
@@ -72,10 +71,6 @@
         left: 0,
         zIndex: '100',
         display: 'none'
-      },
-      item: {
-        position: 'relative',
-        display: 'block'
       }
     };
 
@@ -88,7 +83,12 @@
       this.el = el;
       this.$el = $(el);
       this.$el.wrap($wrapper).before($list);
+      this.listView = new ListView($list, this);
       this.strategies = strategies;
+
+      this.$el.on('keyup', bind(this.onKeyup, this));
+      this.$el.on('keydown', bind(this.listView.onKeydown, this.listView));
+      this.$el.on('blur', bind(this.listView.deactivate, this.listView));
     }
 
     $.extend(Completer.prototype, {
