@@ -1,3 +1,12 @@
+/**
+ * jQuery.textcomplete.js
+ *
+ * Repositiory: https://github.com/yuku-t/jquery-textcomplete
+ * License:     MIT with starring the repository at GitHub.
+ *              OR GPL without starring.
+ * Author:      Yuku Takahashi
+ */
+
 ;(function ($) {
 
   'use strict';
@@ -53,6 +62,9 @@
    */
   var identity = function (obj) { return obj; };
 
+  /**
+   * Textarea manager class.
+   */
   var Completer = (function () {
     var html, css;
 
@@ -142,6 +154,10 @@
         this.el.focus();
         this.el.selectionStart = this.el.selectionEnd = pre.length;
       },
+
+      // Helper methods
+      // ==============
+
       /**
        * Returns caret's relative coordinates from textarea's left top corner.
        */
