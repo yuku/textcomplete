@@ -199,7 +199,7 @@
         $span = $('<span></span>').text('&nbsp;').appendTo($div);
         this.$el.before($div);
         position = $span.position();
-        position.top += $span.height() + 6;  // heuristic
+        position.top += $span.height() - this.$el.scrollTop();
         $div.remove();
         return position;
       },
