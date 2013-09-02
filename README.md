@@ -142,4 +142,4 @@ This repository also includes jquery.autocomplete.css. It is useful to use as th
 License
 -------
 
-MIT with starring the repository at GitHub. OR GPL without starring.
+MIT

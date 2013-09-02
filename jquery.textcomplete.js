@@ -2,8 +2,7 @@
  * jQuery.textcomplete.js
  *
  * Repositiory: https://github.com/yuku-t/jquery-textcomplete
- * License:     MIT with starring the repository at GitHub.
- *              OR GPL without starring.
+ * License:     MIT
  * Author:      Yuku Takahashi
  */
 
