@@ -36,9 +36,8 @@
    * Convert arguments into a real array.
    */
   var toArray = function (args) {
-    var i, l, result;
-    result = [];
-    for (i = 0, l = args.length; i < l; i++) result[i] = args[i];
+    var result;
+    result = Array.prototype.slice.call(args);
     return result;
   };
 
