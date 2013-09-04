@@ -3,9 +3,9 @@ $(function () {
   var $textarea = $('textarea').textcomplete({
     // emoji strategy
     emoji: {
-      match: /(^|\s):(\w*)$/,
+      match: /(^|\s):([\-+\w]*)$/,
       search: function (term, callback) {
-        var regexp = new RegExp('^' + term);
+        var regexp = new RegExp('^' + term.replace(/\+/g, '\\+'));
         callback($.map(emojies, function (emoji) {
           return regexp.test(emoji) ? emoji : null;
         }));
