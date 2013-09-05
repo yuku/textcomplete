@@ -14,20 +14,22 @@
    * Exclusive execution control utility.
    */
   var lock = (function () {
-    var table, i;
-    table = {};
-    i = 0;
+    var list;
+    list = [];
     return function (func) {
-      var id;
-      id = i;
-      i += 1;
+      var free;
+      free = function () {
+        var index;
+        index = list.indexOf(func);
+        index >= 0 && list.splice(index, 1);
+      }
       return function () {
-        var args, free;
-        if (table[id]) return;
-        table[id] = true;
-        free = function () { table[id] = false; };
-        args = [free];
-        func.apply(this, args.concat(toArray(arguments)));
+        var args;
+        if (list.indexOf(func) >= 0) return;
+        list.push(func);
+        args = toArray(arguments);
+        args.unshift(free);
+        func.apply(this, args);
       };
     };
   })();
