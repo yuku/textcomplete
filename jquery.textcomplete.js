@@ -13,24 +13,18 @@
   /**
    * Exclusive execution control utility.
    */
-  var lock = (function () {
-    var table, i;
-    table = {};
-    i = 0;
-    return function (func) {
-      var id;
-      id = i;
-      i += 1;
-      return function () {
-        var args, free;
-        if (table[id]) return;
-        table[id] = true;
-        free = function () { table[id] = false; };
-        args = [free];
-        func.apply(this, args.concat(toArray(arguments)));
-      };
+  var lock = function (func) {
+    var free, locked;
+    free = function () { locked = false; };
+    return function () {
+      var args;
+      if (locked) return;
+      locked = true;
+      args = toArray(arguments);
+      args.unshift(free);
+      func.apply(this, args);
     };
-  })();
+  };
 
   /**
    * Convert arguments into a real array.
