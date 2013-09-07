@@ -1,5 +1,18 @@
 $(function () {
 
+  var setText = function (textarea, text) {
+    var range;
+    textarea.focus();
+    if (typeof textarea.selectionStart === 'number') {
+      textarea.value = text;
+      textarea.selectionStart = textarea.selectionEnd = 3;
+      return;
+    }
+    range = textarea.createTextRange();
+    range.text = text
+    range.select();
+  }
+
   var $textarea = $('textarea').textcomplete({
     // emoji strategy
     emoji: {
@@ -20,11 +33,6 @@ $(function () {
     }
   });
 
-
-  var textarea = $textarea.get(0);
-
-  textarea.value = ':a';
-  textarea.selectionStart = textarea.selectionEnd = 3;
-  textarea.focus();
+  setText($textarea.get(0), ':a');
   $textarea.keyup();
 });
