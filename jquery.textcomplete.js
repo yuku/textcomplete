@@ -167,7 +167,7 @@
         // span element into the textarea.
         // Consequently, the span element's position is the thing what we want.
 
-        if (!this.el.selectionEnd) return;
+        if (this.el.selectionEnd === 0) return;
         var css, styles, i, l, div, $div, span, $span, position;
 
         css = {
@@ -197,7 +197,17 @@
       },
 
       getTextFromHeadToCaret: function () {
-        return this.el.value.substring(0, this.el.selectionEnd);
+        var text, selectionEnd, range;
+        selectionEnd = this.el.selectionEnd;
+        if (typeof selectionEnd === 'number') {
+          text = this.el.value.substring(0, selectionEnd);
+        } else if (document.selection) {
+          range = this.el.createTextRange();
+          range.moveStart('character', 0);
+          range.moveEnd('textedit');
+          text = range.text;
+        }
+        return text;
       },
 
       /**
