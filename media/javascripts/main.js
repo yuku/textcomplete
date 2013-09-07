@@ -13,14 +13,18 @@ $(function () {
     range.select();
   }
 
+  var startsWith = String.prototype.startsWith || function (str, position) {
+    position = position || 0;
+    return ('' + this).indexOf(str, position) === position;
+  };
+
   var $textarea = $('textarea').textcomplete({
     // emoji strategy
     emoji: {
       match: /(^|\s):([\-+\w]*)$/,
       search: function (term, callback) {
-        var regexp = new RegExp('^' + term.replace(/\+/g, '\\+'));
         callback($.map(emojies, function (emoji) {
-          return regexp.test(emoji) ? emoji : null;
+          return startsWith.call(emoji, term) ? emoji : null;
         }));
       },
       template: function (value) {
