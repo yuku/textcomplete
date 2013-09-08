@@ -194,12 +194,10 @@
           top: 0,
           left: -9999
         };
-        styles = ['border-bottom-width', 'border-left-width',
-          'border-right-width', 'border-top-width', 'font-family',
-          'font-size', 'font-style', 'font-variant', 'font-weight',
-          'height', 'letter-spacing', 'word-spacing', 'line-height',
-          'padding-bottom', 'padding-left', 'padding-right', 'padding-top',
-          'text-decoration', 'width'];
+        styles = ['border-width', 'font-family', 'font-size', 'font-style',
+          'font-variant', 'font-weight', 'height', 'letter-spacing',
+          'word-spacing', 'line-height', 'padding', 'text-decoration', 'width',
+          'margin'];
         for (i = 0, l = styles.length; i < l; i++) {
           css[styles[i]] = this.$el.css(styles[i]);
         }
