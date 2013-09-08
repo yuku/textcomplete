@@ -55,6 +55,23 @@
   var identity = function (obj) { return obj; };
 
   /**
+   * Memoize a search function.
+   */
+  var memoize = function (func) {
+    var memo = {};
+    return function (term, callback) {
+      if (memo[term]) {
+        callback(memo[term]);
+      } else {
+        func.call(this, term, function (data) {
+          memo[term] = data;
+          callback(data);
+        });
+      }
+    };
+  };
+
+  /**
    * Textarea manager class.
    */
   var Completer = (function () {
@@ -354,6 +371,9 @@
       }
       if (strategy.index == null) {
         strategy.index = 2;
+      }
+      if (strategy.cache) {
+        strategy.search = memoize(strategy.search);
       }
       strategy.maxCount || (strategy.maxCount = 10);
     }
