@@ -50,7 +50,8 @@ var strategy = {
   // Optional
   index:    indexNumber,
   maxCount: maxCountNumber,
-  template: templateFunc
+  template: templateFunc,
+  cache:    cacheBoolean
 }
 ```
 
@@ -64,6 +65,7 @@ var indexNumber = 2;
 
 The `searchFunc` MUST be a Function which gets two arguments, `term` and `callback`. It MUST invoke `callback` with an Array of String. It is guaranteed that the function will be invoked exclusively even though it contains async call.
 The `maxCountNumber` MUST be a Number and default to 10. Even if `searchFunc` callbacks with large array, the array will be truncated into `maxCountNumber` elements.
+The `cacheBoolean` MUST be a Boolean. It defaults to `false`. If it is `true` the `searchFunc` will be memoized by `term` argument. This is useful to prevent excessive API access.
 
 ```js
 var searchFunc = function (term, callback) {
@@ -117,7 +119,8 @@ $('textarea').textcomplete({
     },
     replace: function (value) {
       return '$1@' + value + ' ';
-    }
+    },
+    cache: true
   },
 
   // emoji strategy
