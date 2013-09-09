@@ -75,7 +75,7 @@
    * Textarea manager class.
    */
   var Completer = (function () {
-    var html, css;
+    var html, css, $baseWrapper, $baseList;
 
     html = {
       wrapper: '<div class="textcomplete-wrapper"></div>',
@@ -94,12 +94,14 @@
         display: 'none'
       }
     };
+    $baseWrapper = $(html.wrapper).css(css.wrapper);
+    $baseList = $(html.list).css(css.list);
 
     function Completer(el, strategies) {
       var $wrapper, $list;
 
-      $wrapper = $(html.wrapper).css(css.wrapper);
-      $list = $(html.list).css(css.list);
+      $wrapper = $baseWrapper.clone();
+      $list = $baseList.clone();
 
       this.el = el;
       this.$el = $(el);
