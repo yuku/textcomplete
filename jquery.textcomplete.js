@@ -126,21 +126,32 @@
        * Show autocomplete list next to the caret.
        */
       renderList: function (data) {
-        if (!this.listView.shown) {
-          this.listView.setPosition(this.getCaretPosition());
+        if (this.clearAtNext) {
+          this.listView.clear();
+          this.clearAtNext = false;
         }
-        data = data.slice(0, this.strategy.maxCount);
-        this.listView.render(this.strategy, data);
+        if (data.length) {
+          if (!this.listView.shown) {
+            this.listView
+                .setPosition(this.getCaretPosition())
+                .clear()
+                .activate();
+            this.listView.strategy = this.strategy;
+          }
+          data = data.slice(0, this.strategy.maxCount);
+          this.listView.render(data);
+        }
       },
-
-      // Callbacks
-      // =========
 
       searchCallbackFactory: function (free) {
         var self = this;
         return function (data, keep) {
           self.renderList(data);
-          if (!keep) { free(); }
+          if (!keep) {
+            // This is the last callback for this search.
+            free();
+            self.clearAtNext = true;
+          }
         };
       },
 
@@ -273,24 +284,31 @@
     $.extend(ListView.prototype, {
       shown: false,
 
-      render: function (strategy, data) {
-        var html, i, l, val;
-        this.data = data;
-        l = data.length;
-        if (l) {
-          html = '';
-          for (i = 0; i < l; i++) {
-            val = data[i];
-            html += '<li><a data-value="' + val + '">';
-            html +=   strategy.template(val);
-            html += '</a></li>';
-          }
-          this.$el.html(html);
-          this.index = 0;
-          this.activate();
-        } else {
-          this.deactivate();
+      render: function (data) {
+        var html, i, l, remain, val;
+
+        remain = this.strategy.maxCount - this.data.length;
+        html = '';
+        for (i = 0, l = data.length; i < l && i < remain; i++) {
+          val = data[i];
+          html += '<li><a data-value="' + val + '">';
+          html +=   this.strategy.template(val);
+          html += '</a></li>';
+          this.data.push(data[i]);
         }
+        this.$el.append(html)
+        if (!this.data.length) {
+          this.deactivate();
+        } else {
+          this.activateIndexedItem();
+        }
+      },
+
+      clear: function () {
+        this.data = [];
+        this.$el.html('');
+        this.index = 0;
+        return this;
       },
 
       activateIndexedItem: function () {
@@ -308,7 +326,6 @@
           this.$el.show();
           this.shown = true;
         }
-        this.activateIndexedItem();
         return this;
       },
 
