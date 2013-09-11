@@ -72,6 +72,18 @@
   };
 
   /**
+   * Determine if the array contains a given value.
+   */
+  var include = function (array, value) {
+    var i, l;
+    if (array.indexOf) return array.indexOf(value) != -1;
+    for (i = 0, l = array.length; i < l; i++) {
+      if (array[i] === value) return true;
+    }
+    return false;
+  };
+
+  /**
    * Textarea manager class.
    */
   var Completer = (function () {
@@ -285,16 +297,17 @@
       shown: false,
 
       render: function (data) {
-        var html, i, l, remain, val;
+        var html, i, l, val;
 
-        remain = this.strategy.maxCount - this.data.length;
         html = '';
-        for (i = 0, l = data.length; i < l && i < remain; i++) {
+        for (i = 0, l = data.length; i < l; i++) {
           val = data[i];
+          if (include(this.data, val)) continue;
           html += '<li><a data-value="' + val + '">';
           html +=   this.strategy.template(val);
           html += '</a></li>';
           this.data.push(data[i]);
+          if (this.data.length === this.strategy.maxCount) break;
         }
         this.$el.append(html)
         if (!this.data.length) {
