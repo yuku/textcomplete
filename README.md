@@ -64,11 +64,18 @@ var indexNumber = 2;
 ```
 
 The `searchFunc` MUST be a Function which gets two arguments, `term` and `callback`. It MUST invoke `callback` with an Array of String. It is guaranteed that the function will be invoked exclusively even though it contains async call.
+
+If you want to execute `callback` multiple times per a search, you SHOULD give `true` to the second argument while additional execution remains. This is useful to use data located at both local and remote. Note that you MUST invoke `callback` without truthy second argument at least once per a search.
+
 The `maxCountNumber` MUST be a Number and default to 10. Even if `searchFunc` callbacks with large array, the array will be truncated into `maxCountNumber` elements.
+
 The `cacheBoolean` MUST be a Boolean. It defaults to `false`. If it is `true` the `searchFunc` will be memoized by `term` argument. This is useful to prevent excessive API access.
 
 ```js
 var searchFunc = function (term, callback) {
+  // Show local cache immediately.
+  callback(cache[term], true);
+
   $.getJSON('/search', { q: term })
     .done(function (resp) {
       // Resp must be an Array of String such as:
@@ -113,6 +120,7 @@ $('textarea').textcomplete({
   mention: {
     match: /(^|\s)@(\w*)$/,
     search: function (term, callback) {
+      callback(cache[term], true);
       $.getJSON('/search', { q: term })
         .done(function (resp) { callback(resp); })
         .fail(function ()     { callback([]);   });
