@@ -138,9 +138,9 @@
 
       searchCallbackFactory: function (free) {
         var self = this;
-        return function (data) {
+        return function (data, keep) {
           self.renderList(data);
-          free();
+          if (!keep) { free(); }
         };
       },
 
