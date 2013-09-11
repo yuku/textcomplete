@@ -309,6 +309,7 @@
           this.shown = true;
         }
         this.activateIndexedItem();
+        return this;
       },
 
       deactivate: function () {
@@ -317,10 +318,12 @@
           this.shown = false;
           this.data = this.index = null;
         }
+        return this;
       },
 
       setPosition: function (position) {
         this.$el.css(position);
+        return this;
       },
 
       select: function (value) {
