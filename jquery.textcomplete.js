@@ -64,8 +64,8 @@
         callback(memo[term]);
       } else {
         func.call(this, term, function (data) {
-          memo[term] = data;
-          callback(data);
+          memo[term] = (memo[term] || []).concat(data);
+          callback.apply(null, arguments);
         });
       }
     };
