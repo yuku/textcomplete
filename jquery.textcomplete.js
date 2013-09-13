@@ -50,6 +50,28 @@
   };
 
   /**
+   * Get the styles of any element from property names.
+   */
+  var getStyles = (function () {
+    var color;
+    color = $('<div></div>').css(['color']).color;
+    if (typeof color !== 'undefined') {
+      return function ($el, properties) {
+        return $el.css(properties);
+      };
+    } else {  // for jQuery 1.8 or below
+      return function ($el, properties) {
+        var styles;
+        styles = {};
+        $.each(properties, function (i, property) {
+          styles[property] = $el.css(property);
+        });
+        return styles
+      };
+    }
+  })();
+
+  /**
    * Default template function.
    */
   var identity = function (obj) { return obj; };
@@ -210,22 +232,19 @@
         // Consequently, the span element's position is the thing what we want.
 
         if (this.el.selectionEnd === 0) return;
-        var css, styles, i, l, div, $div, span, $span, position;
+        var properties, css, $div, $span, position;
 
-        css = {
+        properties = ['border-width', 'font-family', 'font-size', 'font-style',
+          'font-variant', 'font-weight', 'height', 'letter-spacing',
+          'word-spacing', 'line-height', 'padding', 'text-decoration', 'width',
+          'margin'];
+        css = $.extend({
           position: 'absolute',
           overflow: 'auto',
           'white-space': 'pre-wrap',
           top: 0,
           left: -9999
-        };
-        styles = ['border-width', 'font-family', 'font-size', 'font-style',
-          'font-variant', 'font-weight', 'height', 'letter-spacing',
-          'word-spacing', 'line-height', 'padding', 'text-decoration', 'width',
-          'margin'];
-        for (i = 0, l = styles.length; i < l; i++) {
-          css[styles[i]] = this.$el.css(styles[i]);
-        }
+        }, getStyles(this.$el, properties));
 
         $div = $('<div></div>').css(css).text(this.getTextFromHeadToCaret());
         $span = $('<span></span>').text('&nbsp;').appendTo($div);
