@@ -59,7 +59,7 @@
       return function ($el, properties) {
         return $el.css(properties);
       };
-    } else {
+    } else {  // for jQuery 1.8 or below
       return function ($el, properties) {
         var styles;
         styles = {};
