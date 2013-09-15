@@ -174,6 +174,8 @@
           }
           data = data.slice(0, this.strategy.maxCount);
           this.listView.render(data);
+        } else if (this.listView.shown) {
+          this.listView.deactivate();
         }
       },
 
