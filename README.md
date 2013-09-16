@@ -196,6 +196,28 @@ search: function (term, callback) {
 
 Turn on the `cache` option.
 
+### I want to set the width of textarea in % form.
+
+Apply `display: block` too.
+
+```css
+textarea {
+  width: 100%;
+  display: block; /* Default: inline-block */
+}
+```
+
+If you need `inline-block` textarea for design reason, you have to wrap it by `inline-block` element.
+
+```html
+<span style="width: 70%;">
+  <textarea style="display: block; width: 100%;"></textarea>
+</span>
+<span style="width: 30%;">
+  30% width contents
+</span>
+```
+
 Todo
 ----
 
