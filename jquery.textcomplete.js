@@ -1,4 +1,4 @@
-/**
+/*!
  * jQuery.textcomplete.js
  *
  * Repositiory: https://github.com/yuku-t/jquery-textcomplete
@@ -117,8 +117,7 @@
     };
     css = {
       wrapper: {
-        position: 'relative',
-        display: 'inline-block'
+        position: 'relative'
       },
       list: {
         position: 'absolute',
@@ -133,12 +132,10 @@
 
     function Completer(el, strategies) {
       var $wrapper, $list;
-
-      $wrapper = $baseWrapper.clone();
       $list = $baseList.clone();
-
       this.el = el;
       this.$el = $(el);
+      $wrapper = prepareWrapper(this.$el);
       this.$el.wrap($wrapper).before($list);
       this.listView = new ListView($list, this);
       this.strategies = strategies;
@@ -154,6 +151,9 @@
       }, this));
     }
 
+    /**
+     * Completer's public methods
+     */
     $.extend(Completer.prototype, {
 
       /**
@@ -295,8 +295,14 @@
         term = searchQuery[1];
         this.strategy.search(term, this.searchCallbackFactory(free));
       })
-
     });
+
+    /**
+     * Completer's private functions
+     */
+    var prepareWrapper = function ($el) {
+      return $baseWrapper.clone().css('display', $el.css('display'));
+    };
 
     return Completer;
   })();
