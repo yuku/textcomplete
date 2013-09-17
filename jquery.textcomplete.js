@@ -391,7 +391,9 @@
       onKeydown: function (e) {
         var $item;
         if (!this.shown) return;
-        if (e.keyCode === 38) {         // UP
+        if (e.keyCode === 27) {         // ESC
+            this.deactivate();
+        } else if (e.keyCode === 38) {         // UP
           if (this.index === 0) {
             this.deactivate();
           } else {
