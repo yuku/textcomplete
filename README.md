@@ -139,11 +139,11 @@ $('textarea').textcomplete({
 
   // emoji strategy
   emoji: {
-    match: /(^|\s):(\w*)$/,
+    match: /(^|\s):([\w\+\-]*)$/,
     search: function (term, callback) {
-      var regexp = new RegExp('^' + term);
-      callback($.map(emojies, function (emoji) {
-        return regexp.test(emoji) ? emoji : nil;
+      var regexp = new RegExp('^' + term.replace(/[\\\.\+\*\?\^\$\[\]\(\)\{\}\/\'\#\:\!\=\|]/ig, "\\$&"));
+      callback($.grep(emojies, function (emoji) {
+        return regexp.test(emoji);
       }));
     },
     replace: function (value) {
