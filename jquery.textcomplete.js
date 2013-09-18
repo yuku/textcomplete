@@ -131,15 +131,19 @@
     $baseList = $(html.list).css(css.list);
 
     function Completer(el, strategies) {
-      var $wrapper, $list;
+      var $wrapper, $list, focused;
       $list = $baseList.clone();
-      this.el = el;
+      this.el = el;  // textarea element
       this.$el = $(el);
       $wrapper = prepareWrapper(this.$el);
+
+      // Refocus the textarea if it is being focused
+      focused = this.el === document.activeElement;
       this.$el.wrap($wrapper).before($list);
+      if (focused) { this.el.focus(); }
+
       this.listView = new ListView($list, this);
       this.strategies = strategies;
-
       this.$el.on('keyup', bind(this.onKeyup, this));
       this.$el.on('keydown', bind(this.listView.onKeydown, this.listView));
 
