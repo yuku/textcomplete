@@ -10,7 +10,7 @@ Introduces autocompleting power to textareas, like a GitHub comment form has.
 Dependency
 ----------
 
-- jQuery (>= 1.7.0)
+- jQuery (>= 1.7.0) OR Zepto (>= 1.0)
 
 How to use
 ----------

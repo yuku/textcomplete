@@ -450,4 +450,4 @@
     return this;
   };
 
-})(window.jQuery);
+})(window.jQuery || window.Zepto);
