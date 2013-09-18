@@ -394,21 +394,21 @@
         if (e.keyCode === 27) {         // ESC
             this.deactivate();
         } else if (e.keyCode === 38) {         // UP
+          e.preventDefault();
           if (this.index === 0) {
-            this.deactivate();
+            this.index = this.data.length-1;
           } else {
-            e.preventDefault();
             this.index -= 1;
-            this.activateIndexedItem();
           }
+          this.activateIndexedItem();
         } else if (e.keyCode === 40) {  // DOWN
+          e.preventDefault();
           if (this.index === this.data.length - 1) {
-            this.deactivate();
+            this.index = 0;
           } else {
-            e.preventDefault();
             this.index += 1;
-            this.activateIndexedItem();
           }
+          this.activateIndexedItem();
         } else if (e.keyCode === 13 || e.keyCode === 9) {  // ENTER or TAB
           e.preventDefault();
           this.select(this.getActiveItem().children().data('value'));
