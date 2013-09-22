@@ -1,11 +1,15 @@
 $(function () {
 
-  var setText = function (textarea, text) {
-    var range;
+  $('.script').each(function () {
+    eval($(this).text());
+  });
+
+  var setText = function ($textarea, text) {
+    var range, textarea = $textarea.get(0);
     textarea.focus();
     if (typeof textarea.selectionStart === 'number') {
       textarea.value = text;
-      textarea.selectionStart = textarea.selectionEnd = 3;
+      textarea.selectionStart = textarea.selectionEnd = text.length;
       return;
     }
     range = textarea.createTextRange();
@@ -13,30 +17,8 @@ $(function () {
     range.select();
   }
 
-  var startsWith = String.prototype.startsWith || function (str, position) {
-    position = position || 0;
-    return ('' + this).indexOf(str, position) === position;
-  };
-
-  var $textarea = $('textarea').textcomplete({
-    // emoji strategy
-    emoji: {
-      match: /(^|\s):([\-+\w]*)$/,
-      search: function (term, callback) {
-        callback($.map(emojies, function (emoji) {
-          return startsWith.call(emoji, term) ? emoji : null;
-        }));
-      },
-      template: function (value) {
-        return '<img src="media/images/emoji/' + value + '.png"></img>' + value;
-      },
-      replace: function (value) {
-        return '$1:' + value + ': ';
-      },
-      maxCount: 5
-    }
-  });
-
-  setText($textarea.get(0), ':a');
-  $textarea.keyup();
+  var $textarea1 = $('#textarea1');
+  setText($textarea1, ':a');
+  $textarea1.keyup();
+  SyntaxHighlighter.all();
 });

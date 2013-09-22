@@ -4,11 +4,14 @@
         <link href="media/stylesheets/bootstrap.css" rel="stylesheet"/>
         <link href="media/stylesheets/font-awesome.css" rel="stylesheet"/>
         <link href="media/stylesheets/main.css" rel="stylesheet"/>
+        <link href="media/stylesheets/shCoreDefault.css" rel="stylesheet"/>
 
         <script src="media/javascripts/jquery-1.10.2.js"></script>
         <!-- <script src="media/javascripts/zepto-1.0.js"></script> -->
         <script src="jquery.textcomplete.js"></script>
         <script src="media/javascripts/emoji.js"></script>
+        <script src="media/javascripts/shCore.js"></script>
+        <script src="media/javascripts/shBrushJScript.js"></script>
         <script src="media/javascripts/main.js"></script>
     </head>
     <body>
@@ -27,7 +30,58 @@
 
             <h2>Demo</h2>
             <div>
-                <textarea class="input-xxlarge" rows="4"></textarea>
+                <h3>Emoji</h3>
+                <div>
+                    <div>#textarea1</div>
+                    <div>
+                        <textarea id="textarea1" rows="4" style="display: block; width: 100%;"></textarea>
+                    </div>
+<pre class="brush: js; script">
+$('#textarea1').textcomplete({
+    // emoji strategy
+    emoji: {
+        match: /(^|\s):([\-+\w]*)$/,
+        search: function (term, callback) {
+            callback($.map(emojies, function (emoji) {
+                return emoji.indexOf(term) === 0 ? emoji : null;
+            }));
+        },
+        template: function (value) {
+            return '&lt;img src="media/images/emoji/' + value + '.png"&gt;&lt;/img&gt;' + value;
+        },
+        replace: function (value) {
+            return '$1:' + value + ': ';
+        },
+        maxCount: 5
+    }
+});
+</pre>
+                </div>
+                <h3>HTML Elements</h3>
+                <div>
+                    <div>#textarea2</div>
+                    <div>
+                        <textarea id="textarea2" rows="4" style="display: block; width: 100%;"></textarea>
+                    </div>
+<pre class="brush: js; script">
+var elements = ['span', 'div', 'h1', 'h2', 'h3'];
+$('#textarea2').textcomplete({
+    html: {
+        match: /<(\w*)$/,
+        search: function (term, callback) {
+            console.log(term);
+            callback($.map(elements, function (element) {
+                return element.indexOf(term) === 0 ? element : null;
+            }));
+        },
+        index: 1,
+        replace: function (element) {
+            return ['&lt;' + element + '&gt;', '&lt;/' + element + '&gt;']; 
+        }
+    }
+});
+</pre>
+                </div>
             </div>
 
             <h2>License</h2>
