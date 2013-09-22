@@ -334,16 +334,17 @@
       shown: false,
 
       render: function (data) {
-        var html, i, l, val;
+        var html, i, l, index, val;
 
         html = '';
         for (i = 0, l = data.length; i < l; i++) {
           val = data[i];
           if (include(this.data, val)) continue;
-          html += '<li><a data-value="' + val + '">';
+          index = this.data.length;
+          this.data.push(val);
+          html += '<li><a data-index="' + index + '">';
           html +=   this.strategy.template(val);
           html += '</a></li>';
-          this.data.push(data[i]);
           if (this.data.length === this.strategy.maxCount) break;
         }
         this.$el.append(html)
@@ -393,8 +394,8 @@
         return this;
       },
 
-      select: function (value) {
-        this.completer.onSelect(value);
+      select: function (index) {
+        this.completer.onSelect(this.data[index]);
         this.deactivate();
       },
 
@@ -421,13 +422,13 @@
           this.activateIndexedItem();
         } else if (e.keyCode === 13 || e.keyCode === 9) {  // ENTER or TAB
           e.preventDefault();
-          this.select(this.getActiveItem().children().data('value'));
+          this.select(parseInt(this.getActiveItem().children().data('index')));
         }
       },
 
       onClick: function (e) {
         e.originalEvent.internal = true;
-        this.select($(e.target).data('value'));
+        this.select(parseInt($(e.target).data('index')));
       }
     });
 
