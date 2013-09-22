@@ -214,10 +214,16 @@
       },
 
       onSelect: function (value) {
-        var pre, post;
+        var pre, post, newSubStr;
         pre = this.getTextFromHeadToCaret();
         post = this.el.value.substring(this.el.selectionEnd);
-        pre = pre.replace(this.strategy.match, this.strategy.replace(value));
+
+        newSubStr = this.strategy.replace(value);
+        if ($.isArray(newSubStr)) {
+          post = newSubStr[1] + post;
+          newSubStr = newSubStr[0];
+        }
+        pre = pre.replace(this.strategy.match, newSubStr);
         this.el.value = pre + post;
         this.el.focus();
         this.el.selectionStart = this.el.selectionEnd = pre.length;
