@@ -69,7 +69,7 @@ var matchRegExp = /(^|\s)@(\w*)$/;
 var indexNumber = 2;
 ```
 
-The `searchFunc` MUST be a Function which gets two arguments, `term` and `callback`. It MUST invoke `callback` with an Array of String. It is guaranteed that the function will be invoked exclusively even though it contains async call.
+The `searchFunc` MUST be a Function which gets two arguments, `term` and `callback`. It MUST invoke `callback` with an Array. It is guaranteed that the function will be invoked exclusively even though it contains async call.
 
 If you want to execute `callback` multiple times per a search, you SHOULD give `true` to the second argument while additional execution remains. This is useful to use data located at both local and remote. Note that you MUST invoke `callback` without truthy second argument at least once per a search.
 
@@ -79,18 +79,14 @@ The `cacheBoolean` MUST be a Boolean. It defaults to `false`. If it is `true` th
 
 ```js
 var searchFunc = function (term, callback) {
-  // Show local cache immediately.
-  callback(cache[term], true);
+  callback(cache[term], true); // Show local cache immediately.
 
   $.getJSON('/search', { q: term })
     .done(function (resp) {
-      // Resp must be an Array of String such as:
-      //   ['hello', 'world']
-      callback(resp);
+      callback(resp); // Resp must be an Array
     })
     .fail(function () {
-      // Callback must be invoked even if something went wrong.
-      callback([]);
+      callback([]); // Callback must be invoked even if something went wrong.
     });
 };
 ```
@@ -99,11 +95,12 @@ The `templateFunc` MUST be a Function which gets and returns a string. The funct
 
 ```js
 var templateFunc = function (value) {
+  // `value` is an element of callbacked array.
   return '<b>' + value + '</b>';
 };
 ```
 
-The `replaceFunc` MUST be a Function which gets and returns a string. It is going to be invoked when a user will click and select an item of autocomplete dropdown.
+The `replaceFunc` MUST be a Function which returns a String or an Array of two Strings. It is going to be invoked when a user will click and select an item of autocomplete dropdown.
 
 ```js
 var replaceFunc = function (value) { return '$1@' + value + ' '; };
@@ -115,12 +112,18 @@ The result is going to be used to replace the textarea's text content using `Str
 textarea.value = textarea.value.replace(matchRegExp, replaceFunc(value));
 ```
 
+Suppose you want to do autocomplete for HTML elements, you may want to reposition the cursor in the middle of elements after the autocomplete. In this case, you can do that by making `replaceFunc` return an Array of two Strings. Then the cursor points between these two strings.
+
+```js
+var replaceFunc = function (value) {
+  return ['$1<' + value + '>', '</' + value + '>'];
+}
+```
+
 Example
 -------
 
 ```js
-var emojies = ['+1', '-1', 'dog', 'cat'];
-
 $('textarea').textcomplete({
   // mention strategy
   mention: {
@@ -139,9 +142,9 @@ $('textarea').textcomplete({
 
   // emoji strategy
   emoji: {
-    match: /(^|\s):([\w\+\-]*)$/,
+    match: /(^|\s):(\w*)$/,
     search: function (term, callback) {
-      var regexp = new RegExp('^' + term.replace(/[\\\.\+\*\?\^\$\[\]\(\)\{\}\/\'\#\:\!\=\|]/ig, "\\$&"));
+      var regexp = new RegExp('^' + term);
       callback($.grep(emojies, function (emoji) {
         return regexp.test(emoji);
       }));
@@ -217,6 +220,10 @@ If you need `inline-block` textarea for design reason, you have to wrap it by `i
   30% width contents
 </span>
 ```
+
+### I want to send back value / name combos.
+
+Feel free to callback `searchFunc` with an Array of Object. `templateFunc` and `replaceFunc` will be invoked with an element of the array.
 
 Todo
 ----
