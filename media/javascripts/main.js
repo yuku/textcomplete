@@ -17,8 +17,16 @@ $(function () {
     range.select();
   }
 
-  var $textarea1 = $('#textarea1');
-  setText($textarea1, ':a');
-  $textarea1.keyup();
+  var $textarea = $('#textarea1');
+  var textarea = $textarea.get(0);
+  $textarea.focus();
+  if (typeof textarea.selectionStart === 'number') {
+    textarea.selectionStart = textarea.selectionEnd = $textarea.val().length;
+  } else {
+    var range = textarea.createTextRange();
+    range.select();
+  }
+  $textarea.keyup();
+
   SyntaxHighlighter.all();
 });
