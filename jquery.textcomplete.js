@@ -149,7 +149,7 @@
 
       // Global click event handler
       $(document).on('click', bind(function (e) {
-        if (!e.originalEvent.internal) {
+        if (e.originalEvent && !e.originalEvent.keepTextCompleteDropdown) {
           this.listView.deactivate();
         }
       }, this));
@@ -427,7 +427,7 @@
       },
 
       onClick: function (e) {
-        e.originalEvent.internal = true;
+        e.originalEvent.keepTextCompleteDropdown = true;
         this.select(parseInt($(e.target).data('index')));
       }
     });
