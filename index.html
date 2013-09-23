@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>jQuery.textcomplete</title>
+
         <link href="media/stylesheets/bootstrap.css" rel="stylesheet"/>
         <link href="media/stylesheets/font-awesome.css" rel="stylesheet"/>
         <link href="media/stylesheets/main.css" rel="stylesheet"/>
@@ -76,7 +78,7 @@ $('#textarea2').textcomplete({
         },
         index: 1,
         replace: function (element) {
-            return ['&lt;' + element + '&gt;', '&lt;/' + element + '&gt;']; 
+            return ['&lt;' + element + '&gt;', '&lt;/' + element + '&gt;'];
         }
     }
 });
