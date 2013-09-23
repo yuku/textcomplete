@@ -130,11 +130,11 @@
     $baseWrapper = $(html.wrapper).css(css.wrapper);
     $baseList = $(html.list).css(css.list);
 
-    function Completer(el, strategies) {
+    function Completer($el, strategies) {
       var $wrapper, $list, focused;
       $list = $baseList.clone();
-      this.el = el;  // textarea element
-      this.$el = $(el);
+      this.el = $el.get(0);  // textarea element
+      this.$el = $el;
       $wrapper = prepareWrapper(this.$el);
 
       // Refocus the textarea if it is being focused
@@ -224,7 +224,7 @@
           newSubStr = newSubStr[0];
         }
         pre = pre.replace(this.strategy.match, newSubStr);
-        this.el.value = pre + post;
+        this.$el.val(pre + post);
         this.el.focus();
         this.el.selectionStart = this.el.selectionEnd = pre.length;
       },
@@ -450,9 +450,7 @@
       }
       strategy.maxCount || (strategy.maxCount = 10);
     }
-    this.each(function () {
-      new Completer(this, strategies);
-    });
+    new Completer(this, strategies);
 
     return this;
   };
