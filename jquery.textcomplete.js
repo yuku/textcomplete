@@ -327,7 +327,7 @@
       this.index = 0;
       this.completer = completer;
 
-      this.$el.on('click', 'a.textcomplete-item', bind(this.onClick, this));
+      this.$el.on('click', 'li.textcomplete-item', bind(this.onClick, this));
     }
 
     $.extend(ListView.prototype, {
@@ -342,7 +342,7 @@
           if (include(this.data, val)) continue;
           index = this.data.length;
           this.data.push(val);
-          html += '<li><a class="textcomplete-item" data-index="' + index + '">';
+          html += '<li class="textcomplete-item" data-index="' + index + '"><a>';
           html +=   this.strategy.template(val);
           html += '</a></li>';
           if (this.data.length === this.strategy.maxCount) break;
@@ -430,7 +430,7 @@
         var $e = $(e.target);
         e.originalEvent.keepTextCompleteDropdown = true;
         if (!$e.hasClass('textcomplete-item')) {
-          $e = $e.parents('a.textcomplete-item');
+          $e = $e.parents('li.textcomplete-item');
         }
         this.select(parseInt($e.data('index')));
       }
