@@ -422,7 +422,7 @@
           this.activateIndexedItem();
         } else if (e.keyCode === 13 || e.keyCode === 9) {  // ENTER or TAB
           e.preventDefault();
-          this.select(parseInt(this.getActiveItem().children().data('index')));
+          this.select(parseInt(this.getActiveItem().data('index')));
         }
       },
 
