@@ -82,14 +82,7 @@ $('#textarea2').textcomplete({
 All words start with @ are emphasized like @this.</textarea></div>
 <pre class="brush: js; script">
 var mentions = ['yuku_t'];
-$('#textarea3').overlay([
-    {
-        match: /\B@\w+/g,
-        css: {
-            'background-color': '#d8dfea'
-        }
-    }
-]).textcomplete({
+$('#textarea3').textcomplete({
     html: {
         match: /\B@(\w*)$/,
         search: function (term, callback) {
@@ -102,7 +95,14 @@ $('#textarea3').overlay([
             return '@' + mention + ' ';
         }
     }
-});
+}).overlay([
+    {
+        match: /\B@\w+/g,
+        css: {
+            'background-color': '#d8dfea'
+        }
+    }
+]);
 </pre>
 
             <h2>License</h2>
