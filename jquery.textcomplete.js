@@ -248,8 +248,10 @@
 
         properties = ['border-width', 'font-family', 'font-size', 'font-style',
           'font-variant', 'font-weight', 'height', 'letter-spacing',
-          'word-spacing', 'line-height', 'padding', 'text-decoration', 'width',
-          'margin'];
+          'word-spacing', 'line-height', 'text-decoration', 'width',
+          'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
+          'margin-top', 'margin-right', 'margin-bottom', 'margin-left'
+        ];
         css = $.extend({
           position: 'absolute',
           overflow: 'auto',
