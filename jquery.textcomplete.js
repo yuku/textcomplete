@@ -291,10 +291,9 @@
         // term. If the caret is currently in a code block or search query does
         // not found, it returns an empty array.
 
-        var name, strategy, match;
-        for (name in this.strategies)
-            if (this.strategies.hasOwnProperty(name)) {
-          strategy = this.strategies[name];
+        var i, l, strategy, match;
+        for (i = 0, l = this.strategies.length; i < l; i++) {
+          strategy = this.strategies[i];
           match = text.match(strategy.match);
           if (match) { return [strategy, match[strategy.index]]; }
         }
@@ -442,9 +441,9 @@
   })();
 
   $.fn.textcomplete = function (strategies) {
-    var name, strategy;
-    for (name in strategies) if (strategies.hasOwnProperty(name)) {
-      strategy = strategies[name];
+    var i, l, strategy;
+    for (i = 0, l = strategies.length; i < l; i++) {
+      strategy = strategies[i];
       if (!strategy.template) {
         strategy.template = identity;
       }
