@@ -231,6 +231,10 @@ Todo
 History
 -------
 
+### October 28, 2013 - v0.1.0
+
+- Now strategies argument is an Array of strategy objects.
+
 ### October 28, 2013 - v0.0.4
 
 - Several bugfixes.
