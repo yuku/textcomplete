@@ -32,16 +32,14 @@ Then `jQuery.fn.textcomplete` is defined. The method MUST be called for textarea
 $('textarea').textcomplete(strategies);
 ```
 
-The `strategies` is an Object not an Array. Each value is called a strategy object and the corresponding key is the name of the strategy.
+The `strategies` is an Array. Each element is called as strategy object.
 
 ```js
-var strategies = {
-  // There are two strategies called 'foo' and 'bar.'
-  // The plugin does not care these property names so you should use
-  // meaningful names.
-  foo: strategy,
-  bar: otherStrategy
-};
+var strategies = [
+  // There are two strategies.
+  strategy,
+  { /* the other strategy */ }
+];
 ```
 
 The `strategy` is an Object which MUST have `match`, `search` and `replace` and MAY have `index`, `maxCount` and `template`.

@@ -7,15 +7,6 @@
         <link href="media/stylesheets/font-awesome.css" rel="stylesheet"/>
         <link href="media/stylesheets/main.css" rel="stylesheet"/>
         <link href="media/stylesheets/shCoreDefault.css" rel="stylesheet"/>
-
-        <script src="media/javascripts/jquery-1.10.2.js"></script>
-        <!-- <script src="media/javascripts/zepto-1.0.js"></script> -->
-        <script src="http://yuku-t.com/jquery-overlay/jquery.overlay.js"></script>
-        <script src="jquery.textcomplete.js"></script>
-        <script src="media/javascripts/emoji.js"></script>
-        <script src="media/javascripts/shCore.js"></script>
-        <script src="media/javascripts/shBrushJScript.js"></script>
-        <script src="media/javascripts/main.js"></script>
     </head>
     <body>
         <div class="container">
@@ -37,9 +28,8 @@
             <div><textarea id="textarea1" rows="4" style="display: block; width: 100%;">:a</textarea></div>
 <pre class="brush: js; script">
 var words = ['apple', 'google', 'facebook', 'github'];
-$('#textarea1').textcomplete({
-    // emoji strategy
-    emoji: {
+$('#textarea1').textcomplete([
+    { // emoji strategy
         match: /\B:([\-+\w]*)$/,
         search: function (term, callback) {
             callback($.map(emojies, function (emoji) {
@@ -55,8 +45,7 @@ $('#textarea1').textcomplete({
         index: 1,
         maxCount: 5
     },
-
-    techCompanies: {
+    { // tech companies
         match: /(\s|\n)(\w{2,})$/,
         search: function (term, callback) {
             callback($.map(words, function (word) {
@@ -67,15 +56,15 @@ $('#textarea1').textcomplete({
             return '$1' + word + ' ';
         }
     }
-});
+]);
 </pre>
 
             <h3>Insert Cursor After Autocomplete</h3>
             <div><textarea id="textarea2" rows="4" style="display: block; width: 100%;">Please input HTML element: </textarea></div>
 <pre class="brush: js; script">
 var elements = ['span', 'div', 'h1', 'h2', 'h3'];
-$('#textarea2').textcomplete({
-    html: {
+$('#textarea2').textcomplete([
+    { // html
         match: /<(\w*)$/,
         search: function (term, callback) {
             callback($.map(elements, function (element) {
@@ -87,7 +76,7 @@ $('#textarea2').textcomplete({
             return ['&lt;' + element + '&gt;', '&lt;/' + element + '&gt;'];
         }
     }
-});
+]);
 </pre>
 
             <h3>Use with <a href="http://yuku-t.com/jquery-overlay/" target="_blank">jQuery.overlay</a></h3>
@@ -95,8 +84,8 @@ $('#textarea2').textcomplete({
 All words start with @ are emphasized like @this.</textarea></div>
 <pre class="brush: js; script">
 var mentions = ['yuku_t'];
-$('#textarea3').textcomplete({
-    html: {
+$('#textarea3').textcomplete([
+    { // html
         match: /\B@(\w*)$/,
         search: function (term, callback) {
             callback($.map(mentions, function (mention) {
@@ -108,7 +97,7 @@ $('#textarea3').textcomplete({
             return '@' + mention + ' ';
         }
     }
-}).overlay([
+]).overlay([
     {
         match: /\B@\w+/g,
         css: {
@@ -123,5 +112,14 @@ $('#textarea3').textcomplete({
                 MIT
             </p>
         </div>
+
+        <script src="media/javascripts/jquery-1.10.2.js"></script>
+        <!-- <script src="media/javascripts/zepto-1.0.js"></script> -->
+        <script src="http://yuku-t.com/jquery-overlay/jquery.overlay.js"></script>
+        <script src="jquery.textcomplete.js"></script>
+        <script src="media/javascripts/emoji.js"></script>
+        <script src="media/javascripts/shCore.js"></script>
+        <script src="media/javascripts/shBrushJScript.js"></script>
+        <script src="media/javascripts/main.js"></script>
     </body>
 </html>
