@@ -230,6 +230,31 @@ Todo
 
 - Tests
 
+History
+-------
+
+### October 28, 2013 - v0.0.4
+
+- Several bugfixes.
+- Up and Down arrows cycle instead of exit.
+- Support Zepto.
+- Support jQuery.overlay.
+
+### September 11, 2013 - v0.0.3
+
+- Some performance improvement.
+- Imprement lazy callbacking on search function.
+
+### September 8, 2013 - v0.0.2
+
+- Support IE8.
+- Some performance improvement.
+- Imprement cache option.
+
+### September 2, 2013 - v0.0.1
+
+- Initial release.
+
 License
 -------
 
