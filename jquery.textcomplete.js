@@ -179,7 +179,7 @@
           data = data.slice(0, this.strategy.maxCount);
           this.listView.render(data);
         }
-        
+
         if (!this.listView.data.length && this.listView.shown) {
           this.listView.deactivate();
         }
@@ -216,9 +216,19 @@
       },
 
       onSelect: function (value) {
-        var pre, post, newSubStr;
+        var pre, post, newSubStr, selectionEnd;
         pre = this.getTextFromHeadToCaret();
-        post = this.el.value.substring(this.el.selectionEnd);
+        selectionEnd = this.el.selectionEnd;
+        if (this.el.contentEditable) {
+          var range = window.getSelection().getRangeAt(0);
+          var preSelectionRange = range.cloneRange();
+          preSelectionRange.selectNodeContents(this.el);
+          preSelectionRange.setEnd(range.startContainer, range.startOffset);
+          selectionEnd = preSelectionRange.toString().length + range.toString().length;
+          post = this.el.innerHTML.substring(selectionEnd);
+        } else {
+          post = this.el.value.substring(this.el.selectionEnd);
+        }
 
         newSubStr = this.strategy.replace(value);
         if ($.isArray(newSubStr)) {
@@ -226,7 +236,11 @@
           newSubStr = newSubStr[0];
         }
         pre = pre.replace(this.strategy.match, newSubStr);
-        this.$el.val(pre + post);
+        if (this.el.contentEditable) {
+          this.el.innerHTML = pre + post;
+        } else {
+          this.$el.val(pre + post);
+        }
         this.el.focus();
         this.el.selectionStart = this.el.selectionEnd = pre.length;
       },
@@ -282,13 +296,19 @@
       getTextFromHeadToCaret: function () {
         var text, selectionEnd, range;
         selectionEnd = this.el.selectionEnd;
-        if (typeof selectionEnd === 'number') {
+        if (typeof selectionEnd === 'number' && !this.el.contentEditable) {
           text = this.el.value.substring(0, selectionEnd);
         } else if (document.selection) {
           range = this.el.createTextRange();
           range.moveStart('character', 0);
           range.moveEnd('textedit');
           text = range.text;
+        } else if (this.el.contentEditable) {
+          range = window.getSelection().getRangeAt(0);
+          var preSelectionRange = range.cloneRange();
+          preSelectionRange.selectNodeContents(this.el);
+          preSelectionRange.setEnd(range.startContainer, range.startOffset);
+          text = preSelectionRange.toString();
         }
         return text;
       },
