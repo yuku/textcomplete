@@ -248,6 +248,10 @@ Todo
 History
 -------
 
+### February 2, 2014 - v0.1.1
+
+- Introduce `textComplete:show`, `textComplete:hide` and `textComplete:select` events.
+
 ### October 28, 2013 - v0.1.0
 
 - Now strategies argument is an Array of strategy objects.
