@@ -226,7 +226,7 @@
           newSubStr = newSubStr[0];
         }
         pre = pre.replace(this.strategy.match, newSubStr);
-        this.$el.val(pre + post);
+        this.$el.val(pre + post).trigger('textComplete:select', value);
         this.el.focus();
         this.el.selectionStart = this.el.selectionEnd = pre.length;
       },
@@ -377,7 +377,7 @@
 
       activate: function () {
         if (!this.shown) {
-          this.$el.show();
+          this.$el.show().trigger('textComplete:show')
           this.shown = true;
         }
         return this;
@@ -385,7 +385,7 @@
 
       deactivate: function () {
         if (this.shown) {
-          this.$el.hide();
+          this.$el.hide().trigger('textComplete:hide');
           this.shown = false;
           this.data = this.index = null;
         }
