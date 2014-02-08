@@ -26,7 +26,7 @@ jQuery MUST be loaded ahead.
 <script src="path/to/jquery.textcomplete.js"></script>
 ```
 
-Then `jQuery.fn.textcomplete` is defined. The method MUST be called for textarea elements, and the receiver SHOULD include an element.
+Then `jQuery.fn.textcomplete` is defined. The method MUST be called for textarea elements.
 
 ```js
 $('textarea').textcomplete(strategies);
@@ -118,10 +118,10 @@ var replaceFunc = function (value) {
 }
 ```
 
-If you want to stop autocompleting, call `disable` method as follows:
+If you want to stop autocompleting, give `'disable'` to `textcomplete` method as follows:
 
 ```js
-$('textarea').data('textComplete').disable();
+$('textarea').textcomplete('disable');
 ```
 
 Example
@@ -250,6 +250,15 @@ If you need `inline-block` textarea for design reason, you have to wrap it by `i
 
 Feel free to callback `searchFunc` with an Array of Object. `templateFunc` and `replaceFunc` will be invoked with an element of the array.
 
+### I want to use same strategies to autocomplete on several textareas. 
+
+TextComplete is applied to all textareas in the jQuery object.
+
+```js
+// All class="commentBody" elements share strategies.
+$('.commentBody').textcomplete([ /* ... */ ]);
+```
+
 Todo
 ----
 
@@ -262,6 +271,7 @@ History
 
 - Enable to append strategies on the fly.
 - Enable to stop autocompleting.
+- Enable to apply multiple textareas at once.
 - Don't show popup on pressing arrow up and down keys.
 - Hide dropdown by pressing ESC key.
 

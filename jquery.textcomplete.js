@@ -492,7 +492,16 @@
   })();
 
   $.fn.textcomplete = function (strategies) {
-    var i, l, $this, strategy, completer;
+    var i, l, strategy, dataKey;
+
+    dataKey = 'textComplete';
+
+    if (strategies === 'disable') {
+      return this.each(function () {
+        var completer = $(this).data(dataKey);
+        if (completer) { completer.disable(); }
+      });
+    }
 
     for (i = 0, l = strategies.length; i < l; i++) {
       strategy = strategies[i];
@@ -508,16 +517,16 @@
       strategy.maxCount || (strategy.maxCount = 10);
     }
 
-    $this = $(this);
-    completer = $this.data('textComplete');
-    if (!completer) {
-      completer = new Completer(this);
-      $this.data('textComplete', completer);
-    }
-
-    completer.register(strategies);
-
-    return this;
+    return this.each(function () {
+      var $this, completer;
+      $this = $(this);
+      completer = $this.data(dataKey);
+      if (!completer) {
+        completer = new Completer($this);
+        $this.data(dataKey, completer);
+      }
+      completer.register(strategies);
+    });
   };
 
 })(window.jQuery || window.Zepto);
