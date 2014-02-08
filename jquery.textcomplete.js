@@ -447,8 +447,11 @@
       },
 
       select: function (index) {
+        var self = this;
         this.completer.onSelect(this.data[index]);
-        this.deactivate();
+        // Deactive at next tick to allow other event handlers to know whether
+        // the dropdown has been shown or not.
+        setTimeout(function () { self.deactivate(); }, 0);
       },
 
       onKeydown: function (e) {
