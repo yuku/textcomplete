@@ -95,7 +95,7 @@
    * Textarea manager class.
    */
   var Completer = (function () {
-    var html, css, $baseWrapper, $baseList;
+    var html, css, $baseWrapper, $baseList, _id;
 
     html = {
       wrapper: '<div class="textcomplete-wrapper"></div>',
@@ -115,12 +115,14 @@
     };
     $baseWrapper = $(html.wrapper).css(css.wrapper);
     $baseList = $(html.list).css(css.list);
+    _id = 0;
 
     function Completer($el) {
       var $wrapper, $list, focused;
       $list = $baseList.clone();
       this.el = $el.get(0);  // textarea element
       this.$el = $el;
+      this.id = 'textComplete' + _id++;
       $wrapper = prepareWrapper(this.$el);
 
       // Refocus the textarea if it is being focused
@@ -130,15 +132,12 @@
 
       this.listView = new ListView($list, this);
       this.strategies = [];
-      this.$el.on('keyup', $.proxy(this.onKeyup, this));
-      this.$el.on('keydown', $.proxy(this.listView.onKeydown, this.listView));
+      this.$el.on({
+        'keyup.textComplete': $.proxy(this.onKeyup, this),
+        'keydown.textComplete': $.proxy(this.listView.onKeydown, this.listView)
+      });
 
-      // Global click event handler
-      $(document).on('click', $.proxy(function (e) {
-        if (e.originalEvent && !e.originalEvent.keepTextCompleteDropdown) {
-          this.listView.deactivate();
-        }
-      }, this));
+      $(document).on('click.' + this.id, $.proxy(this.onClickDocument, this));
     }
 
     /**
@@ -195,6 +194,13 @@
        */
       onKeyup: function (e) {
         var searchQuery, term;
+        // ESC key. Dismiss dropdown.
+        if (e.keyCode === 27) {
+          e.preventDefault();
+          this.listView.deactivate();
+          return;
+        }
+
         if (this.skipSearch(e)) { return; }
 
         searchQuery = this.extractSearchQuery(this.getTextFromHeadToCaret());
@@ -234,6 +240,28 @@
         this.$el.val(pre + post).trigger('textComplete:select', value);
         this.el.focus();
         this.el.selectionStart = this.el.selectionEnd = pre.length;
+      },
+
+      /**
+       * Global click event handler.
+       */
+      onClickDocument: function (e) {
+        if (e.originalEvent && !e.originalEvent.keepTextCompleteDropdown) {
+          this.listView.deactivate();
+        }
+      },
+
+      /**
+       * Remove all event handlers and the wrapper element.
+       */
+      disable: function () {
+        var $wrapper;
+        this.$el.off('keyup.textComplete').off('keydown.textComplete');
+        $(document).off('click.' + this.id);
+        this.listView.disable();
+        $wrapper = this.$el.parent();
+        $wrapper.after(this.$el).remove();
+        this.$el.data('textComplete', void 0);
       },
 
       // Helper methods
@@ -335,7 +363,8 @@
       this.index = 0;
       this.completer = completer;
 
-      this.$el.on('click', 'li.textcomplete-item', $.proxy(this.onClick, this));
+      this.$el.on('click.textComplete', 'li.textcomplete-item',
+                  $.proxy(this.onClick, this));
     }
 
     $.extend(ListView.prototype, {
@@ -410,9 +439,7 @@
       onKeydown: function (e) {
         var $item;
         if (!this.shown) return;
-        if (e.keyCode === 27) {         // ESC
-            this.deactivate();
-        } else if (e.keyCode === 38) {         // UP
+        if (e.keyCode === 38) {         // UP
           e.preventDefault();
           if (this.index === 0) {
             this.index = this.data.length-1;
@@ -441,6 +468,11 @@
           $e = $e.parents('li.textcomplete-item');
         }
         this.select(parseInt($e.data('index')));
+      },
+
+      disable: function () {
+        this.deactivate();
+        this.$el.off('click.textComplete').remove();
       }
     });
 
@@ -465,10 +497,10 @@
     }
 
     $this = $(this);
-    completer = $this.data('completer');
+    completer = $this.data('textComplete');
     if (!completer) {
       completer = new Completer(this);
-      $this.data('completer', completer);
+      $this.data('textComplete', completer);
     }
 
     completer.register(strategies);

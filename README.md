@@ -118,6 +118,12 @@ var replaceFunc = function (value) {
 }
 ```
 
+If you want to stop autocompleting, call `disable` method as follows:
+
+```js
+$('textarea').data('textComplete').disable();
+```
+
 Example
 -------
 
