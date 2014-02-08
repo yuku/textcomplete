@@ -252,6 +252,11 @@ Todo
 History
 -------
 
+### February 8, 2014 - v0.1.2
+
+- Enable to append strategies on the fly.
+- Don't show popup on pressing arrow up and down keys.
+
 ### February 2, 2014 - v0.1.1
 
 - Introduce `textComplete:show`, `textComplete:hide` and `textComplete:select` events.
