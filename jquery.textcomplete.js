@@ -36,20 +36,6 @@
   };
 
   /**
-   * Bind the func to the context.
-   */
-  var bind = function (func, context) {
-    if (func.bind) {
-      // Use native Function#bind if it's available.
-      return func.bind(context);
-    } else {
-      return function () {
-        func.apply(context, arguments);
-      };
-    }
-  };
-
-  /**
    * Get the styles of any element from property names.
    */
   var getStyles = (function () {
@@ -144,11 +130,11 @@
 
       this.listView = new ListView($list, this);
       this.strategies = [];
-      this.$el.on('keyup', bind(this.onKeyup, this));
-      this.$el.on('keydown', bind(this.listView.onKeydown, this.listView));
+      this.$el.on('keyup', $.proxy(this.onKeyup, this));
+      this.$el.on('keydown', $.proxy(this.listView.onKeydown, this.listView));
 
       // Global click event handler
-      $(document).on('click', bind(function (e) {
+      $(document).on('click', $.proxy(function (e) {
         if (e.originalEvent && !e.originalEvent.keepTextCompleteDropdown) {
           this.listView.deactivate();
         }
@@ -349,7 +335,7 @@
       this.index = 0;
       this.completer = completer;
 
-      this.$el.on('click', 'li.textcomplete-item', bind(this.onClick, this));
+      this.$el.on('click', 'li.textcomplete-item', $.proxy(this.onClick, this));
     }
 
     $.extend(ListView.prototype, {
