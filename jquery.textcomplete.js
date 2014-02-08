@@ -236,7 +236,9 @@
           newSubStr = newSubStr[0];
         }
         pre = pre.replace(this.strategy.match, newSubStr);
-        this.$el.val(pre + post).trigger('textComplete:select', value);
+        this.$el.val(pre + post)
+                .trigger('change')
+                .trigger('textComplete:select', value);
         this.el.focus();
         this.el.selectionStart = this.el.selectionEnd = pre.length;
         this.skipNextKeyup = true;
