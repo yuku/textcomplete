@@ -130,7 +130,7 @@
     $baseWrapper = $(html.wrapper).css(css.wrapper);
     $baseList = $(html.list).css(css.list);
 
-    function Completer($el, strategies) {
+    function Completer($el) {
       var $wrapper, $list, focused;
       $list = $baseList.clone();
       this.el = $el.get(0);  // textarea element
@@ -143,7 +143,7 @@
       if (focused) { this.el.focus(); }
 
       this.listView = new ListView($list, this);
-      this.strategies = strategies;
+      this.strategies = [];
       this.$el.on('keyup', bind(this.onKeyup, this));
       this.$el.on('keydown', bind(this.listView.onKeydown, this.listView));
 
@@ -159,6 +159,13 @@
      * Completer's public methods
      */
     $.extend(Completer.prototype, {
+
+      /**
+       * Register strategies to the completer.
+       */
+      register: function (strategies) {
+        this.strategies = this.strategies.concat(strategies);
+      },
 
       /**
        * Show autocomplete list next to the caret.
@@ -443,7 +450,8 @@
   })();
 
   $.fn.textcomplete = function (strategies) {
-    var i, l, strategy;
+    var i, l, $this, strategy, completer;
+
     for (i = 0, l = strategies.length; i < l; i++) {
       strategy = strategies[i];
       if (!strategy.template) {
@@ -457,7 +465,15 @@
       }
       strategy.maxCount || (strategy.maxCount = 10);
     }
-    new Completer(this, strategies);
+
+    $this = $(this);
+    completer = $this.data('completer');
+    if (!completer) {
+      completer = new Completer(this);
+      $this.data('completer', completer);
+    }
+
+    completer.register(strategies);
 
     return this;
   };

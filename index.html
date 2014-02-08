@@ -27,7 +27,6 @@
             <h3>Basic Usage</h3>
             <div><textarea id="textarea1" rows="4" style="display: block; width: 100%;">:a</textarea></div>
 <pre class="brush: js; script">
-var words = ['apple', 'google', 'facebook', 'github'];
 $('#textarea1').textcomplete([
     { // emoji strategy
         match: /\B:([\-+\w]*)$/,
@@ -44,11 +43,16 @@ $('#textarea1').textcomplete([
         },
         index: 1,
         maxCount: 5
-    },
+    }
+]);
+
+// You can append strategies to an already existing textcomplete object.
+$('#textarea1').textcomplete([
     { // tech companies
+        words: ['apple', 'google', 'facebook', 'github'],
         match: /\b(\w{2,})$/,
         search: function (term, callback) {
-            callback($.map(words, function (word) {
+            callback($.map(this.words, function (word) {
                 return word.indexOf(term) === 0 ? word : null;
             }));
         },
@@ -84,12 +88,12 @@ $('#textarea2').textcomplete([
             <div><textarea id="textarea3" rows="4" style="display: block; width: 100%;">Hey @guys,
 All words start with @ are emphasized like @this.</textarea></div>
 <pre class="brush: js; script">
-var mentions = ['yuku_t'];
 $('#textarea3').textcomplete([
     { // html
+        mentions: ['yuku_t'],
         match: /\B@(\w*)$/,
         search: function (term, callback) {
-            callback($.map(mentions, function (mention) {
+            callback($.map(this.mentions, function (mention) {
                 return mention.indexOf(term) === 0 ? mention : null;
             }));
         },

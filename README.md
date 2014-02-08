@@ -149,6 +149,13 @@ $('textarea').textcomplete([
     }
   }
 ]);
+
+// You can append strategies to an already existing textcomplete object.
+$('textarea').textcomplete([
+    {
+        // Yet another strategy
+    }
+]);
 ```
 
 Style
