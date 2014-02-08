@@ -373,6 +373,7 @@
   var ListView = (function () {
 
     function ListView($el, completer) {
+      this.data = [];
       this.$el = $el;
       this.index = 0;
       this.completer = completer;
