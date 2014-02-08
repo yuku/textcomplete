@@ -421,7 +421,8 @@
 
       activate: function () {
         if (!this.shown) {
-          this.$el.show().trigger('textComplete:show')
+          this.$el.show();
+          this.completer.$el.trigger('textComplete:show');
           this.shown = true;
         }
         return this;
@@ -429,7 +430,8 @@
 
       deactivate: function () {
         if (this.shown) {
-          this.$el.hide().trigger('textComplete:hide');
+          this.$el.hide();
+          this.completer.$el.trigger('textComplete:hide');
           this.shown = false;
           this.data = this.index = null;
         }
