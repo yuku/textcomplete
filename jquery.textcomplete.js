@@ -52,7 +52,7 @@
         $.each(properties, function (i, property) {
           styles[property] = $el.css(property);
         });
-        return styles
+        return styles;
       };
     }
   })();
@@ -173,7 +173,7 @@
           data = data.slice(0, this.strategy.maxCount);
           this.listView.render(data);
         }
-        
+
         if (!this.listView.data.length && this.listView.shown) {
           this.listView.deactivate();
         }
@@ -341,7 +341,7 @@
       },
 
       search: lock(function (free, searchQuery) {
-        var term, strategy;
+        var term;
         this.strategy = searchQuery[0];
         term = searchQuery[1];
         this.strategy.search(term, this.searchCallbackFactory(free));
@@ -389,7 +389,7 @@
           html += '</a></li>';
           if (this.data.length === this.strategy.maxCount) break;
         }
-        this.$el.append(html)
+        this.$el.append(html);
         if (!this.data.length) {
           this.deactivate();
         } else {
@@ -405,7 +405,6 @@
       },
 
       activateIndexedItem: function () {
-        var $item;
         this.$el.find('.active').removeClass('active');
         this.getActiveItem().addClass('active');
       },
@@ -442,7 +441,6 @@
       },
 
       onKeydown: function (e) {
-        var $item;
         if (!this.shown) return;
         if (e.keyCode === 38) {         // UP
           e.preventDefault();
@@ -462,7 +460,7 @@
           this.activateIndexedItem();
         } else if (e.keyCode === 13 || e.keyCode === 9) {  // ENTER or TAB
           e.preventDefault();
-          this.select(parseInt(this.getActiveItem().data('index')));
+          this.select(parseInt(this.getActiveItem().data('index'), 10));
         }
       },
 
@@ -472,7 +470,7 @@
         if (!$e.hasClass('textcomplete-item')) {
           $e = $e.parents('li.textcomplete-item');
         }
-        this.select(parseInt($e.data('index')));
+        this.select(parseInt($e.data('index'), 10));
       },
 
       disable: function () {
