@@ -118,10 +118,10 @@ var replaceFunc = function (value) {
 }
 ```
 
-If you want to stop autocompleting, give `'disable'` to `textcomplete` method as follows:
+If you want to stop autocompleting, give `'destroy'` to `textcomplete` method as follows:
 
 ```js
-$('textarea').textcomplete('disable');
+$('textarea').textcomplete('destroy');
 ```
 
 Example

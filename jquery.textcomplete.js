@@ -259,14 +259,15 @@
       /**
        * Remove all event handlers and the wrapper element.
        */
-      disable: function () {
+      destroy: function () {
         var $wrapper;
         this.$el.off('keyup.textComplete').off('keydown.textComplete');
         $(document).off('click.' + this.id).off('keyup.' + this.id);
-        this.listView.disable();
+        this.listView.destroy();
         $wrapper = this.$el.parent();
         $wrapper.after(this.$el).remove();
         this.$el.data('textComplete', void 0);
+        this.$el = null;
       },
 
       // Helper methods
@@ -473,9 +474,10 @@
         this.select(parseInt($e.data('index'), 10));
       },
 
-      disable: function () {
+      destroy: function () {
         this.deactivate();
         this.$el.off('click.textComplete').remove();
+        this.$el = null;
       }
     });
 
@@ -487,10 +489,10 @@
 
     dataKey = 'textComplete';
 
-    if (strategies === 'disable') {
+    if (strategies === 'destroy') {
       return this.each(function () {
         var completer = $(this).data(dataKey);
-        if (completer) { completer.disable(); }
+        if (completer) { completer.destroy(); }
       });
     }
 
