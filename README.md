@@ -261,7 +261,9 @@ History
 ### February 8, 2014 - v0.1.2
 
 - Enable to append strategies on the fly.
+- Enable to stop autocompleting.
 - Don't show popup on pressing arrow up and down keys.
+- Hide dropdown by pressing ESC key.
 
 ### February 2, 2014 - v0.1.1
 
