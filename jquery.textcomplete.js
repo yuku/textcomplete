@@ -268,7 +268,7 @@
        */
       destroy: function () {
         var $wrapper;
-        this.$el.off('keyup.textComplete').off('keydown.textComplete');
+        this.$el.off('.textComplete');
         $(document).off('click.' + this.id).off('keyup.' + this.id);
         this.listView.destroy();
         $wrapper = this.$el.parent();
