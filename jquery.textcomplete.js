@@ -290,8 +290,9 @@
         // Consequently, the span element's position is the thing what we want.
 
         if (this.el.selectionEnd === 0) return;
-        var properties, css, $div, $span, position;
+        var properties, css, $div, $span, position, dir;
 
+        dir = this.$el.attr('dir') || this.$el.css('direction');
         properties = ['border-width', 'font-family', 'font-size', 'font-style',
           'font-variant', 'font-weight', 'height', 'letter-spacing',
           'word-spacing', 'line-height', 'text-decoration', 'width',
@@ -303,14 +304,16 @@
           overflow: 'auto',
           'white-space': 'pre-wrap',
           top: 0,
-          left: -9999
+          left: -9999,
+          direction: dir
         }, getStyles(this.$el, properties));
 
         $div = $('<div></div>').css(css).text(this.getTextFromHeadToCaret());
-        $span = $('<span></span>').text('&nbsp;').appendTo($div);
+        $span = $('<span></span>').text('.').appendTo($div);
         this.$el.before($div);
         position = $span.position();
         position.top += $span.height() - this.$el.scrollTop();
+        if (dir === 'rtl') { position.left -= this.listView.$el.width(); }
         $div.remove();
         return position;
       },
