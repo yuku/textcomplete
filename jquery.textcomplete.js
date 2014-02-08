@@ -137,7 +137,9 @@
         'keydown.textComplete': $.proxy(this.listView.onKeydown, this.listView)
       });
 
-      $(document).on('click.' + this.id, $.proxy(this.onClickDocument, this));
+      $(document)
+        .on('click.' + this.id, $.proxy(this.onClickDocument, this))
+        .on('keyup.' + this.id, $.proxy(this.onKeyupDocument, this));
     }
 
     /**
@@ -252,12 +254,22 @@
       },
 
       /**
+       * Global keyup event handler.
+       */
+      onKeyupDocument: function (e) {
+        if (this.listView.shown && e.keyCode === 27) { // ESC
+          this.listView.deactivate();
+          this.$el.focus();
+        }
+      },
+
+      /**
        * Remove all event handlers and the wrapper element.
        */
       disable: function () {
         var $wrapper;
         this.$el.off('keyup.textComplete').off('keydown.textComplete');
-        $(document).off('click.' + this.id);
+        $(document).off('click.' + this.id).off('keyup.' + this.id);
         this.listView.disable();
         $wrapper = this.$el.parent();
         $wrapper.after(this.$el).remove();
