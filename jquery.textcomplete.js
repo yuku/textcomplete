@@ -209,6 +209,7 @@
        */
       onKeyup: function (e) {
         var searchQuery, term;
+        if (this.skipSearch(e)) { return; }
 
         searchQuery = this.extractSearchQuery(this.getTextFromHeadToCaret());
         if (searchQuery.length) {
@@ -219,6 +220,17 @@
         } else {
           this.term = null;
           this.listView.deactivate();
+        }
+      },
+
+      /**
+       * Suppress searching if it returns true.
+       */
+      skipSearch: function (e) {
+        switch (e.keyCode) {
+          case 40:
+          case 38:
+            return true;
         }
       },
 
