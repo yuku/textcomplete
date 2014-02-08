@@ -196,13 +196,6 @@
        */
       onKeyup: function (e) {
         var searchQuery, term;
-        // ESC key. Dismiss dropdown.
-        if (e.keyCode === 27) {
-          e.preventDefault();
-          this.listView.deactivate();
-          return;
-        }
-
         if (this.skipSearch(e)) { return; }
 
         searchQuery = this.extractSearchQuery(this.getTextFromHeadToCaret());
