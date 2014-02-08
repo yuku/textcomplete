@@ -122,9 +122,8 @@ Example
 -------
 
 ```js
-$('textarea').textcomplete({
-  // mention strategy
-  mention: {
+$('textarea').textcomplete([
+  { // mention strategy
     match: /(^|\s)@(\w*)$/,
     search: function (term, callback) {
       callback(cache[term], true);
@@ -137,9 +136,7 @@ $('textarea').textcomplete({
     },
     cache: true
   },
-
-  // emoji strategy
-  emoji: {
+  { // emoji strategy
     match: /(^|\s):(\w*)$/,
     search: function (term, callback) {
       var regexp = new RegExp('^' + term);
@@ -151,7 +148,7 @@ $('textarea').textcomplete({
       return '$1:' + value + ': ';
     }
   }
-});
+]);
 ```
 
 Style
