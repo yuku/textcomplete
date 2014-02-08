@@ -214,6 +214,10 @@
        * Suppress searching if it returns true.
        */
       skipSearch: function (e) {
+        if (this.skipNextKeyup) {
+          this.skipNextKeyup = false;
+          return true;
+        }
         switch (e.keyCode) {
           case 40:
           case 38:
@@ -235,6 +239,7 @@
         this.$el.val(pre + post).trigger('textComplete:select', value);
         this.el.focus();
         this.el.selectionStart = this.el.selectionEnd = pre.length;
+        this.skipNextKeyup = true;
       },
 
       /**

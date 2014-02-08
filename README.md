@@ -274,6 +274,7 @@ History
 - Enable to apply multiple textareas at once.
 - Don't show popup on pressing arrow up and down keys.
 - Hide dropdown by pressing ESC key.
+- Prevent showing a dropdown when it just autocompleted.
 
 ### February 2, 2014 - v0.1.1
 
