@@ -81,7 +81,7 @@ var searchFunc = function (term, callback) {
 
   $.getJSON('/search', { q: term })
     .done(function (resp) {
-      callback(resp); // Resp must be an Array
+      callback(resp); // `resp` must be an Array
     })
     .fail(function () {
       callback([]); // Callback must be invoked even if something went wrong.
@@ -89,13 +89,15 @@ var searchFunc = function (term, callback) {
 };
 ```
 
-The `templateFunc` MUST be a Function which gets and returns a string. The function is going to be called as an iteretor for the array given to the `callback` of `searchFunc`.
+The `templateFunc` MUST be a Function which returns a string. The function is going to be called as an iteretor for the array given to the `callback` of `searchFunc`. You can change the style of each dropdown item.
 
 ```js
 var templateFunc = function (value) {
-  // `value` is an element of callbacked array.
+  // `value` is an element of array callbacked by searchFunc.
   return '<b>' + value + '</b>';
 };
+// Default:
+//   templateFunc = function (value) { return value; };
 ```
 
 The `replaceFunc` MUST be a Function which returns a String or an Array of two Strings. It is going to be invoked when a user will click and select an item of autocomplete dropdown.
@@ -104,7 +106,7 @@ The `replaceFunc` MUST be a Function which returns a String or an Array of two S
 var replaceFunc = function (value) { return '$1@' + value + ' '; };
 ```
 
-The result is going to be used to replace the textarea's text content using `String.prototype.replace` with `matchRegExp`:
+The result is going to be used to replace the value of textarea using `String.prototype.replace` with `matchRegExp`:
 
 ```js
 textarea.value = textarea.value.replace(matchRegExp, replaceFunc(value));
@@ -115,10 +117,10 @@ Suppose you want to do autocomplete for HTML elements, you may want to repositio
 ```js
 var replaceFunc = function (value) {
   return ['$1<' + value + '>', '</' + value + '>'];
-}
+};
 ```
 
-If you want to stop autocompleting, give `'destroy'` to `textcomplete` method as follows:
+Finally, if you want to stop autocompleting, give `'destroy'` to `textcomplete` method as follows:
 
 ```js
 $('textarea').textcomplete('destroy');
@@ -181,10 +183,18 @@ textComplete fires a number of events.
 - `textComplete:select` - Fired with the selected value when a dropdown is selected.
 
 ```javascript
-$('textarea')
+$('#textarea')
     .textcomplete([/* ... */])
-    .on('textComplete:select', function (e, value) {
-        alert(value);
+    .on({
+        'textComplete:select': function (e, value) {
+            alert(value);
+        },
+        'textComplete:show': function (e) {
+            $(this).data('autocompleting', true);
+        },
+        'textComplete:hide': function (e) {
+            $(this).data('autocompleting', false);
+        }
     });
 ```
 
@@ -238,12 +248,12 @@ textarea {
 If you need `inline-block` textarea for design reason, you have to wrap it by `inline-block` element.
 
 ```html
-<span style="width: 70%;">
+<div style="width: 70%; display: inline-block">
   <textarea style="display: block; width: 100%;"></textarea>
-</span>
-<span style="width: 30%;">
+</div>
+<div style="width: 30%;">
   30% width contents
-</span>
+</div>
 ```
 
 ### I want to send back value / name combos.
@@ -262,7 +272,8 @@ $('.commentBody').textcomplete([ /* ... */ ]);
 Todo
 ----
 
-- Tests
+- Write tests
+- Content editable support (at v0.2)
 
 History
 -------
