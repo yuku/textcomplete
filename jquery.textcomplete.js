@@ -118,34 +118,45 @@
     _id = 0;
 
     function Completer($el) {
-      var $wrapper, $list, focused;
-      $list = $baseList.clone();
+      var focus;
       this.el = $el.get(0);  // textarea element
-      this.$el = $el;
+      focus = this.el === document.activeElement;
+      // Cannot wrap $el at initialize method lazily due to Firefox's behavior.
+      this.$el = wrapElement($el); // Focus is lost
       this.id = 'textComplete' + _id++;
-      $wrapper = prepareWrapper(this.$el);
-
-      // Refocus the textarea if it is being focused
-      focused = this.el === document.activeElement;
-      this.$el.wrap($wrapper).before($list);
-      if (focused) { this.el.focus(); }
-
-      this.listView = new ListView($list, this);
       this.strategies = [];
-      this.$el.on({
-        'keyup.textComplete': $.proxy(this.onKeyup, this),
-        'keydown.textComplete': $.proxy(this.listView.onKeydown, this.listView)
-      });
-
-      $(document)
-        .on('click.' + this.id, $.proxy(this.onClickDocument, this))
-        .on('keyup.' + this.id, $.proxy(this.onKeyupDocument, this));
+      if (focus) {
+        this.initialize();
+        this.$el.focus();
+      } else {
+        this.$el.one('focus.textComplete', $.proxy(this.initialize, this));
+      }
     }
 
     /**
      * Completer's public methods
      */
     $.extend(Completer.prototype, {
+
+      /**
+       * Prepare ListView and bind events.
+       */
+      initialize: function () {
+        var $list, globalEvents;
+        $list = $baseList.clone();
+        this.listView = new ListView($list, this);
+        this.$el
+          .before($list)
+          .on({
+            'keyup.textComplete': $.proxy(this.onKeyup, this),
+            'keydown.textComplete': $.proxy(this.listView.onKeydown,
+                                            this.listView)
+          });
+        globalEvents = {};
+        globalEvents['click.' + this.id] = $.proxy(this.onClickDocument, this);
+        globalEvents['keyup.' + this.id] = $.proxy(this.onKeyupDocument, this);
+        $(document).on(globalEvents);
+      },
 
       /**
        * Register strategies to the completer.
@@ -269,8 +280,8 @@
       destroy: function () {
         var $wrapper;
         this.$el.off('.textComplete');
-        $(document).off('click.' + this.id).off('keyup.' + this.id);
-        this.listView.destroy();
+        $(document).off('.' + this.id);
+        if (this.listView) { this.listView.destroy(); }
         $wrapper = this.$el.parent();
         $wrapper.after(this.$el).remove();
         this.$el.data('textComplete', void 0);
@@ -363,8 +374,8 @@
     /**
      * Completer's private functions
      */
-    var prepareWrapper = function ($el) {
-      return $baseWrapper.clone().css('display', $el.css('display'));
+    var wrapElement = function ($el) {
+      return $el.wrap($baseWrapper.clone().css('display', $el.css('display')));
     };
 
     return Completer;
