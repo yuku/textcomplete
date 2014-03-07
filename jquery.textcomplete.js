@@ -451,7 +451,8 @@
           this.$el.hide();
           this.completer.$el.trigger('textComplete:hide');
           this.shown = false;
-          this.data = this.index = null;
+          this.data = [];
+          this.index = null;
         }
         return this;
       },
