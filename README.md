@@ -278,6 +278,11 @@ Todo
 History
 -------
 
+### March 7, 2014 - v0.1.3
+
+- Several bugfixes.
+- Support RTL positioning.
+
 ### February 8, 2014 - v0.1.2
 
 - Enable to append strategies on the fly.
@@ -286,7 +291,7 @@ History
 - Don't show popup on pressing arrow up and down keys.
 - Hide dropdown by pressing ESC key.
 - Prevent showing a dropdown when it just autocompleted.
-- Support RTL positioning.
+- ~~Support RTL positioning.~~
 
 ### February 2, 2014 - v0.1.1
 
