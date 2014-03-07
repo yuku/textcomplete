@@ -350,10 +350,6 @@
        * Parse the value of textarea and extract search query.
        */
       extractSearchQuery: function (text) {
-        // If a search query found, it returns used strategy and the query
-        // term. If the caret is currently in a code block or search query does
-        // not found, it returns an empty array.
-
         var i, l, strategy, match;
         for (i = 0, l = this.strategies.length; i < l; i++) {
           strategy = this.strategies[i];
