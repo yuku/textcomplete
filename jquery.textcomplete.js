@@ -230,8 +230,13 @@
           return true;
         }
         switch (e.keyCode) {
-          case 40:
-          case 38:
+          case 40: // DOWN
+          case 38: // UP
+            return true;
+        }
+        if (e.ctrlKey) switch (e.keyCode) {
+          case 78: // Ctrl-N
+          case 80: // Ctrl-P
             return true;
         }
       },
@@ -468,7 +473,7 @@
 
       onKeydown: function (e) {
         if (!this.shown) return;
-        if (e.keyCode === 38) {         // UP
+        if (e.keyCode === 38 || (e.ctrlKey && e.keyCode === 80)) {         // UP, or Ctrl-P
           e.preventDefault();
           if (this.index === 0) {
             this.index = this.data.length-1;
@@ -476,7 +481,7 @@
             this.index -= 1;
           }
           this.activateIndexedItem();
-        } else if (e.keyCode === 40) {  // DOWN
+        } else if (e.keyCode === 40 || (e.ctrlKey && e.keyCode === 78)) {  // DOWN, or Ctrl-N
           e.preventDefault();
           if (this.index === this.data.length - 1) {
             this.index = 0;
