@@ -302,7 +302,6 @@
         // span element into the textarea.
         // Consequently, the span element's position is the thing what we want.
 
-        if (this.el.selectionEnd === 0) return;
         var properties, css, $div, $span, position, dir;
 
         dir = this.$el.attr('dir') || this.$el.css('direction');
