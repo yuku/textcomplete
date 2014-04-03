@@ -326,7 +326,7 @@
         // span element into the textarea.
         // Consequently, the span element's position is the thing what we want.
 
-        var properties, css, $div, $span, position, dir;
+        var properties, css, $div, $span, position, dir, scrollbar;
 
         dir = this.$el.attr('dir') || this.$el.css('direction');
         properties = ['border-width', 'font-family', 'font-size', 'font-style',
@@ -336,9 +336,10 @@
           'padding-left', 'margin-top', 'margin-right', 'margin-bottom',
           'margin-left'
         ];
+        scrollbar = this.$el[0].scrollHeight > this.$el[0].offsetHeight;
         css = $.extend({
           position: 'absolute',
-          overflow: 'auto',
+          overflow: scrollbar ? 'scroll' : 'auto',
           'white-space': 'pre-wrap',
           top: 0,
           left: -9999,
