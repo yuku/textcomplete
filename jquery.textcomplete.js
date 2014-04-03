@@ -14,14 +14,33 @@
    * Exclusive execution control utility.
    */
   var lock = function (func) {
-    var free, locked;
+    var free, locked, queuedArgsToReplay;
     free = function () { locked = false; };
     return function () {
-      var args;
-      if (locked) return;
+      var args = toArray(arguments);
+      if (locked) {
+        // Keep a copy of this argument list to replay later.
+        // OK to overwrite a previous value because we only replay the last one.
+        queuedArgsToReplay = args;
+        return;
+      }
       locked = true;
-      args = toArray(arguments);
-      args.unshift(free);
+      var that = this;
+      args.unshift(function replayOrFree() {
+        if (queuedArgsToReplay) {
+          // Other request(s) arrived while we were locked.
+          // Now that the lock is becoming available, replay
+          // the latest such request, then call back here to
+          // unlock (or replay another request that arrived
+          // while this one was in flight).
+          var replayArgs = queuedArgsToReplay;
+          queuedArgsToReplay = undefined;
+          replayArgs.unshift(replayOrFree);
+          func.apply(that, replayArgs);
+        } else {
+          locked = false;
+        }
+      });
       func.apply(this, args);
     };
   };
