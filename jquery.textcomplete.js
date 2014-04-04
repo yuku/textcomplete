@@ -334,7 +334,7 @@
           'word-spacing', 'line-height', 'text-decoration', 'text-align',
           'width', 'padding-top', 'padding-right', 'padding-bottom',
           'padding-left', 'margin-top', 'margin-right', 'margin-bottom',
-          'margin-left'
+          'margin-left', 'border-style', 'box-sizing'
         ];
         scrollbar = this.$el[0].scrollHeight > this.$el[0].offsetHeight;
         css = $.extend({
