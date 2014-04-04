@@ -194,11 +194,11 @@
         }
         if (data.length) {
           if (!this.listView.shown) {
+            this.listView.strategy = this.strategy;
             this.listView
                 .setPosition(this.getCaretPosition())
                 .clear()
                 .activate();
-            this.listView.strategy = this.strategy;
           }
           data = data.slice(0, this.strategy.maxCount);
           this.listView.render(data);
@@ -352,13 +352,6 @@
         position = $span.position();
         position.top += $span.height() - this.$el.scrollTop();
         if (dir === 'rtl') { position.left -= this.listView.$el.width(); }
-        // If the strategy has the 'placement' option set to 'top', move the position above the element
-        if(this.strategy.placement === "top") {
-          // Move it to be in line with the match character
-          var fontSize = parseInt(this.$el.css('font-size'));
-          // Overwrite the position object to set the 'bottom' property instead of the top.
-          position = { bottom: $div.height(), left: position.left - fontSize };
-        }
         $div.remove();
         return position;
       },
@@ -485,6 +478,19 @@
       },
 
       setPosition: function (position) {
+        var fontSize;
+        // If the strategy has the 'placement' option set to 'top', move the
+        // position above the element
+        if(this.completer.strategy.placement === "top") {
+          // Move it to be in line with the match character
+          fontSize = parseInt(this.$el.css('font-size'));
+          // Overwrite the position object to set the 'bottom' property instead of the top.
+          position = {
+            top: 'auto',
+            bottom: this.$el.parent().height() - position.top + fontSize,
+            left: position.left
+          };
+        }
         this.$el.css(position);
         return this;
       },
