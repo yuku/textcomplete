@@ -124,9 +124,9 @@
       wrapper: {
         position: 'relative'
       },
+      // Removed the 'top' property to support the placement: 'top' option
       list: {
         position: 'absolute',
-        top: 0,
         left: 0,
         zIndex: '100',
         display: 'none'
@@ -352,6 +352,13 @@
         position = $span.position();
         position.top += $span.height() - this.$el.scrollTop();
         if (dir === 'rtl') { position.left -= this.listView.$el.width(); }
+        // If the strategy has the 'placement' option set to 'top', move the position above the element
+        if(this.strategy.placement === "top") {
+          // Move it to be in line with the match character
+          var fontSize = parseInt(this.$el.css('font-size'));
+          // Overwrite the position object to set the 'bottom' property instead of the top.
+          position = { bottom: $div.height(), left: position.left - fontSize };
+        }
         $div.remove();
         return position;
       },
