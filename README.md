@@ -42,20 +42,21 @@ var strategies = [
 ];
 ```
 
-The `strategy` is an Object which MUST have `match`, `search` and `replace` and MAY have `index`, `maxCount` and `template`.
+The `strategy` is an Object which MUST have `match`, `search` and `replace` and MAY have `index`, `maxCount`, `template`, `cache` and `placement`.
 
 ```js
 var strategy = {
   // Required
-  match:    matchRegExp,
-  search:   searchFunc,
-  replace:  replaceFunc,
+  match:     matchRegExp,
+  search:    searchFunc,
+  replace:   replaceFunc,
 
   // Optional
-  index:    indexNumber,
-  maxCount: maxCountNumber,
-  template: templateFunc,
-  cache:    cacheBoolean
+  index:     indexNumber,     // 2
+  maxCount:  maxCountNumber,  // 10
+  template:  templateFunc,    // function (value) { return value; }
+  cache:     cacheBoolean,    // false
+  placement: placementStr     // undefined
 }
 ```
 
@@ -118,6 +119,12 @@ Suppose you want to do autocomplete for HTML elements, you may want to repositio
 var replaceFunc = function (value) {
   return ['$1<' + value + '>', '</' + value + '>'];
 };
+```
+
+`placementStr` accepts only 'top' and which will cause the drop-down menu to render above the caret instead of below it.
+
+```js
+var placementStr = 'top';
 ```
 
 Finally, if you want to stop autocompleting, give `'destroy'` to `textcomplete` method as follows:
@@ -277,6 +284,13 @@ Todo
 
 History
 -------
+
+### April 4, 2014 - v0.1.4.1
+
+- Support placement option.
+- Emacs-style prev/next keybindings.
+- Replay searchFunc for the last term on slow network env.
+- Several bugfixes.
 
 ### March 7, 2014 - v0.1.3
 

@@ -25,7 +25,10 @@
             <h2>Demo</h2>
 
             <h3>Basic Usage</h3>
-            <div><textarea id="textarea1" rows="4" style="display: block; width: 100%;">:a</textarea></div>
+            <div class="textarea-wrapper">
+                <span class="label">#textarea1</span>
+                <textarea id="textarea1" rows="4" style="display: block; width: 100%;">:a</textarea>
+            </div>
 <pre class="brush: js; script">
 $('#textarea1').textcomplete([
     { // emoji strategy
@@ -59,13 +62,17 @@ $('#textarea1').textcomplete([
         index: 1,
         replace: function (word) {
             return word + ' ';
-        }
+        },
+        placement: 'top'
     }
 ]);
 </pre>
 
             <h3>Insert Cursor After Autocomplete</h3>
-            <div><textarea id="textarea2" rows="4" style="display: block; width: 100%;">Please input HTML element: </textarea></div>
+            <div class="textarea-wrapper">
+                <span class="label">#textarea2</span>
+                <textarea id="textarea2" rows="4" style="display: block; width: 100%;">Please input HTML element: </textarea>
+            </div>
 <pre class="brush: js; script">
 var elements = ['span', 'div', 'h1', 'h2', 'h3'];
 $('#textarea2').textcomplete([
@@ -85,8 +92,11 @@ $('#textarea2').textcomplete([
 </pre>
 
             <h3>Use with <a href="http://yuku-t.com/jquery-overlay/" target="_blank">jQuery.overlay</a></h3>
-            <div><textarea id="textarea3" rows="4" style="display: block; width: 100%;">Hey @guys,
-All words start with @ are emphasized like @this.</textarea></div>
+            <div class="textarea-wrapper">
+                <span class="label">#textarea3</span>
+                <textarea id="textarea3" rows="4" style="display: block; width: 100%;">Hey @guys,
+All words start with @ are emphasized like @this.</textarea>
+            </div>
 <pre class="brush: js; script">
 $('#textarea3').textcomplete([
     { // html
@@ -107,6 +117,33 @@ $('#textarea3').textcomplete([
         match: /\B@\w+/g,
         css: {
             'background-color': '#d8dfea'
+        }
+    }
+]);
+</pre>
+
+            <h3>Apply to Multiple Textareas</h3>
+            <div class="textarea-wrapper">
+                <span class="label">.textarea4</span>
+                <textarea class="textarea4" rows="4" style="display: block; width: 100%;"></textarea>
+            </div>
+            <div class="textarea-wrapper">
+                <span class="label">.textarea4</span>
+                <textarea class="textarea4" rows="4" style="display: block; width: 100%;"></textarea>
+            </div>
+<pre class="brush: js; script">
+$('.textarea4').textcomplete([
+    { // tech companies
+        words: ['apple', 'google', 'facebook', 'github'],
+        match: /\b(\w{2,})$/,
+        search: function (term, callback) {
+            callback($.map(this.words, function (word) {
+                return word.indexOf(term) === 0 ? word : null;
+            }));
+        },
+        index: 1,
+        replace: function (word) {
+            return word + ' ';
         }
     }
 ]);
