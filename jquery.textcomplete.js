@@ -193,8 +193,8 @@
           this.clearAtNext = false;
         }
         if (data.length) {
+          this.listView.strategy = this.strategy;
           if (!this.listView.shown) {
-            this.listView.strategy = this.strategy;
             this.listView
                 .setPosition(this.getCaretPosition())
                 .clear()
