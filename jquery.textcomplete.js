@@ -481,7 +481,7 @@
         var fontSize;
         // If the strategy has the 'placement' option set to 'top', move the
         // position above the element
-        if(this.completer.strategy.placement === "top") {
+        if(this.strategy.placement === 'top') {
           // Move it to be in line with the match character
           fontSize = parseInt(this.$el.css('font-size'));
           // Overwrite the position object to set the 'bottom' property instead of the top.
