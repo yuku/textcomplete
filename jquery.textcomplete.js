@@ -490,6 +490,10 @@
             bottom: this.$el.parent().height() - position.top + fontSize,
             left: position.left
           };
+        } else {
+          // Overwrite 'bottom' property because once `placement: 'top'`
+          // strategy is shown, $el keeps the property.
+          position.bottom = 'auto';
         }
         this.$el.css(position);
         return this;
