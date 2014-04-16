@@ -42,7 +42,7 @@ var strategies = [
 ];
 ```
 
-The `strategy` is an Object which MUST have `match`, `search` and `replace` and MAY have `index`, `maxCount`, `template`, `cache` and `placement`.
+The `strategy` is an Object which MUST have `match`, `search` and `replace` and MAY have `index`, `maxCount`, `template`, `cache`, `placement`, `header` and `footer`.
 
 ```js
 var strategy = {
@@ -57,6 +57,8 @@ var strategy = {
   template:  templateFunc,    // function (value) { return value; }
   cache:     cacheBoolean,    // false
   placement: placementStr     // undefined
+  header:    headerStr        // undefined
+  footer:    footerStr        // undefined
 }
 ```
 

@@ -418,6 +418,11 @@
         var html, i, l, index, val;
 
         html = '';
+        
+        if(this.strategy.header) {
+          html += '<li class="textcomplete-header">' + this.strategy.header + '</li>';
+        }
+
         for (i = 0, l = data.length; i < l; i++) {
           val = data[i];
           if (include(this.data, val)) continue;
@@ -428,6 +433,11 @@
           html += '</a></li>';
           if (this.data.length === this.strategy.maxCount) break;
         }
+
+        if(this.strategy.footer) {
+          html += '<li class="textcomplete-footer">' + this.strategy.footer + '</li>';
+        }
+
         this.$el.append(html);
         if (!this.data.length) {
           this.deactivate();
@@ -449,7 +459,7 @@
       },
 
       getActiveItem: function () {
-        return $(this.$el.children().get(this.index));
+        return $(this.$el.children('.textcomplete-item').get(this.index));
       },
 
       activate: function () {
