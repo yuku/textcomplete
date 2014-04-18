@@ -257,21 +257,47 @@
       },
 
       onSelect: function (value) {
-        var pre, post, newSubStr;
-        pre = this.getTextFromHeadToCaret();
-        post = this.el.value.substring(this.el.selectionEnd);
+          var pre, post, newSubStr, sel, range, selection;
+          pre = this.getTextFromHeadToCaret();
 
-        newSubStr = this.strategy.replace(value);
-        if ($.isArray(newSubStr)) {
-          post = newSubStr[1] + post;
-          newSubStr = newSubStr[0];
-        }
-        pre = pre.replace(this.strategy.match, newSubStr);
-        this.$el.val(pre + post)
-                .trigger('change')
-                .trigger('textComplete:select', value);
-        this.el.focus();
-        this.el.selectionStart = this.el.selectionEnd = pre.length;
+          if (this.el.contentEditable == 'true') {
+            sel = window.getSelection();
+            range = sel.getRangeAt(0);
+            selection = range.cloneRange();
+            selection.selectNodeContents(range.startContainer);
+            var content = selection.toString();
+            post = content.substring(range.startOffset);
+          } else {
+            post = this.el.value.substring(this.el.selectionEnd);
+          }
+
+          newSubStr = this.strategy.replace(value);
+          
+          if ($.isArray(newSubStr)) {
+            post = newSubStr[1] + post;
+            newSubStr = newSubStr[0];
+          }
+
+          pre = pre.replace(this.strategy.match, newSubStr);
+          
+          if (this.el.contentEditable == 'true') {
+            range.selectNodeContents(range.startContainer);
+            range.deleteContents();
+            var node = document.createTextNode(pre + post);
+            range.insertNode(node);
+            range.setStart(node, pre.length);
+            range.collapse(true);
+            sel.removeAllRanges();
+            sel.addRange(range);
+          } else {
+            this.$el.val(pre + post);
+            this.el.selectionStart = this.el.selectionEnd = pre.length; 
+          }
+
+          this.$el.trigger('change')
+                  .trigger('textComplete:select', value);
+          this.el.focus();
+        
       },
 
       /**
@@ -348,19 +374,40 @@
         position.top += $span.height() - this.$el.scrollTop();
         if (dir === 'rtl') { position.left -= this.listView.$el.width(); }
         $div.remove();
+
+        if (this.el.contentEditable == 'true') {
+          var range = window.getSelection().getRangeAt(0).cloneRange();
+          var node = document.createElement('span');
+          range.insertNode(node);
+          range.selectNodeContents(node);
+          range.deleteContents();
+          position = $(node).position();
+          position.top += $(node).height() - this.$el.scrollTop();
+        }
+
         return position;
       },
 
       getTextFromHeadToCaret: function () {
         var text, selectionEnd, range;
-        selectionEnd = this.el.selectionEnd;
-        if (typeof selectionEnd === 'number') {
-          text = this.el.value.substring(0, selectionEnd);
-        } else if (document.selection) {
-          range = this.el.createTextRange();
-          range.moveStart('character', 0);
-          range.moveEnd('textedit');
-          text = range.text;
+        if (this.el.contentEditable == 'true') {
+          if (window.getSelection) {
+            // IE9+ and non-IE            
+            var range = window.getSelection().getRangeAt(0);
+            var selection = range.cloneRange();
+            selection.selectNodeContents(range.startContainer);
+            text = selection.toString().substring(0, range.startOffset);
+          }
+        } else {
+          selectionEnd = this.el.selectionEnd;
+          if (typeof selectionEnd === 'number') {
+            text = this.el.value.substring(0, selectionEnd);
+          } else if (document.selection) {
+            range = this.el.createTextRange();
+            range.moveStart('character', 0);
+            range.moveEnd('textedit');
+            text = range.text;
+          }
         }
         return text;
       },
