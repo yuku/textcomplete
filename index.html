@@ -149,6 +149,34 @@ $('.textarea4').textcomplete([
 ]);
 </pre>
 
+            <h3>Customizing header, footer</h3>
+            <div class="textarea-wrapper">
+                <span class="label">#textarea5</span>
+                <textarea id="textarea5" rows="4" style="display: block; width: 100%;">:a</textarea>
+            </div>
+<pre class="brush: js; script">
+$('#textarea5').textcomplete([
+    { // emoji strategy
+        match: /\B:([\-+\w]*)$/,
+        search: function (term, callback) {
+            callback($.map(emojies, function (emoji) {
+                return emoji.indexOf(term) === 0 ? emoji : null;
+            }));
+        },
+        template: function (value) {
+            return '&lt;img src="media/images/emoji/' + value + '.png"&gt;&lt;/img&gt;' + value;
+        },
+        replace: function (value) {
+            return ':' + value + ': ';
+        },
+        index: 1,
+        maxCount: 5,
+        header: '&lt;strong style="text-align: center; display: block;"&gt;Header&lt;/strong&gt;',
+        footer: '&lt;strong style="text-align: center; display: block;"&gt;Footer&lt;/strong&gt;'
+    }
+]);
+</pre>
+
             <h2>License</h2>
             <p>
                 MIT
