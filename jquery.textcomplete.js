@@ -257,47 +257,46 @@
       },
 
       onSelect: function (value) {
-          var pre, post, newSubStr, sel, range, selection;
-          pre = this.getTextFromHeadToCaret();
+        var pre, post, newSubStr, sel, range, selection;
+        pre = this.getTextFromHeadToCaret();
 
-          if (this.el.contentEditable == 'true') {
-            sel = window.getSelection();
-            range = sel.getRangeAt(0);
-            selection = range.cloneRange();
-            selection.selectNodeContents(range.startContainer);
-            var content = selection.toString();
-            post = content.substring(range.startOffset);
-          } else {
-            post = this.el.value.substring(this.el.selectionEnd);
-          }
+        if (this.el.contentEditable == 'true') {
+          sel = window.getSelection();
+          range = sel.getRangeAt(0);
+          selection = range.cloneRange();
+          selection.selectNodeContents(range.startContainer);
+          var content = selection.toString();
+          post = content.substring(range.startOffset);
+        } else {
+          post = this.el.value.substring(this.el.selectionEnd);
+        }
 
-          newSubStr = this.strategy.replace(value);
-          
-          if ($.isArray(newSubStr)) {
-            post = newSubStr[1] + post;
-            newSubStr = newSubStr[0];
-          }
-
-          pre = pre.replace(this.strategy.match, newSubStr);
-          
-          if (this.el.contentEditable == 'true') {
-            range.selectNodeContents(range.startContainer);
-            range.deleteContents();
-            var node = document.createTextNode(pre + post);
-            range.insertNode(node);
-            range.setStart(node, pre.length);
-            range.collapse(true);
-            sel.removeAllRanges();
-            sel.addRange(range);
-          } else {
-            this.$el.val(pre + post);
-            this.el.selectionStart = this.el.selectionEnd = pre.length; 
-          }
-
-          this.$el.trigger('change')
-                  .trigger('textComplete:select', value);
-          this.el.focus();
+        newSubStr = this.strategy.replace(value);
         
+        if ($.isArray(newSubStr)) {
+          post = newSubStr[1] + post;
+          newSubStr = newSubStr[0];
+        }
+
+        pre = pre.replace(this.strategy.match, newSubStr);
+        
+        if (this.el.contentEditable == 'true') {
+          range.selectNodeContents(range.startContainer);
+          range.deleteContents();
+          var node = document.createTextNode(pre + post);
+          range.insertNode(node);
+          range.setStart(node, pre.length);
+          range.collapse(true);
+          sel.removeAllRanges();
+          sel.addRange(range);
+        } else {
+          this.$el.val(pre + post);
+          this.el.selectionStart = this.el.selectionEnd = pre.length; 
+        }
+
+        this.$el.trigger('change')
+                .trigger('textComplete:select', value);
+        this.el.focus();
       },
 
       /**
