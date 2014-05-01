@@ -390,7 +390,7 @@
      * Completer's private functions
      */
     var wrapElement = function ($el) {
-      return $el.wrap($baseWrapper.clone().css('display', $el.css('display')));
+      return $el.wrap($baseWrapper.clone().css('display', $el.css('display')).css('width', '100%'));
     };
 
     return Completer;
