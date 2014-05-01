@@ -418,7 +418,7 @@
         var html, i, l, index, val;
 
         html = '';
-        
+
         if(this.strategy.header) {
           html += '<li class="textcomplete-header">' + this.strategy.header + '</li>';
         }
@@ -486,6 +486,9 @@
         var fontSize;
         // If the strategy has the 'placement' option set to 'top', move the
         // position above the element
+		if ((this.$el.width() + position.left) > $(window).width()) {
+			position.left -= this.$el.width();
+		}
         if(this.strategy.placement === 'top') {
           // Move it to be in line with the match character
           fontSize = parseInt(this.$el.css('font-size'));
