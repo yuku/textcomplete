@@ -27,7 +27,7 @@
             <h3>Basic Usage</h3>
             <div class="textarea-wrapper">
                 <span class="label">#textarea1</span>
-                <textarea id="textarea1" rows="4" style="display: block; width: 100%;">:a</textarea>
+                <textarea id="textarea1" rows="4">:a</textarea>
             </div>
 <pre class="brush: js; script">
 $('#textarea1').textcomplete([
@@ -71,7 +71,7 @@ $('#textarea1').textcomplete([
             <h3>Insert Cursor After Autocomplete</h3>
             <div class="textarea-wrapper">
                 <span class="label">#textarea2</span>
-                <textarea id="textarea2" rows="4" style="display: block; width: 100%;">Please input HTML element: </textarea>
+                <textarea id="textarea2" rows="4">Please input HTML element: </textarea>
             </div>
 <pre class="brush: js; script">
 var elements = ['span', 'div', 'h1', 'h2', 'h3'];
@@ -94,7 +94,7 @@ $('#textarea2').textcomplete([
             <h3>Use with <a href="http://yuku-t.com/jquery-overlay/" target="_blank">jQuery.overlay</a></h3>
             <div class="textarea-wrapper">
                 <span class="label">#textarea3</span>
-                <textarea id="textarea3" rows="4" style="display: block; width: 100%;">Hey @guys,
+                <textarea id="textarea3" rows="4">Hey @guys,
 All words start with @ are emphasized like @this.</textarea>
             </div>
 <pre class="brush: js; script">
@@ -125,11 +125,11 @@ $('#textarea3').textcomplete([
             <h3>Apply to Multiple Textareas</h3>
             <div class="textarea-wrapper">
                 <span class="label">.textarea4</span>
-                <textarea class="textarea4" rows="4" style="display: block; width: 100%;"></textarea>
+                <textarea class="textarea4" rows="4"></textarea>
             </div>
             <div class="textarea-wrapper">
                 <span class="label">.textarea4</span>
-                <textarea class="textarea4" rows="4" style="display: block; width: 100%;"></textarea>
+                <textarea class="textarea4" rows="4"></textarea>
             </div>
 <pre class="brush: js; script">
 $('.textarea4').textcomplete([
@@ -152,7 +152,7 @@ $('.textarea4').textcomplete([
             <h3>Customizing header, footer</h3>
             <div class="textarea-wrapper">
                 <span class="label">#textarea5</span>
-                <textarea id="textarea5" rows="4" style="display: block; width: 100%;">:a</textarea>
+                <textarea id="textarea5" rows="4">:a</textarea>
             </div>
 <pre class="brush: js; script">
 $('#textarea5').textcomplete([
@@ -176,7 +176,28 @@ $('#textarea5').textcomplete([
     }
 ]);
 </pre>
-
+            <h3>Apply to Contenteditables</h3>
+            <div class="textarea-wrapper">
+                <span class="label">.contenteditable1</span>
+                <div class="contenteditable1" contenteditable="true"><b>Look</b> at this <em>glorious</em> contenteditable.</div>
+            </div>
+<pre class="brush: js; script">
+$('.contenteditable1').textcomplete([
+    { // tech companies
+        words: ['stunning', 'amazing', 'incredible', 'fantastic', 'fantabulous'],
+        match: /\b(\w{2,})$/,
+        search: function (term, callback) {
+            callback($.map(this.words, function (word) {
+                return word.indexOf(term) === 0 ? word : null;
+            }));
+        },
+        index: 1,
+        replace: function (word) {
+            return word + '&nbsp;';
+        }
+    }
+]);
+</pre>
             <h2>License</h2>
             <p>
                 MIT
