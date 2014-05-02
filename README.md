@@ -26,10 +26,11 @@ jQuery MUST be loaded ahead.
 <script src="path/to/jquery.textcomplete.js"></script>
 ```
 
-Then `jQuery.fn.textcomplete` is defined. The method MUST be called for textarea elements.
+Then `jQuery.fn.textcomplete` is defined. The method MUST be called for textarea elements or contenteditable elements.
 
 ```js
 $('textarea').textcomplete(strategies);
+// $('[contenteditable="true"]').textcomplete(strategies);
 ```
 
 The `strategies` is an Array. Each element is called as strategy object.
@@ -286,6 +287,11 @@ Todo
 
 History
 -------
+
+### May 2, 2014 - v0.2
+
+- Contenteditable support.
+- Several bugfixes.
 
 ### April 4, 2014 - v0.1.4.1
 
