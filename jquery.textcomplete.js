@@ -247,6 +247,8 @@
         switch (e.keyCode) {
           case 40: // DOWN
           case 38: // UP
+          case 13: // ENTER
+          case 9: // TAB
             return true;
         }
         if (e.ctrlKey) switch (e.keyCode) {
