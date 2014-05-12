@@ -247,6 +247,8 @@
         switch (e.keyCode) {
           case 40: // DOWN
           case 38: // UP
+          case 13: // ENTER
+          case 9: // TAB
             return true;
         }
         if (e.ctrlKey) switch (e.keyCode) {
@@ -436,7 +438,7 @@
      * Completer's private functions
      */
     var wrapElement = function ($el) {
-      return $el.wrap($baseWrapper.clone().css('display', $el.css('display')));
+      return $el.wrap($baseWrapper.clone().css('display', $el.css('display')).css('width', '100%'));
     };
 
     return Completer;
@@ -464,7 +466,7 @@
         var html, i, l, index, val;
 
         html = '';
-        
+
         if(this.strategy.header) {
           html += '<li class="textcomplete-header">' + this.strategy.header + '</li>';
         }
@@ -532,6 +534,9 @@
         var fontSize;
         // If the strategy has the 'placement' option set to 'top', move the
         // position above the element
+		if ((this.$el.width() + position.left) > $(window).width()) {
+			position.left -= this.$el.width();
+		}
         if(this.strategy.placement === 'top') {
           // Move it to be in line with the match character
           fontSize = parseInt(this.$el.css('font-size'));
