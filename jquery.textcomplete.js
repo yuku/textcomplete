@@ -453,7 +453,7 @@
       this.index = 0;
       this.completer = completer;
 
-      this.$el.on('click.textComplete', 'li.textcomplete-item',
+      this.$el.on('mousedown.textComplete', 'li.textcomplete-item',
                   $.proxy(this.onClick, this));
     }
 
@@ -584,6 +584,7 @@
 
       onClick: function (e) {
         var $e = $(e.target);
+        e.preventDefault();
         e.originalEvent.keepTextCompleteDropdown = true;
         if (!$e.hasClass('textcomplete-item')) {
           $e = $e.parents('li.textcomplete-item');
