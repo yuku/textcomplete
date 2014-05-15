@@ -274,10 +274,17 @@ Todo
 History
 -------
 
+### May 15, 2014 - v0.2.1
+
+- Support `appendTo` option.
+- `header` and `footer` supports a function.
+- Remove textcomplate-wrapper element.
+
 ### May 2, 2014 - v0.2
 
 - Contenteditable support.
 - Several bugfixes.
+- Support `header` and `footer` setting.
 
 ### April 4, 2014 - v0.1.4.1
 
