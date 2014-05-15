@@ -339,51 +339,48 @@
        * Returns caret's relative coordinates from textarea's left top corner.
        */
       getCaretPosition: function () {
-        // Browser native API does not provide the way to know the position of
-        // caret in pixels, so that here we use a kind of hack to accomplish
-        // the aim. First of all it puts a div element and completely copies
-        // the textarea's style to the element, then it inserts the text and a
-        // span element into the textarea.
-        // Consequently, the span element's position is the thing what we want.
+        var properties, css, $div, $span, position, dir, scrollbar, range, node;
+        if (this.el.contentEditable != 'true') {
+          // Browser native API does not provide the way to know the position of
+          // caret in pixels, so that here we use a kind of hack to accomplish
+          // the aim. First of all it puts a div element and completely copies
+          // the textarea's style to the element, then it inserts the text and a
+          // span element into the textarea.
+          // Consequently, the span element's position is the thing what we want.
+          properties = ['border-width', 'font-family', 'font-size', 'font-style',
+            'font-variant', 'font-weight', 'height', 'letter-spacing',
+            'word-spacing', 'line-height', 'text-decoration', 'text-align',
+            'width', 'padding-top', 'padding-right', 'padding-bottom',
+            'padding-left', 'margin-top', 'margin-right', 'margin-bottom',
+            'margin-left', 'border-style', 'box-sizing'
+          ];
+          scrollbar = this.$el[0].scrollHeight > this.$el[0].offsetHeight;
+          css = $.extend({
+            position: 'absolute',
+            overflow: scrollbar ? 'scroll' : 'auto',
+            'white-space': 'pre-wrap',
+            top: 0,
+            left: -9999,
+            direction: dir
+          }, getStyles(this.$el, properties));
 
-        var properties, css, $div, $span, position, dir, scrollbar;
-
-        dir = this.$el.attr('dir') || this.$el.css('direction');
-        properties = ['border-width', 'font-family', 'font-size', 'font-style',
-          'font-variant', 'font-weight', 'height', 'letter-spacing',
-          'word-spacing', 'line-height', 'text-decoration', 'text-align',
-          'width', 'padding-top', 'padding-right', 'padding-bottom',
-          'padding-left', 'margin-top', 'margin-right', 'margin-bottom',
-          'margin-left', 'border-style', 'box-sizing'
-        ];
-        scrollbar = this.$el[0].scrollHeight > this.$el[0].offsetHeight;
-        css = $.extend({
-          position: 'absolute',
-          overflow: scrollbar ? 'scroll' : 'auto',
-          'white-space': 'pre-wrap',
-          top: 0,
-          left: -9999,
-          direction: dir
-        }, getStyles(this.$el, properties));
-
-        $div = $('<div></div>').css(css).text(this.getTextFromHeadToCaret());
-        $span = $('<span></span>').text('.').appendTo($div);
-        this.$el.before($div);
-        position = $span.position();
-        position.top += $span.height() - this.$el.scrollTop();
-        if (dir === 'rtl') { position.left -= this.listView.$el.width(); }
-        $div.remove();
-
-        if (this.el.contentEditable == 'true') {
-          var range = window.getSelection().getRangeAt(0).cloneRange();
-          var node = document.createElement('span');
+          $div = $('<div></div>').css(css).text(this.getTextFromHeadToCaret());
+          $span = $('<span></span>').text('.').appendTo($div);
+          this.$el.before($div);
+          position = $span.position();
+          position.top += $span.height() - this.$el.scrollTop();
+          $div.remove();
+        } else {
+          range = window.getSelection().getRangeAt(0).cloneRange();
+          node = document.createElement('span');
           range.insertNode(node);
           range.selectNodeContents(node);
           range.deleteContents();
           position = $(node).position();
           position.top += $(node).height() - this.$el.scrollTop();
         }
-
+        dir = this.$el.attr('dir') || this.$el.css('direction');
+        if (dir === 'rtl') { position.left -= this.listView.$el.width(); }
         return position;
       },
 
