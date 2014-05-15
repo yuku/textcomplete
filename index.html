@@ -171,7 +171,9 @@ $('#textarea5').textcomplete([
         },
         index: 1,
         maxCount: 5,
-        header: '&lt;strong style="text-align: center; display: block;"&gt;Header&lt;/strong&gt;',
+        header: function (data) {
+          return '&lt;strong style="text-align: center; display: block;"&gt;' + data.length + '&lt;/strong&gt;';
+        },
         footer: '&lt;strong style="text-align: center; display: block;"&gt;Footer&lt;/strong&gt;'
     }
 ]);

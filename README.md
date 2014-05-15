@@ -58,8 +58,8 @@ var strategy = {
   template:  templateFunc,    // function (value) { return value; }
   cache:     cacheBoolean,    // false
   placement: placementStr     // undefined
-  header:    headerStr        // undefined
-  footer:    footerStr        // undefined
+  header:    headerStrOrFunc  // undefined
+  footer:    footerStrOrFunc  // undefined
 }
 ```
 

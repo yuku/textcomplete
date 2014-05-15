@@ -450,12 +450,17 @@
       shown: false,
 
       render: function (data) {
-        var html, i, l, index, val;
+        var html, i, l, index, val, str;
 
         html = '';
         
         if(this.strategy.header) {
-          html += '<li class="textcomplete-header">' + this.strategy.header + '</li>';
+          if ($.isFunction(this.strategy.header)) {
+            str = this.strategy.header(data);
+          } else {
+            str = this.strategy.header;
+          }
+          html += '<li class="textcomplete-header">' + str + '</li>';
         }
 
         for (i = 0, l = data.length; i < l; i++) {
@@ -470,7 +475,12 @@
         }
 
         if(this.strategy.footer) {
-          html += '<li class="textcomplete-footer">' + this.strategy.footer + '</li>';
+          if ($.isFunction(this.strategy.footer)) {
+            str = this.strategy.footer(data);
+          } else {
+            str = this.strategy.footer;
+          }
+          html += '<li class="textcomplete-footer">' + str + '</li>';
         }
 
         this.$el.append(html);
