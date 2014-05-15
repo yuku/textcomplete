@@ -29,8 +29,8 @@ jQuery MUST be loaded ahead.
 Then `jQuery.fn.textcomplete` is defined. The method MUST be called for textarea elements or contenteditable elements.
 
 ```js
-$('textarea').textcomplete(strategies);
-// $('[contenteditable="true"]').textcomplete(strategies);
+$('textarea').textcomplete(strategies, option);
+// $('[contenteditable="true"]').textcomplete(strategies, option);
 ```
 
 The `strategies` is an Array. Each element is called as strategy object.
@@ -128,6 +128,14 @@ var replaceFunc = function (value) {
 
 ```js
 var placementStr = 'top';
+```
+
+The `option` is an optional Object which MAY have `appendTo`. If `appendTo` is given, the element of dropdown is appended into the specified element.
+
+```js
+var option = {
+  appentTo: 'body' // suports Element and jQuery object
+};
 ```
 
 Finally, if you want to stop autocompleting, give `'destroy'` to `textcomplete` method as follows:

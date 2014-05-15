@@ -112,7 +112,7 @@ $('#textarea3').textcomplete([
             return '@' + mention + ' ';
         }
     }
-]).overlay([
+], { appendTo: 'body' }).overlay([
     {
         match: /\B@\w+/g,
         css: {

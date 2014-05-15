@@ -131,13 +131,14 @@
     $baseList = $(html.list).css(css.list);
     _id = 0;
 
-    function Completer($el) {
+    function Completer($el, option) {
       var focus;
       this.el = $el.get(0);  // textarea element
       focus = this.el === document.activeElement;
       this.$el = $el;
       this.id = 'textComplete' + _id++;
       this.strategies = [];
+      this.option = option;
       if (focus) {
         this.initialize();
         this.$el.focus();
@@ -155,15 +156,20 @@
        * Prepare ListView and bind events.
        */
       initialize: function () {
-        var $list, globalEvents;
+        var $list, globalEvents, appendTo;
         $list = $baseList.clone();
         this.listView = new ListView($list, this);
-        this.$el
-          .before($list)
-          .on({
-            'keyup.textComplete': $.proxy(this.onKeyup, this),
-            'keydown.textComplete': $.proxy(this.listView.onKeydown, this.listView)
-          });
+        this.$el.on({
+          'keyup.textComplete': $.proxy(this.onKeyup, this),
+          'keydown.textComplete': $.proxy(this.listView.onKeydown, this.listView)
+        });
+        appendTo = this.option.appendTo;
+        if (appendTo) {
+          // Append ListView to specified element.
+          $list.appendTo(appendTo instanceof $ ? appendTo : $(appendTo));
+        } else {
+          this.$el.before($list);
+        }
         globalEvents = {};
         globalEvents['click.' + this.id] = $.proxy(this.onClickDocument, this);
         globalEvents['keyup.' + this.id] = $.proxy(this.onKeyupDocument, this);
@@ -601,10 +607,11 @@
     return ListView;
   })();
 
-  $.fn.textcomplete = function (strategies) {
+  $.fn.textcomplete = function (strategies, option) {
     var i, l, strategy, dataKey;
 
     dataKey = 'textComplete';
+    option || (option = {});
 
     if (strategies === 'destroy') {
       return this.each(function () {
@@ -632,7 +639,7 @@
       $this = $(this);
       completer = $this.data(dataKey);
       if (!completer) {
-        completer = new Completer($this);
+        completer = new Completer($this, option);
         $this.data(dataKey, completer);
       }
       completer.register(strategies);
