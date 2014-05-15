@@ -344,7 +344,7 @@
        * Returns caret's relative coordinates from textarea's left top corner.
        */
       getCaretRelativePosition: function () {
-        var properties, css, $div, $span, position, dir, scrollbar, range, node;
+        var properties, css, $div, $span, position, dir, scrollbar, range, node, $node;
         if (this.el.contentEditable != 'true') {
           // Browser native API does not provide the way to know the position of
           // caret in pixels, so that here we use a kind of hack to accomplish
@@ -381,8 +381,9 @@
           range.insertNode(node);
           range.selectNodeContents(node);
           range.deleteContents();
-          position = $(node).position();
-          position.top += $(node).height() - this.$el.scrollTop();
+          $node = $(node);
+          position = $node.offset();
+          position.top += $node.height() - this.$el.offset().top;
         }
         dir = this.$el.attr('dir') || this.$el.css('direction');
         if (dir === 'rtl') { position.left -= this.listView.$el.width(); }
