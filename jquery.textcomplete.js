@@ -326,12 +326,12 @@
       // ==============
 
       getCaretPosition: function () {
-        var caretPos, textareaPos;
-        caretPos = this.getCaretRelativePosition();
-        textareaPos = this.$el.position();
-        caretPos.top += textareaPos.top;
-        caretPos.left += textareaPos.left;
-        return caretPos;
+        var caretPosition, textareaOffset;
+        caretPosition = this.getCaretRelativePosition();
+        textareaOffset = this.$el.offset();
+        caretPosition.top += textareaOffset.top;
+        caretPosition.left += textareaOffset.left;
+        return caretPosition;
       },
 
       /**
