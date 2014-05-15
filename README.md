@@ -244,28 +244,6 @@ search: function (term, callback) {
 
 Turn on the `cache` option.
 
-### I want to set the width of textarea in % form.
-
-Apply `display: block` too.
-
-```css
-textarea {
-  width: 100%;
-  display: block; /* Default: inline-block */
-}
-```
-
-If you need `inline-block` textarea for design reason, you have to wrap it by `inline-block` element.
-
-```html
-<div style="width: 70%; display: inline-block">
-  <textarea style="display: block; width: 100%;"></textarea>
-</div>
-<div style="width: 30%;">
-  30% width contents
-</div>
-```
-
 ### I want to send back value / name combos.
 
 Feel free to callback `searchFunc` with an Array of Object. `templateFunc` and `replaceFunc` will be invoked with an element of the array.

@@ -4,10 +4,6 @@
     margin-right: 5px;
 }
 
-.textarea-wrapper {
-    position: relative;
-}
-
 .label {
     position: absolute;
     z-index: 10;

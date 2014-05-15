@@ -114,16 +114,12 @@
    * Textarea manager class.
    */
   var Completer = (function () {
-    var html, css, $baseWrapper, $baseList, _id;
+    var html, css, $baseList, _id;
 
     html = {
-      wrapper: '<div class="textcomplete-wrapper"></div>',
       list: '<ul class="dropdown-menu"></ul>'
     };
     css = {
-      wrapper: {
-        position: 'relative'
-      },
       // Removed the 'top' property to support the placement: 'top' option
       list: {
         position: 'absolute',
@@ -132,7 +128,6 @@
         display: 'none'
       }
     };
-    $baseWrapper = $(html.wrapper).css(css.wrapper);
     $baseList = $(html.list).css(css.list);
     _id = 0;
 
@@ -140,8 +135,7 @@
       var focus;
       this.el = $el.get(0);  // textarea element
       focus = this.el === document.activeElement;
-      // Cannot wrap $el at initialize method lazily due to Firefox's behavior.
-      this.$el = wrapElement($el); // Focus is lost
+      this.$el = $el;
       this.id = 'textComplete' + _id++;
       this.strategies = [];
       if (focus) {
@@ -168,8 +162,7 @@
           .before($list)
           .on({
             'keyup.textComplete': $.proxy(this.onKeyup, this),
-            'keydown.textComplete': $.proxy(this.listView.onKeydown,
-                                            this.listView)
+            'keydown.textComplete': $.proxy(this.listView.onKeydown, this.listView)
           });
         globalEvents = {};
         globalEvents['click.' + this.id] = $.proxy(this.onClickDocument, this);
@@ -319,15 +312,12 @@
       },
 
       /**
-       * Remove all event handlers and the wrapper element.
+       * Remove all event handlers.
        */
       destroy: function () {
-        var $wrapper;
         this.$el.off('.textComplete');
         $(document).off('.' + this.id);
         if (this.listView) { this.listView.destroy(); }
-        $wrapper = this.$el.parent();
-        $wrapper.after(this.$el).remove();
         this.$el.data('textComplete', void 0);
         this.$el = null;
       },
@@ -335,10 +325,19 @@
       // Helper methods
       // ==============
 
+      getCaretPosition: function () {
+        var caretPos, textareaPos;
+        caretPos = this.getCaretRelativePosition();
+        textareaPos = this.$el.position();
+        caretPos.top += textareaPos.top;
+        caretPos.left += textareaPos.left;
+        return caretPos;
+      },
+
       /**
        * Returns caret's relative coordinates from textarea's left top corner.
        */
-      getCaretPosition: function () {
+      getCaretRelativePosition: function () {
         var properties, css, $div, $span, position, dir, scrollbar, range, node;
         if (this.el.contentEditable != 'true') {
           // Browser native API does not provide the way to know the position of
@@ -428,13 +427,6 @@
         this.strategy.search(term, this.searchCallbackFactory(free));
       })
     });
-
-    /**
-     * Completer's private functions
-     */
-    var wrapElement = function ($el) {
-      return $el.wrap($baseWrapper.clone().css('display', $el.css('display')));
-    };
 
     return Completer;
   })();
