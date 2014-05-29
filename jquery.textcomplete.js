@@ -168,7 +168,7 @@
           // Append ListView to specified element.
           $list.appendTo(appendTo instanceof $ ? appendTo : $(appendTo));
         } else {
-          this.$el.before($list);
+          $list.appendTo($('body'));
         }
         globalEvents = {};
         globalEvents['click.' + this.id] = $.proxy(this.onClickDocument, this);
