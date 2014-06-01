@@ -324,7 +324,7 @@
         this.$el.off('.textComplete');
         $(document).off('.' + this.id);
         if (this.listView) { this.listView.destroy(); }
-        this.$el.data('textComplete', void 0);
+        this.$el.removeData('textComplete');
         this.$el = null;
       },
 
