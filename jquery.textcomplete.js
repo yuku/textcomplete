@@ -256,7 +256,7 @@
       },
 
       onSelect: function (value) {
-        var pre, post, newSubStr, sel, range, selection;
+        var pre, post, newSubStr, sel, range, selection, match;
         pre = this.getTextFromHeadToCaret();
 
         if (this.el.contentEditable == 'true') {
@@ -269,7 +269,7 @@
         } else {
           post = this.el.value.substring(this.el.selectionEnd);
         }
-
+        
         newSubStr = this.strategy.replace(value);
         
         if ($.isArray(newSubStr)) {
@@ -277,7 +277,9 @@
           newSubStr = newSubStr[0];
         }
 
-        pre = pre.replace(this.strategy.match, newSubStr);
+        match = pre.match(this.strategy.match);
+		
+        pre = pre.replace(match[this.strategy.index], newSubStr);
         
         if (this.el.contentEditable == 'true') {
           range.selectNodeContents(range.startContainer);
