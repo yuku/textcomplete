@@ -1,6 +1,9 @@
 Autocomplete for Textarea
 =========================
 
+[![Analytics](https://ga-beacon.appspot.com/UA-4932407-14/jquery-textcomplete/readme)](https://github.com/igrigorik/ga-beacon)
+
+
 Introduces autocompleting power to textareas, like a GitHub comment form has.
 
 ![Demo](/media/images/demo.gif)
