@@ -566,6 +566,7 @@
 
       onKeydown: function (e) {
         if (!this.shown) return;
+        var modifiers = e.ctrlKey || e.altKey || e.metaKey || e.shiftKey;
         if (e.keyCode === 38 || (e.ctrlKey && e.keyCode === 80)) {         // UP, or Ctrl-P
           e.preventDefault();
           if (this.index === 0) {
@@ -582,7 +583,7 @@
             this.index += 1;
           }
           this.activateIndexedItem();
-        } else if (e.keyCode === 13 || e.keyCode === 9) {  // ENTER or TAB
+        } else if (!modifiers && (e.keyCode === 13 || e.keyCode === 9)) {  // ENTER or TAB
           e.preventDefault();
           this.select(parseInt(this.getActiveItem().data('index'), 10));
         }
