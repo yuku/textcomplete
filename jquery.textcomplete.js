@@ -224,10 +224,16 @@
        * Keyup event handler.
        */
       onKeyup: function (e) {
-        var searchQuery, term;
         if (this.skipSearch(e)) { return; }
+        this.trigger(this.getTextFromHeadToCaret());
+      },
 
-        searchQuery = this.extractSearchQuery(this.getTextFromHeadToCaret());
+      /**
+       * Public interface for invoking textcomplete.
+       */
+      trigger: function (text) {
+        var searchQuery, term;
+        searchQuery = this.extractSearchQuery(text);
         if (searchQuery.length) {
           term = searchQuery[1];
           if (this.term === term) return; // Ignore shift-key or something.

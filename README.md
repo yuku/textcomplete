@@ -268,6 +268,12 @@ TextComplete is applied to all textareas in the jQuery object.
 $('.commentBody').textcomplete([ /* ... */ ]);
 ```
 
+### How to trigger textcomplete manually?
+
+```js
+$('textarea').data('textComplete').trigger('query');
+```
+
 Todo
 ----
 
