@@ -225,18 +225,21 @@
        */
       onKeyup: function (e) {
         if (this.skipSearch(e)) { return; }
-        this.trigger(this.getTextFromHeadToCaret());
+        this.trigger(null, true);
       },
 
       /**
        * Public interface for invoking textcomplete.
        */
-      trigger: function (text) {
+      trigger: function (text, suppress) {
         var searchQuery, term;
+        text || (text = this.getTextFromHeadToCaret());
         searchQuery = this.extractSearchQuery(text);
         if (searchQuery.length) {
           term = searchQuery[1];
-          if (this.term === term) return; // Ignore shift-key or something.
+          if (suppress && this.term === term) {
+            return; // Ignore shift-key or something.
+          }
           this.term = term;
           this.search(searchQuery);
         } else {
