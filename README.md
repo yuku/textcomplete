@@ -270,8 +270,27 @@ $('.commentBody').textcomplete([ /* ... */ ]);
 
 ### How to trigger textcomplete manually?
 
+Use `trigger` as follows:
+
 ```js
+// Put manual search query.
 $('textarea').data('textComplete').trigger('query');
+
+// Use current texts. It depends on the position of cursor.
+$('textarea').data('textComplete').trigger();
+```
+
+If you want to show textcomplete when a textarea gets focus, `trigger` MUST be called at next tick.
+
+```js
+$('textarea').on('focus', function () {
+    var textComplete = $(this).data('textComplete');
+    // Cursor has not set yet. And wait 100ms to skip global click event.
+    setTimeout(function () {
+        // Cursor is ready.
+        textComplete.trigger();
+    }, 100);
+});
 ```
 
 Todo

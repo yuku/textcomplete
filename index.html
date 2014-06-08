@@ -24,7 +24,7 @@
 
             <h2>Demo</h2>
 
-            <h3>Basic Usage</h3>
+            <h3 id="basic-usage">Basic Usage</h3>
             <div class="textarea-wrapper">
                 <span class="label">#textarea1</span>
                 <textarea id="textarea1" rows="4">:a</textarea>
@@ -68,7 +68,7 @@ $('#textarea1').textcomplete([
 ]);
 </pre>
 
-            <h3>Insert Cursor After Autocomplete</h3>
+            <h3 id="insert-cursor-after-autocomplete">Insert Cursor After Autocomplete</h3>
             <div class="textarea-wrapper">
                 <span class="label">#textarea2</span>
                 <textarea id="textarea2" rows="4">Please input HTML element: </textarea>
@@ -91,7 +91,7 @@ $('#textarea2').textcomplete([
 ]);
 </pre>
 
-            <h3>Use with <a href="http://yuku-t.com/jquery-overlay/" target="_blank">jQuery.overlay</a></h3>
+            <h3 id="use-with-jquery-overlay">Use with <a href="http://yuku-t.com/jquery-overlay/" target="_blank">jQuery.overlay</a></h3>
             <div class="textarea-wrapper">
                 <span class="label">#textarea3</span>
                 <textarea id="textarea3" rows="4">Hey @guys,
@@ -122,7 +122,7 @@ $('#textarea3').textcomplete([
 ]);
 </pre>
 
-            <h3>Apply to Multiple Textareas</h3>
+            <h3 id="apply-to-multiple-textareas">Apply to Multiple Textareas</h3>
             <div class="textarea-wrapper">
                 <span class="label">.textarea4</span>
                 <textarea class="textarea4" rows="4"></textarea>
@@ -149,7 +149,7 @@ $('.textarea4').textcomplete([
 ]);
 </pre>
 
-            <h3>Customizing header, footer</h3>
+            <h3 id="customizing-header-footer">Customizing header, footer</h3>
             <div class="textarea-wrapper">
                 <span class="label">#textarea5</span>
                 <textarea id="textarea5" rows="4">:a</textarea>
@@ -176,9 +176,16 @@ $('#textarea5').textcomplete([
         },
         footer: '&lt;strong style="text-align: center; display: block;"&gt;Footer&lt;/strong&gt;'
     }
-]);
+]).on('focus', function () {
+    var textComplete = $(this).data('textComplete');
+    // Cursor has not set yet. And wait 100ms to skip global click event.
+    setTimeout(function () {
+        // Cursor is ready.
+        textComplete.trigger();
+    }, 100);
+});
 </pre>
-            <h3>Apply to Contenteditables</h3>
+            <h3 id="apply-to-contenteditables">Apply to Contenteditables</h3>
             <div class="textarea-wrapper">
                 <span class="label">.contenteditable1</span>
                 <div class="contenteditable1" contenteditable="true"><b>Look</b> at this <em>glorious</em> contenteditable.</div>
