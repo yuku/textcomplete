@@ -457,6 +457,9 @@
       this.$el = $el;
       this.index = 0;
       this.completer = completer;
+      if (completer.option.listPosition) {
+        this.setPosition = completer.option.listPosition;
+      }
 
       this.$el.on('mousedown.textComplete', 'li.textcomplete-item',
                   $.proxy(this.onClick, this));
