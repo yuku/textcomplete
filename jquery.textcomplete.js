@@ -392,6 +392,7 @@
           range.deleteContents();
           $node = $(node);
           position = $node.offset();
+          position.left -= this.$el.offset().left;
           position.top += $node.height() - this.$el.offset().top;
         }
         dir = this.$el.attr('dir') || this.$el.css('direction');
