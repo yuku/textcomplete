@@ -302,15 +302,19 @@ Todo
 History
 -------
 
+### Jul 2, 2014 - v0.2.4
+
+- Fix horizonal position on contentEditable elements. [[#92]](https://github.com/yuku-t/jquery-textcomplete/pull/92)
+
 ### Jun 24, 2014 - v0.2.3
 
-- Option to supply list view position function. [#88]
+- Option to supply list view position function. [[#88]](https://github.com/yuku-t/jquery-textcomplete/pull/88)
 
 ### Jun 8, 2014 - v0.2.2
 
 - Append dropdown element to body element by default.
 - Tiny refactoring. [#84]
-- Ignore tab key when modifier keys are being pushed. [#85]
+- Ignore tab key when modifier keys are being pushed. [[#85]](https://github.com/yuku-t/jquery-textcomplete/pull/85)
 - Manual triggering.
 
 ### May 15, 2014 - v0.2.1
