@@ -137,7 +137,7 @@ The `option` is an optional Object which MAY have `appendTo`. If `appendTo` is g
 
 ```js
 var option = {
-  appentTo: 'body' // suports Element and jQuery object
+  appendTo: 'body' // suports Element and jQuery object
 };
 ```
 
