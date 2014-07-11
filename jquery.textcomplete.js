@@ -274,14 +274,14 @@
         }
 
         newSubStr = this.strategy.replace(value);
-        
+
         if ($.isArray(newSubStr)) {
           post = newSubStr[1] + post;
           newSubStr = newSubStr[0];
         }
 
         pre = pre.replace(this.strategy.match, newSubStr);
-        
+
         if (this.el.contentEditable == 'true') {
           range.selectNodeContents(range.startContainer);
           range.deleteContents();
@@ -293,7 +293,7 @@
           sel.addRange(range);
         } else {
           this.$el.val(pre + post);
-          this.el.selectionStart = this.el.selectionEnd = pre.length; 
+          this.el.selectionStart = this.el.selectionEnd = pre.length;
         }
 
         this.$el.trigger('change')
@@ -393,7 +393,7 @@
         var text, selectionEnd, range;
         if (this.el.contentEditable == 'true') {
           if (window.getSelection) {
-            // IE9+ and non-IE            
+            // IE9+ and non-IE
             var range = window.getSelection().getRangeAt(0);
             var selection = range.cloneRange();
             selection.selectNodeContents(range.startContainer);
@@ -534,9 +534,9 @@
         var fontSize;
         // If the strategy has the 'placement' option set to 'top', move the
         // position above the element
-		if ((this.$el.width() + position.left) > $(window).width()) {
-			position.left -= this.$el.width();
-		}
+        if ((this.$el.width() + position.left) > $(window).width()) {
+          position.left -= this.$el.width();
+        }
         if(this.strategy.placement === 'top') {
           // Move it to be in line with the match character
           fontSize = parseInt(this.$el.css('font-size'));
