@@ -215,7 +215,6 @@
           if (!keep) {
             // This is the last callback for this search.
             free();
-            //self.clearAtNext = true;
           }
         };
       },
@@ -254,7 +253,7 @@
             return true;
         }
       },
-
+	  
       onSelect: function (data_obj) {
         var pre, post, newSubStr, sel, range, selection, match, value;
 		value = data_obj['val'];
@@ -279,12 +278,12 @@
           newSubStr = newSubStr[0];
         }
 
-       	match = this.getMatches(pre, this.strategy.match, this.strategy.index);
+       	match = this.getMatch(pre, this.strategy.match, this.strategy.index);
 		
 		if (this.strategy.match_replace) {
 			pre = pre.replace(this.strategy.match_replace, newSubStr);
 		} else {
-			pre = pre.replace(new RegExp(match+"$"), newSubStr);
+			pre = pre.replace(new RegExp(RegExp.escape(match)+"$"), newSubStr);
 		}
        
         
@@ -431,10 +430,10 @@
 		var strategies = [];
         for (i = 0, l = this.strategies.length; i < l; i++) {
           strategy = this.strategies[i];
-          match = this.getMatches(text, strategy.match, strategy.index);
+          match = this.getMatch(text, strategy.match, strategy.index);
 		  
           if (match) {
-			  	strategies.push(match[strategy.index]);
+			  	strategies.push(match);
 		  		strategies.push(strategy);
 		  }
 		  
@@ -442,7 +441,7 @@
         return strategies; // 0 - term 1 - strategy... n - term n-1 - strategy
       },
 	  
-	  getMatches: function(string, regex, index) {
+	  getMatch: function(string, regex, index) {
 		  if(!(regex instanceof RegExp)) {
 	          return "ERROR";
 	      }
@@ -479,7 +478,6 @@
 				var term;
 				this.strategy = searchQuery[i+1];
 				term = searchQuery[i];
-				console.log('Search: '+term+" s:"+this.strategy);
 				this.strategy.search(term, this.searchCallbackFactory(free));
 			}
         	this.clearAtNext = true;
@@ -699,3 +697,7 @@
   };
 
 })(window.jQuery || window.Zepto);
+
+RegExp.escape = function(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}

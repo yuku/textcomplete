@@ -209,13 +209,13 @@ $('.contenteditable1').textcomplete([
 			$('#multistrategy').textcomplete([
 			    { // tech companies
 			        words: ['Apple', 'Microsoft', 'Google', 'Samsung', 'Ibm', 'Yahoo', 'Amazon'],
-			        match: /(?:^|\s)(\w+)$/im,
+			        match: /(?:^|\s)(\w+)$/im, //Example 
 			        search: function (term, callback) {
 			            callback($.map(this.words, function (word) {
 			                return word.indexOf(term) === 0 ? word : null;
 			            }));
 			        },
-			        index: 1,
+			        index: 0,
 			        replace: function (word) {
 			            return word + '&nbsp;';
 			        },
