@@ -32,7 +32,7 @@
 <pre class="brush: js; script">
 $('#textarea1').textcomplete([
     { // emoji strategy
-        match: /\B:([\-+\w]*)$/,
+        match: /\B:([\-+\w]*)$/g,
         search: function (term, callback) {
             callback($.map(emojies, function (emoji) {
                 return emoji.indexOf(term) === 0 ? emoji : null;
@@ -42,9 +42,9 @@ $('#textarea1').textcomplete([
             return '&lt;img src="media/images/emoji/' + value + '.png"&gt;&lt;/img&gt;' + value;
         },
         replace: function (value) {
-            return ':' + value + ': ';
+            return value + ': ';
         },
-        index: 1,
+        index: 0,
         maxCount: 5
     }
 ]);
@@ -53,13 +53,13 @@ $('#textarea1').textcomplete([
 $('#textarea1').textcomplete([
     { // tech companies
         words: ['apple', 'google', 'facebook', 'github'],
-        match: /\b(\w{2,})$/,
+        match: /\b(\w{2,})$/g,
         search: function (term, callback) {
             callback($.map(this.words, function (word) {
                 return word.indexOf(term) === 0 ? word : null;
             }));
         },
-        index: 1,
+        index: 0,
         replace: function (word) {
             return word + ' ';
         },
@@ -83,9 +83,9 @@ $('#textarea2').textcomplete([
                 return element.indexOf(term) === 0 ? element : null;
             }));
         },
-        index: 1,
+        index: 0,
         replace: function (element) {
-            return ['&lt;' + element + '&gt;', '&lt;/' + element + '&gt;'];
+            return [element + '&gt;', '&lt;/' + element + '&gt;'];
         }
     }
 ]);
@@ -107,9 +107,9 @@ $('#textarea3').textcomplete([
                 return mention.indexOf(term) === 0 ? mention : null;
             }));
         },
-        index: 1,
+        index: 0,
         replace: function (mention) {
-            return '@' + mention + ' ';
+            return mention + ' ';
         }
     }
 ], { appendTo: 'body' }).overlay([
@@ -141,7 +141,7 @@ $('.textarea4').textcomplete([
                 return word.indexOf(term) === 0 ? word : null;
             }));
         },
-        index: 1,
+        index: 0,
         replace: function (word) {
             return word + ' ';
         }
@@ -167,9 +167,9 @@ $('#textarea5').textcomplete([
             return '&lt;img src="media/images/emoji/' + value + '.png"&gt;&lt;/img&gt;' + value;
         },
         replace: function (value) {
-            return ':' + value + ': ';
+            return value + ': ';
         },
-        index: 1,
+        index: 0,
         maxCount: 5,
         header: function (data) {
           return '&lt;strong style="text-align: center; display: block;"&gt;' + data.length + '&lt;/strong&gt;';
@@ -193,7 +193,7 @@ $('.contenteditable1').textcomplete([
                 return word.indexOf(term) === 0 ? word : null;
             }));
         },
-        index: 1,
+        index: 0,
         replace: function (word) {
             return word + '&nbsp;';
         }
@@ -206,9 +206,6 @@ $('.contenteditable1').textcomplete([
                 <textarea id="multistrategy" rows="4"></textarea>
             </div>
 			<pre class="brush: js; script">
-				var elements = {"SELECT":{'complete-before':'SELECT ','complete-after':'','class':'kw-main'},"LIMIT":{'complete-before':'LIMIT ','complete-after':'','class':'kw-main'},"WHERE":{'complete-before':'WHERE { \n  ','complete-after':'\n}','class':'kw-main'},"DISTINCT":{'class':'kw-submain','complete-before':'DISTINCT ','complete-after':''},"FILTER":{'complete-before':'FILTER ( ','complete-after':' )','class':'kw-main'},"FILTER-REGEX":{'complete-before':'FILTER regex( ','complete-after':' )','class':'kw-main'}}
-				var terms = ["BASE","SELECT","ORDER BY","FROM","GRAPH","STR","isURI","PREFIX","CONSTRUCT","LIMIT","FROM NAMED","OPTIONAL","LANG","isIRI","DESCRIBE","OFFSET","WHERE","UNION","LANGMATCHES","isLITERAL","ASK","DISTINCT","FILTER","FILTER-REGEX","DATATYPE","REGEX","REDUCED","a","BOUND","true","sameTERM","false"];
-				
 			$('#multistrategy').textcomplete([
 			    { // tech companies
 			        words: ['Apple', 'Microsoft', 'Google', 'Samsung', 'Ibm', 'Yahoo', 'Amazon'],
@@ -231,7 +228,7 @@ $('.contenteditable1').textcomplete([
 			                return word.indexOf(term) === 0 ? word : null;
 			            }));
 			        },
-			        index: 1,
+			        index: 0,
 			        replace: function (word) {
 			            return word + '&nbsp;';
 			        },
@@ -244,43 +241,13 @@ $('.contenteditable1').textcomplete([
 			                return word.indexOf(term) === 0 ? word : null;
 			            }));
 			        },
-			        index: 1,
+			        index: 0,
 			        replace: function (word) {
 			            return word + '&nbsp;';
 			        },
 					header: "News Companies"
-			    },
-				{ // specific test
-					words: ['?subject', '?verb', '?object'],
-					match: /(\?\w*)$/im,
-					search: function (term, callback) {
-			            callback($.map(this.words, function (word) {
-			                return word.indexOf(term) === 0 ? word : null;
-			            }));
-			        },
-			        index: 1,
-			        replace: function (word) {
-			            return word + '&nbsp;';
-			        },
-					header: "Variables"
-				},{ // Keywords
-	        match: /\b(\w{1,})$/im ,
-	        search: function (term, callback) {
-	            callback($.map(terms, function (element) {
-	                return element.indexOf(term.toUpperCase()) === 0 ? element : null;
-	            }));
-	        },
-	        index: 1,
-	        replace: function (element) {
-				if (elements[element]) {
-	            	return [elements[element]['complete-before'], elements[element]['complete-after']];
-				} else {
-					return element + " ";
-				}
-	        },
-			 header: "Keywords"
-		}
-			]);
+			    }
+				]);
 			</pre>
             <h2>License</h2>
             <p>

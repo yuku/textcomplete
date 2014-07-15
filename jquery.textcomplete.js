@@ -279,11 +279,14 @@
           newSubStr = newSubStr[0];
         }
 
-        match = pre.match(this.strategy.match);
+       	match = this.getMatches(pre, this.strategy.match, this.strategy.index);
 		
-		console.log('Pre: '+pre+" Match:"+match+" Post:"+post+" strategy.match:"+this.strategy.match);
-		
-        pre = pre.replace(this.strategy.match, newSubStr);
+		if (this.strategy.match_replace) {
+			pre = pre.replace(this.strategy.match_replace, newSubStr);
+		} else {
+			pre = pre.replace(new RegExp(match+"$"), newSubStr);
+		}
+       
         
         if (this.el.contentEditable == 'true') {
           range.selectNodeContents(range.startContainer);
@@ -428,7 +431,7 @@
 		var strategies = [];
         for (i = 0, l = this.strategies.length; i < l; i++) {
           strategy = this.strategies[i];
-          match = text.match(strategy.match);
+          match = this.getMatches(text, strategy.match, strategy.index);
 		  
           if (match) {
 			  	strategies.push(match[strategy.index]);
@@ -438,6 +441,38 @@
 	  	 }
         return strategies; // 0 - term 1 - strategy... n - term n-1 - strategy
       },
+	  
+	  getMatches: function(string, regex, index) {
+		  if(!(regex instanceof RegExp)) {
+	          return "ERROR";
+	      }
+	      else {
+	          if (!regex.global) {
+	              // If global flag not set, create new one.
+	              var flags = "g";
+	              if (regex.ignoreCase) flags += "i";
+	              if (regex.multiline) flags += "m";
+	              if (regex.sticky) flags += "y";
+	              regex = RegExp(regex.source, flags);
+	          }
+	      }
+	      var matches = [];
+	      var match = regex.exec(string);
+	      while (match) {
+	          if (match.length > 2) {
+	              var group_matches = [];
+	              for (var i = 1; i < match.length; i++) {
+	                  group_matches.push(match[i]);
+	              }
+	              matches.push(group_matches);
+	          }
+	          else {
+	              matches.push(match[1]);
+	          }
+	          match = regex.exec(string);
+	      }
+	      return matches[index];
+	  },
 
       search: lock(function (free, searchQuery) {
 			for (var i=0; i < searchQuery.length; i+=2) {
