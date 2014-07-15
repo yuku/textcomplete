@@ -200,6 +200,55 @@ $('.contenteditable1').textcomplete([
     }
 ]);
 </pre>
+            <h3>Apply to Multiple Strategies</h3>
+            <div class="textarea-wrapper">
+                <span class="label">#multistrategy</span>
+                <textarea id="multistrategy" rows="4"></textarea>
+            </div>
+			<pre class="brush: js; script">
+			$('#multistrategy').textcomplete([
+			    { // tech companies
+			        words: ['Apple', 'Microsoft', 'Google', 'Samsung', 'Ibm', 'Yahoo', 'Amazon'],
+			        match: /\b(\w{1,})$/,
+			        search: function (term, callback) {
+			            callback($.map(this.words, function (word) {
+			                return word.indexOf(term) === 0 ? word : null;
+			            }));
+			        },
+			        index: 1,
+			        replace: function (word) {
+			            return word + '&nbsp;';
+			        },
+					header: "Tech Companies"
+			    },{ // soap companies
+			        words: ['Dove', 'Aveno', 'Clear', 'L`Oreal'],
+			        match: /\b(\w{1,})$/,
+			        search: function (term, callback) {
+			            callback($.map(this.words, function (word) {
+			                return word.indexOf(term) === 0 ? word : null;
+			            }));
+			        },
+			        index: 1,
+			        replace: function (word) {
+			            return word + '&nbsp;';
+			        },
+					header: "Soap Companies"
+			    },{ // news companies
+			        words: ['CNN', 'NBC', 'ABC', 'NewsWeek', 'New Yorker'],
+			        match: /\b(\w{1,})$/,
+			        search: function (term, callback) {
+			            callback($.map(this.words, function (word) {
+			                return word.indexOf(term) === 0 ? word : null;
+			            }));
+			        },
+			        index: 1,
+			        replace: function (word) {
+			            return word + '&nbsp;';
+			        },
+					header: "News Companies"
+			    }
+			]);
+			</pre>
             <h2>License</h2>
             <p>
                 MIT

@@ -215,7 +215,7 @@
           if (!keep) {
             // This is the last callback for this search.
             free();
-            self.clearAtNext = true;
+            //self.clearAtNext = true;
           }
         };
       },
@@ -229,7 +229,7 @@
 
         searchQuery = this.extractSearchQuery(this.getTextFromHeadToCaret());
         if (searchQuery.length) {
-          term = searchQuery[1];
+          term = searchQuery[0];
           if (this.term === term) return; // Ignore shift-key or something.
           this.term = term;
           this.search(searchQuery);
@@ -421,19 +421,29 @@
        */
       extractSearchQuery: function (text) {
         var i, l, strategy, match;
+		var strategies = [];
         for (i = 0, l = this.strategies.length; i < l; i++) {
           strategy = this.strategies[i];
           match = text.match(strategy.match);
-          if (match) { return [strategy, match[strategy.index]]; }
-        }
-        return [];
+		  
+          if (match) {
+			  	strategies.push(match[strategy.index]);
+		  		strategies.push(strategy);
+		  }
+		  
+	  	 }
+        return strategies; // 0 - term 1 - strategy... n - term n-1 - strategy
       },
 
       search: lock(function (free, searchQuery) {
-        var term;
-        this.strategy = searchQuery[0];
-        term = searchQuery[1];
-        this.strategy.search(term, this.searchCallbackFactory(free));
+			for (var i=0; i < searchQuery.length; i+=2) {
+				var term;
+				this.strategy = searchQuery[i+1];
+				term = searchQuery[i];
+				console.log('Search: '+term+" s:"+this.strategy);
+				this.strategy.search(term, this.searchCallbackFactory(free));
+			}
+        	this.clearAtNext = true;
       })
     });
 
