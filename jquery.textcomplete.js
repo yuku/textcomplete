@@ -255,8 +255,10 @@
         }
       },
 
-      onSelect: function (value) {
-        var pre, post, newSubStr, sel, range, selection, match;
+      onSelect: function (data_obj) {
+        var pre, post, newSubStr, sel, range, selection, match, value;
+		value = data_obj['val'];
+		this.strategy = data_obj['strategy'];
         pre = this.getTextFromHeadToCaret();
 
         if (this.el.contentEditable == 'true') {
@@ -279,7 +281,9 @@
 
         match = pre.match(this.strategy.match);
 		
-        pre = pre.replace(match[this.strategy.index], newSubStr);
+		console.log('Pre: '+pre+" Match:"+match+" Post:"+post+" strategy.match:"+this.strategy.match);
+		
+        pre = pre.replace(this.strategy.match, newSubStr);
         
         if (this.el.contentEditable == 'true') {
           range.selectNodeContents(range.startContainer);
@@ -486,7 +490,7 @@
           val = data[i];
           if (include(this.data, val)) continue;
           index = this.data.length;
-          this.data.push(val);
+          this.data.push({'val':val,'strategy':this.strategy});
           html += '<li class="textcomplete-item" data-index="' + index + '"><a>';
           html +=   this.strategy.template(val);
           html += '</a></li>';

@@ -206,10 +206,13 @@ $('.contenteditable1').textcomplete([
                 <textarea id="multistrategy" rows="4"></textarea>
             </div>
 			<pre class="brush: js; script">
+				var elements = {"SELECT":{'complete-before':'SELECT ','complete-after':'','class':'kw-main'},"LIMIT":{'complete-before':'LIMIT ','complete-after':'','class':'kw-main'},"WHERE":{'complete-before':'WHERE { \n  ','complete-after':'\n}','class':'kw-main'},"DISTINCT":{'class':'kw-submain','complete-before':'DISTINCT ','complete-after':''},"FILTER":{'complete-before':'FILTER ( ','complete-after':' )','class':'kw-main'},"FILTER-REGEX":{'complete-before':'FILTER regex( ','complete-after':' )','class':'kw-main'}}
+				var terms = ["BASE","SELECT","ORDER BY","FROM","GRAPH","STR","isURI","PREFIX","CONSTRUCT","LIMIT","FROM NAMED","OPTIONAL","LANG","isIRI","DESCRIBE","OFFSET","WHERE","UNION","LANGMATCHES","isLITERAL","ASK","DISTINCT","FILTER","FILTER-REGEX","DATATYPE","REGEX","REDUCED","a","BOUND","true","sameTERM","false"];
+				
 			$('#multistrategy').textcomplete([
 			    { // tech companies
 			        words: ['Apple', 'Microsoft', 'Google', 'Samsung', 'Ibm', 'Yahoo', 'Amazon'],
-			        match: /\b(\w{1,})$/,
+			        match: /(?:^|\s)(\w+)$/im,
 			        search: function (term, callback) {
 			            callback($.map(this.words, function (word) {
 			                return word.indexOf(term) === 0 ? word : null;
@@ -246,7 +249,37 @@ $('.contenteditable1').textcomplete([
 			            return word + '&nbsp;';
 			        },
 					header: "News Companies"
-			    }
+			    },
+				{ // specific test
+					words: ['?subject', '?verb', '?object'],
+					match: /(\?\w*)$/im,
+					search: function (term, callback) {
+			            callback($.map(this.words, function (word) {
+			                return word.indexOf(term) === 0 ? word : null;
+			            }));
+			        },
+			        index: 1,
+			        replace: function (word) {
+			            return word + '&nbsp;';
+			        },
+					header: "Variables"
+				},{ // Keywords
+	        match: /\b(\w{1,})$/im ,
+	        search: function (term, callback) {
+	            callback($.map(terms, function (element) {
+	                return element.indexOf(term.toUpperCase()) === 0 ? element : null;
+	            }));
+	        },
+	        index: 1,
+	        replace: function (element) {
+				if (elements[element]) {
+	            	return [elements[element]['complete-before'], elements[element]['complete-after']];
+				} else {
+					return element + " ";
+				}
+	        },
+			 header: "Keywords"
+		}
 			]);
 			</pre>
             <h2>License</h2>
