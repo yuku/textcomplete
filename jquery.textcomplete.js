@@ -5,6 +5,9 @@
  * License:     MIT
  * Author:      Yuku Takahashi
  */
+RegExp.escape = function(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
 
 ;(function ($) {
 
@@ -697,7 +700,3 @@
   };
 
 })(window.jQuery || window.Zepto);
-
-RegExp.escape = function(text) {
-    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-}
