@@ -265,10 +265,11 @@
       },
 
       onSelect: function (value) {
-        var pre, post, newSubStr, sel, range, selection;
+        var pre, post, newSubStr, sel, range, selection, remainder;
         pre = this.getTextFromHeadToCaret();
+        remainder = pre.length;
 
-        if (this.el.contentEditable == 'true') {
+        if (this.el.isContentEditable) {
           sel = window.getSelection();
           range = sel.getRangeAt(0);
           selection = range.cloneRange();
@@ -280,26 +281,26 @@
         }
 
         newSubStr = this.strategy.replace(value);
-        
+
         if ($.isArray(newSubStr)) {
           post = newSubStr[1] + post;
           newSubStr = newSubStr[0];
         }
 
         pre = pre.replace(this.strategy.match, newSubStr);
-        
-        if (this.el.contentEditable == 'true') {
-          range.selectNodeContents(range.startContainer);
-          range.deleteContents();
-          var node = document.createTextNode(pre + post);
-          range.insertNode(node);
-          range.setStart(node, pre.length);
-          range.collapse(true);
-          sel.removeAllRanges();
-          sel.addRange(range);
+        remainder = remainder - pre.length;
+
+        if (this.el.isContentEditable) {
+          for (var x = 0; x < remainder; ++x) {
+             document.execCommand('delete', false);
+          }
+
+          if (post) {
+             document.execCommand('insertHTML', false, post);
+          }
         } else {
           this.$el.val(pre + post);
-          this.el.selectionStart = this.el.selectionEnd = pre.length; 
+          this.el.selectionStart = this.el.selectionEnd = pre.length;
         }
 
         this.$el.trigger('change')
@@ -354,7 +355,7 @@
        */
       getCaretRelativePosition: function () {
         var properties, css, $div, $span, position, dir, scrollbar, range, node, $node;
-        if (this.el.contentEditable != 'true') {
+        if (!this.el.isContentEditable) {
           // Browser native API does not provide the way to know the position of
           // caret in pixels, so that here we use a kind of hack to accomplish
           // the aim. First of all it puts a div element and completely copies
@@ -402,9 +403,9 @@
 
       getTextFromHeadToCaret: function () {
         var text, selectionEnd, range;
-        if (this.el.contentEditable == 'true') {
+        if (this.el.isContentEditable) {
           if (window.getSelection) {
-            // IE9+ and non-IE            
+            // IE9+ and non-IE
             var range = window.getSelection().getRangeAt(0);
             var selection = range.cloneRange();
             selection.selectNodeContents(range.startContainer);
@@ -473,7 +474,7 @@
         var html, i, l, index, val, str;
 
         html = '';
-        
+
         if(this.strategy.header) {
           if ($.isFunction(this.strategy.header)) {
             str = this.strategy.header(data);
