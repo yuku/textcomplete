@@ -551,7 +551,7 @@
         var fontSize;
         // If the strategy has the 'placement' option set to 'top', move the
         // position above the element
-        if(this.strategy.placement === 'top') {
+        if(this.strategy.placement.indexOf('top') > -1) {
           // Move it to be in line with the match character
           fontSize = parseInt(this.$el.css('font-size'));
           // Overwrite the position object to set the 'bottom' property instead of the top.
@@ -565,6 +565,16 @@
           // strategy is shown, $el keeps the property.
           position.bottom = 'auto';
         }
+
+        if (this.strategy.placement.indexOf('absleft') > -1) {
+          position.left = 0;
+        }
+
+        if (this.strategy.placement.indexOf('absright') > -1) {
+          position.right = 0;
+          position.left = 'auto';
+        }
+
         this.$el.css(position);
         return this;
       },
