@@ -156,7 +156,7 @@
        * Prepare ListView and bind events.
        */
       initialize: function () {
-        var $list, globalEvents, appendTo;
+        var $list, globalEvents, appendTo, height;
         $list = $baseList.clone();
         this.listView = new ListView($list, this);
         this.$el.on({
@@ -169,6 +169,11 @@
           $list.appendTo(appendTo instanceof $ ? appendTo : $(appendTo));
         } else {
           $list.appendTo($('body'));
+        }
+        height = this.option.height;
+        if (height) {
+          $list.css("overflow-y", "auto");
+          $list.height(height);
         }
         globalEvents = {};
         globalEvents['click.' + this.id] = $.proxy(this.onClickDocument, this);
@@ -464,6 +469,8 @@
 
       this.$el.on('mousedown.textComplete', 'li.textcomplete-item',
                   $.proxy(this.onClick, this));
+      this.$el.on('mouseover.textComplete', 'li.textcomplete-item',
+                  $.proxy(this.onMouseover, this));
     }
 
     $.extend(ListView.prototype, {
@@ -508,6 +515,7 @@
           this.deactivate();
         } else {
           this.activateIndexedItem();
+          this.setScroll();
         }
       },
 
@@ -579,6 +587,19 @@
         return this;
       },
 
+      setScroll: function (e) {
+        var $activeItem = this.getActiveItem();
+        var itemTop = $activeItem.position().top;
+        var itemHeight = $activeItem.outerHeight();
+        var visibleHeight = this.$el.innerHeight();
+        var visibleTop = this.$el.scrollTop();
+        if (this.index === 0 || this.index === this.data.length - 1 || itemTop < 0) {
+          this.$el.scrollTop(itemTop + visibleTop);
+        } else if (itemTop + itemHeight > visibleHeight) {
+          this.$el.scrollTop(itemTop + itemHeight + visibleTop - visibleHeight);
+        }
+      },
+
       select: function (index) {
         var self = this;
         this.completer.onSelect(this.data[index]);
@@ -598,6 +619,7 @@
             this.index -= 1;
           }
           this.activateIndexedItem();
+          this.setScroll();
         } else if (e.keyCode === 40 || (e.ctrlKey && e.keyCode === 78)) {  // DOWN, or Ctrl-N
           e.preventDefault();
           if (this.index === this.data.length - 1) {
@@ -606,9 +628,38 @@
             this.index += 1;
           }
           this.activateIndexedItem();
+          this.setScroll();
         } else if (!modifiers && (e.keyCode === 13 || e.keyCode === 9)) {  // ENTER or TAB
           e.preventDefault();
           this.select(parseInt(this.getActiveItem().data('index'), 10));
+        }
+        else if (e.keyCode === 33) {                                       // PAGEUP
+          e.preventDefault();
+          var target = 0;
+          var threshold = this.getActiveItem().position().top - this.$el.innerHeight();
+          this.$el.children().each(function (i) {
+            if ($(this).position().top + $(this).outerHeight() > threshold) {
+              target = i;
+              return false;
+            }
+          });
+          this.index = target;
+          this.activateIndexedItem();
+          this.setScroll();
+        }
+        else if (e.keyCode === 34) {                                       // PAGEDOWN
+          e.preventDefault();
+          var target = this.data.length - 1;
+          var threshold = this.getActiveItem().position().top + this.$el.innerHeight();
+          this.$el.children().each(function (i) {
+            if ($(this).position().top > threshold) {
+              target = i;
+              return false;
+            }
+          });
+          this.index = target;
+          this.activateIndexedItem();
+          this.setScroll();
         }
       },
 
@@ -620,6 +671,16 @@
           $e = $e.parents('li.textcomplete-item');
         }
         this.select(parseInt($e.data('index'), 10));
+      },
+
+      onMouseover: function (e){
+        var $e = $(e.target);
+        e.preventDefault();
+        if(!$e.hasClass('textcomplete-item')) {
+          $e = $e.parents('li.textcomplete-item');
+        }
+        this.index = parseInt($e.data('index'), 10)
+        this.activateIndexedItem();
       },
 
       destroy: function () {
