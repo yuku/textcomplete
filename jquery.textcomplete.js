@@ -166,9 +166,9 @@
         appendTo = this.option.appendTo;
         if (appendTo) {
           // Append ListView to specified element.
-          $list.appendTo(appendTo instanceof $ ? appendTo : $(appendTo));
+          this.listView.appendTo(appendTo instanceof $ ? appendTo : $(appendTo));
         } else {
-          $list.appendTo($('body'));
+          this.listView.appendTo($('body'));
         }
         height = this.option.height;
         if (height) {
@@ -688,6 +688,10 @@
         this.deactivate();
         this.$el.off('click.textComplete').remove();
         this.$el = null;
+      },
+
+      appendTo: function ($el) {
+        $el.css({ position: 'relative' }).append(this.$el)
       }
     });
 
