@@ -715,6 +715,9 @@
       if (strategy.index == null) {
         strategy.index = 2;
       }
+      if (strategy.placement == null) {
+        strategy.placement = '';
+      }
       if (strategy.cache) {
         strategy.search = memoize(strategy.search);
       }
