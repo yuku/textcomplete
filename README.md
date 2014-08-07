@@ -55,13 +55,13 @@ var strategy = {
   search:    searchFunc,
   replace:   replaceFunc,
 
-  // Optional
+  // Optional                 // Default
   index:     indexNumber,     // 2
   maxCount:  maxCountNumber,  // 10
   template:  templateFunc,    // function (value) { return value; }
   cache:     cacheBoolean,    // false
-  placement: placementStr     // undefined
-  header:    headerStrOrFunc  // undefined
+  placement: placementStr,    // ''
+  header:    headerStrOrFunc, // undefined
   footer:    footerStrOrFunc  // undefined
 }
 ```
@@ -127,17 +127,18 @@ var replaceFunc = function (value) {
 };
 ```
 
-`placementStr` accepts only 'top' and which will cause the drop-down menu to render above the caret instead of below it.
+If `placementStr` includes 'top', it positions the drop-down to above the caret. If `placementStr` includes 'absleft' and 'absright', it positions the drop-down absolutely to the very left and right respectively. You can mix them.
 
 ```js
-var placementStr = 'top';
+var placementStr = 'top|absleft';
 ```
 
-The `option` is an optional Object which MAY have `appendTo`. If `appendTo` is given, the element of dropdown is appended into the specified element.
+The `option` is an optional Object which MAY have `appendTo` and `height`. If `appendTo` is given, the element of dropdown is appended into the specified element. If `height` is given, the dropdown element's height will be fixed.
 
 ```js
 var option = {
   appendTo: 'body' // supports Element and jQuery object
+  height:   100
 };
 ```
 
@@ -301,6 +302,12 @@ Todo
 
 History
 -------
+
+### Aug 7, 2014 - v0.2.5
+
+- Enhance contenteditable support. [[#98]](https://github.com/yuku-t/jquery-textcomplete/pull/98) (Thanks for @mikol)
+- Support absolute left/right placement. [[#96]](https://github.com/yuku-t/jquery-textcomplete/pull/96) (Thanks for @ericktai)
+- Support absolute height, scrollbar, pageup and pagedown. [[#87]](https://github.com/yuku-t/jquery-textcomplete/pull/87) (Thanks for @alan2wong)
 
 ### Jul 2, 2014 - v0.2.4
 
