@@ -305,9 +305,9 @@ History
 
 ### Aug 7, 2014 - v0.2.5
 
-- Enhance contenteditable support. [[#98]](https://github.com/yuku-t/jquery-textcomplete/pull/98) (Thanks for @mikol)
-- Support absolute left/right placement. [[#96]](https://github.com/yuku-t/jquery-textcomplete/pull/96) (Thanks for @ericktai)
-- Support absolute height, scrollbar, pageup and pagedown. [[#87]](https://github.com/yuku-t/jquery-textcomplete/pull/87) (Thanks for @alan2wong)
+- Enhance contenteditable support. [[#98]](https://github.com/yuku-t/jquery-textcomplete/pull/98) (Thanks for [@mikol](https://github.com/mikol))
+- Support absolute left/right placement. [[#96]](https://github.com/yuku-t/jquery-textcomplete/pull/96) (Thanks for [@ericktai](https://github.com/ericktai))
+- Support absolute height, scrollbar, pageup and pagedown. [[#87]](https://github.com/yuku-t/jquery-textcomplete/pull/87) (Thanks for [@alan2wong](https://github.com/alan2wong))
 
 ### Jul 2, 2014 - v0.2.4
 
