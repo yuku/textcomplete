@@ -6,7 +6,7 @@ Autocomplete for Textarea
 
 Introduces autocompleting power to textareas, like a GitHub comment form has.
 
-![Demo](/media/images/demo.gif)
+![Demo](http://yuku-t.com/jquery-textcomplete/media/images/demo.gif)
 
 [Demo](http://yuku-t.com/jquery-textcomplete/).
 
