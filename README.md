@@ -303,6 +303,10 @@ Todo
 History
 -------
 
+### Aug 16, 2014 - v0.2.6
+
+- Repair contenteditable.
+
 ### Aug 7, 2014 - v0.2.5
 
 - Enhance contenteditable support. [[#98]](https://github.com/yuku-t/jquery-textcomplete/pull/98) (Thanks for [@mikol](https://github.com/mikol))
