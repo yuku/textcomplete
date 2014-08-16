@@ -293,16 +293,16 @@
         }
 
         pre = pre.replace(this.strategy.match, newSubStr);
-        remainder = remainder - pre.length;
 
         if (this.el.isContentEditable) {
-          for (var x = 0; x < remainder; ++x) {
-             document.execCommand('delete', false);
-          }
-
-          if (post) {
-             document.execCommand('insertHTML', false, post);
-          }
+          range.selectNodeContents(range.startContainer);
+          range.deleteContents();
+          var node = document.createTextNode(pre + post);
+          range.insertNode(node);
+          range.setStart(node, pre.length);
+          range.collapse(true);
+          sel.removeAllRanges();
+          sel.addRange(range);
         } else {
           this.$el.val(pre + post);
           this.el.selectionStart = this.el.selectionEnd = pre.length;
