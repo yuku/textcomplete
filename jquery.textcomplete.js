@@ -508,7 +508,9 @@
           } else {
             str = this.strategy.footer;
           }
-          html += '<li class="textcomplete-footer">' + str + '</li>';
+          if (str) {
+            html += '<li class="textcomplete-footer">' + str + '</li>';
+          }
         }
 
         this.$el.append(html);
