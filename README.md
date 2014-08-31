@@ -1,6 +1,7 @@
 Autocomplete for Textarea
 =========================
 
+[![Bower version](https://badge.fury.io/bo/jquery-textcomplete.svg)](http://badge.fury.io/bo/jquery-textcomplete)
 [![Analytics](https://ga-beacon.appspot.com/UA-4932407-14/jquery-textcomplete/readme)](https://github.com/igrigorik/ga-beacon)
 
 
@@ -32,7 +33,7 @@ jQuery MUST be loaded ahead.
 Then `jQuery.fn.textcomplete` is defined. The method MUST be called for textarea elements or contenteditable elements.
 
 ```js
-$('textarea').textcomplete(strategies, option);
+$('textarea').textcomplete(strategies, option);  // Recommended.
 // $('[contenteditable="true"]').textcomplete(strategies, option);
 ```
 
@@ -46,7 +47,7 @@ var strategies = [
 ];
 ```
 
-The `strategy` is an Object which MUST have `match`, `search` and `replace` and MAY have `index`, `maxCount`, `template`, `cache`, `placement`, `header` and `footer`.
+The `strategy` is an Object which MUST have `match`, `search` and `replace` and MAY have `index`, `template` and `cache`.
 
 ```js
 var strategy = {
@@ -57,12 +58,8 @@ var strategy = {
 
   // Optional                 // Default
   index:     indexNumber,     // 2
-  maxCount:  maxCountNumber,  // 10
   template:  templateFunc,    // function (value) { return value; }
-  cache:     cacheBoolean,    // false
-  placement: placementStr,    // ''
-  header:    headerStrOrFunc, // undefined
-  footer:    footerStrOrFunc  // undefined
+  cache:     cacheBoolean     // false
 }
 ```
 
@@ -77,8 +74,6 @@ var indexNumber = 2;
 The `searchFunc` MUST be a Function which gets two arguments, `term` and `callback`. It MUST invoke `callback` with an Array. It is guaranteed that the function will be invoked exclusively even though it contains async call.
 
 If you want to execute `callback` multiple times per a search, you SHOULD give `true` to the second argument while additional execution remains. This is useful to use data located at both local and remote. Note that you MUST invoke `callback` without truthy second argument at least once per a search.
-
-The `maxCountNumber` MUST be a Number and default to 10. Even if `searchFunc` callbacks with large array, the array will be truncated into `maxCountNumber` elements.
 
 The `cacheBoolean` MUST be a Boolean. It defaults to `false`. If it is `true` the `searchFunc` will be memoized by `term` argument. This is useful to prevent excessive API access.
 
@@ -127,19 +122,25 @@ var replaceFunc = function (value) {
 };
 ```
 
+The `option` is an optional Object which MAY have `appendTo`, `height` , `maxCount`, `placement`, `header` and `footer`. If `appendTo` is given, the element of dropdown is appended into the specified element. If `height` is given, the dropdown element's height will be fixed.
+
+```js
+var option = {
+  appendTo:  appendToElement, // $('body')
+  height:    heightNumber,    // undefined
+  maxCount:  maxCountNumber,  // 10
+  placement: placementStr,    // ''
+  header:    headerStrOrFunc, // undefined
+  footer:    footerStrOrFunc  // undefined
+};
+```
+
+The `maxCountNumber` MUST be a Number and default to 10. Even if `searchFunc` callbacks with large array, the array will be truncated into `maxCountNumber` elements.
+
 If `placementStr` includes 'top', it positions the drop-down to above the caret. If `placementStr` includes 'absleft' and 'absright', it positions the drop-down absolutely to the very left and right respectively. You can mix them.
 
 ```js
 var placementStr = 'top|absleft';
-```
-
-The `option` is an optional Object which MAY have `appendTo` and `height`. If `appendTo` is given, the element of dropdown is appended into the specified element. If `height` is given, the dropdown element's height will be fixed.
-
-```js
-var option = {
-  appendTo: 'body' // supports Element and jQuery object
-  height:   100
-};
 ```
 
 Finally, if you want to stop autocompleting, give `'destroy'` to `textcomplete` method as follows:
@@ -208,7 +209,7 @@ textComplete fires a number of events.
 $('#textarea')
     .textcomplete([/* ... */])
     .on({
-        'textComplete:select': function (e, value) {
+        'textComplete:select': function (e, value, strategy) {
             alert(value);
         },
         'textComplete:show': function (e) {
@@ -275,21 +276,21 @@ Use `trigger` as follows:
 
 ```js
 // Put manual search query.
-$('textarea').data('textComplete').trigger('query');
+$('textarea').textcomplete('trigger', 'query');
 
 // Use current texts. It depends on the position of cursor.
-$('textarea').data('textComplete').trigger();
+$('textarea').textcomplete('trigger');
 ```
 
 If you want to show textcomplete when a textarea gets focus, `trigger` MUST be called at next tick.
 
 ```js
 $('textarea').on('focus', function () {
-    var textComplete = $(this).data('textComplete');
+    var element = this;
     // Cursor has not set yet. And wait 100ms to skip global click event.
     setTimeout(function () {
         // Cursor is ready.
-        textComplete.trigger();
+        $(element).textcomplete('trigger');
     }, 100);
 });
 ```
@@ -298,10 +299,13 @@ Todo
 ----
 
 - Write tests
-- Content editable support (at v0.2)
 
 History
 -------
+
+### Aug 31, 2013 - v0.3.0-beta1
+
+- Huge refactoring.
 
 ### Aug 16, 2014 - v0.2.6
 
