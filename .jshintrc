@@ -1,7 +1,0 @@
-{
-  "strict" : true,
-  "indent" : 2,
-  "maxlen" : 80,
-  "unused" : true,
-  "eqnull" : true,
-}

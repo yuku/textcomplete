@@ -15,6 +15,13 @@ module.exports = function (grunt) {
     concat: {
       dist: {
         src: [
+          'src/main.js',
+          'src/completer.js',
+          'src/dropdown.js',
+          'src/strategy.js',
+          'src/input.js',
+          'src/textarea.js',
+          'src/content_editable.js'
         ],
         dest: 'dist/jquery.textcomplete.js'
       }
