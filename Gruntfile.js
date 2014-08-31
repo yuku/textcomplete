@@ -4,23 +4,33 @@ module.exports = function (grunt) {
 
   'use strict';
 
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
+    concat: {
+      dist: {
+        src: [
+        ],
+        dest: 'dist/jquery.textcomplete.js'
+      }
+    },
 
     uglify: {
       options: {
         banner:
           '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
           '<%= grunt.template.today("yyyy-mm-dd") %> */',
-        sourceMap: 'jquery.textcomplete.min.map'
+        sourceMap: 'dist/jquery.textcomplete.min.map'
       },
       all: {
         files: {
-          'jquery.textcomplete.min.js': [
-            'jquery.textcomplete.js'
+          'dist/jquery.textcomplete.min.js': [
+            'dist/jquery.textcomplete.js'
           ]
         }
       }
@@ -30,12 +40,18 @@ module.exports = function (grunt) {
       server: {
         options: {
           port: 8000,
-          base: '../',
-          keepalive: true
+          base: '../'
         }
+      }
+    },
+
+    watch: {
+      all: {
+        files: ['src/*.js'],
+        tasks: ['concat', 'uglify']
       }
     }
   });
 
-  grunt.registerTask('default', ['connect']);
+  grunt.registerTask('default', ['connect', 'watch']);
 };
