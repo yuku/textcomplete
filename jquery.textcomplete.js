@@ -274,7 +274,7 @@
         pre = this.getTextFromHeadToCaret();
         remainder = pre.length;
 
-        if (this.el.isContentEditable) {
+        if (false) {
           sel = window.getSelection();
           range = sel.getRangeAt(0);
           selection = range.cloneRange();
@@ -294,7 +294,7 @@
 
         pre = pre.replace(this.strategy.match, newSubStr);
 
-        if (this.el.isContentEditable) {
+        if (false) {
           range.selectNodeContents(range.startContainer);
           range.deleteContents();
           var node = document.createTextNode(pre + post);
@@ -360,7 +360,7 @@
        */
       getCaretRelativePosition: function () {
         var properties, css, $div, $span, position, dir, scrollbar, range, node, $node;
-        if (!this.el.isContentEditable) {
+        if (!false) {
           // Browser native API does not provide the way to know the position of
           // caret in pixels, so that here we use a kind of hack to accomplish
           // the aim. First of all it puts a div element and completely copies
@@ -408,7 +408,7 @@
 
       getTextFromHeadToCaret: function () {
         var text, selectionEnd, range;
-        if (this.el.isContentEditable) {
+        if (false) {
           if (window.getSelection) {
             // IE9+ and non-IE
             var range = window.getSelection().getRangeAt(0);
