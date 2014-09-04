@@ -380,13 +380,13 @@ History
 ### September 11, 2013 - v0.0.3
 
 - Some performance improvement.
-- Imprement lazy callbacking on search function.
+- Implement lazy callbacking on search function.
 
 ### September 8, 2013 - v0.0.2
 
 - Support IE8.
 - Some performance improvement.
-- Imprement cache option.
+- Implement cache option.
 
 ### September 2, 2013 - v0.0.1
 
