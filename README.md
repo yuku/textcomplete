@@ -298,6 +298,19 @@ $('textarea').on('focus', function () {
 });
 ```
 
+### I want to search case-insensitivly.
+
+You can do case-insensitive comparison inside the search callback:
+
+```js
+search: function (term, callback) {
+    term = term.toLowerCase();
+    callback($.map(words, function (word) {
+        return word.toLowerCase().indexOf(term) === 0 ? word : null;
+    }));
+},
+```
+
 License
 -------
 
