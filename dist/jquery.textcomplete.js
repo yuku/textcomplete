@@ -35,7 +35,7 @@ if (typeof jQuery === 'undefined') {
         $.each(strategies, function (obj) {
           $.each(['header', 'footer', 'placement', 'maxCount'], function (name) {
             if (obj[name]) {
-              option[name] = obj[name];
+              completer.option[name] = obj[name];
               warn(name + 'as a strategy param is deplicated. Use option.');
               delete obj[name];
             }

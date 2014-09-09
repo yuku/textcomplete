@@ -2,6 +2,7 @@
 
 ## `master`
 
+- Revive header and footer options.
 - Consider the tab-size of textarea.
 - Revive height option.
 - Add zIndex option.
