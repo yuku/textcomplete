@@ -1,6 +1,10 @@
 # Changelog
 
-## `v0.3.0-beta1` - Aug 31, 2013
+## `v0.3.0-beta2` - Sep 9, 2014
+
+- Make sure that all demos work fine.
+
+## `v0.3.0-beta1` - Aug 31, 2014
 
 - Huge refactoring.
 

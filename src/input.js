@@ -36,9 +36,9 @@
     // FIXME: Calculate the left top corner of `this.option.appendTo` element.
     getCaretPosition: function () {
       var position = this._getCaretRelativePosition();
-      var textareaOffset = this.$el.offset();
-      position.top += textareaOffset.top;
-      position.left += textareaOffset.left;
+      var offset = this.$el.offset();
+      position.top += offset.top;
+      position.left += offset.left;
       return position;
     },
 
