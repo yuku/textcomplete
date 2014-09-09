@@ -1,6 +1,7 @@
 Autocomplete for Textarea
 =========================
 
+[![Bower version](https://badge.fury.io/bo/jquery-textcomplete.svg)](http://badge.fury.io/bo/jquery-textcomplete)
 [![Analytics](https://ga-beacon.appspot.com/UA-4932407-14/jquery-textcomplete/readme)](https://github.com/igrigorik/ga-beacon)
 
 
@@ -32,7 +33,7 @@ jQuery MUST be loaded ahead.
 Then `jQuery.fn.textcomplete` is defined. The method MUST be called for textarea elements or contenteditable elements.
 
 ```js
-$('textarea').textcomplete(strategies, option);
+$('textarea').textcomplete(strategies, option);  // Recommended.
 // $('[contenteditable="true"]').textcomplete(strategies, option);
 ```
 
@@ -46,7 +47,7 @@ var strategies = [
 ];
 ```
 
-The `strategy` is an Object which MUST have `match`, `search` and `replace` and MAY have `index`, `maxCount`, `template`, `cache`, `placement`, `header` and `footer`.
+The `strategy` is an Object which MUST have `match`, `search` and `replace` and MAY have `index`, `template` and `cache`.
 
 ```js
 var strategy = {
@@ -57,12 +58,8 @@ var strategy = {
 
   // Optional                 // Default
   index:     indexNumber,     // 2
-  maxCount:  maxCountNumber,  // 10
   template:  templateFunc,    // function (value) { return value; }
-  cache:     cacheBoolean,    // false
-  placement: placementStr,    // ''
-  header:    headerStrOrFunc, // undefined
-  footer:    footerStrOrFunc  // undefined
+  cache:     cacheBoolean     // false
 }
 ```
 
@@ -77,8 +74,6 @@ var indexNumber = 2;
 The `searchFunc` MUST be a Function which gets two arguments, `term` and `callback`. It MUST invoke `callback` with an Array. It is guaranteed that the function will be invoked exclusively even though it contains async call.
 
 If you want to execute `callback` multiple times per a search, you SHOULD give `true` to the second argument while additional execution remains. This is useful to use data located at both local and remote. Note that you MUST invoke `callback` without truthy second argument at least once per a search.
-
-The `maxCountNumber` MUST be a Number and default to 10. Even if `searchFunc` callbacks with large array, the array will be truncated into `maxCountNumber` elements.
 
 The `cacheBoolean` MUST be a Boolean. It defaults to `false`. If it is `true` the `searchFunc` will be memoized by `term` argument. This is useful to prevent excessive API access.
 
@@ -127,19 +122,25 @@ var replaceFunc = function (value) {
 };
 ```
 
+The `option` is an optional Object which MAY have `appendTo`, `height` , `maxCount`, `placement`, `header` and `footer`. If `appendTo` is given, the element of dropdown is appended into the specified element. If `height` is given, the dropdown element's height will be fixed.
+
+```js
+var option = {
+  appendTo:  appendToElement, // $('body')
+  height:    heightNumber,    // undefined
+  maxCount:  maxCountNumber,  // 10
+  placement: placementStr,    // ''
+  header:    headerStrOrFunc, // undefined
+  footer:    footerStrOrFunc  // undefined
+};
+```
+
+The `maxCountNumber` MUST be a Number and default to 10. Even if `searchFunc` callbacks with large array, the array will be truncated into `maxCountNumber` elements.
+
 If `placementStr` includes 'top', it positions the drop-down to above the caret. If `placementStr` includes 'absleft' and 'absright', it positions the drop-down absolutely to the very left and right respectively. You can mix them.
 
 ```js
 var placementStr = 'top|absleft';
-```
-
-The `option` is an optional Object which MAY have `appendTo` and `height`. If `appendTo` is given, the element of dropdown is appended into the specified element. If `height` is given, the dropdown element's height will be fixed.
-
-```js
-var option = {
-  appendTo: 'body' // supports Element and jQuery object
-  height:   100
-};
 ```
 
 Finally, if you want to stop autocompleting, give `'destroy'` to `textcomplete` method as follows:
@@ -208,7 +209,7 @@ textComplete fires a number of events.
 $('#textarea')
     .textcomplete([/* ... */])
     .on({
-        'textComplete:select': function (e, value) {
+        'textComplete:select': function (e, value, strategy) {
             alert(value);
         },
         'textComplete:show': function (e) {
@@ -275,124 +276,35 @@ Use `trigger` as follows:
 
 ```js
 // Put manual search query.
-$('textarea').data('textComplete').trigger('query');
+$('textarea').textcomplete('trigger', 'query');
 
 // Use current texts. It depends on the position of cursor.
-$('textarea').data('textComplete').trigger();
+$('textarea').textcomplete('trigger');
 ```
 
 If you want to show textcomplete when a textarea gets focus, `trigger` MUST be called at next tick.
 
 ```js
 $('textarea').on('focus', function () {
-    var textComplete = $(this).data('textComplete');
+    var element = this;
     // Cursor has not set yet. And wait 100ms to skip global click event.
     setTimeout(function () {
         // Cursor is ready.
-        textComplete.trigger();
+        $(element).textcomplete('trigger');
     }, 100);
 });
 ```
 
-Todo
-----
-
-- Write tests
-- Content editable support (at v0.2)
-
-History
--------
-
-### Aug 16, 2014 - v0.2.6
-
-- Repair contenteditable.
-
-### Aug 7, 2014 - v0.2.5
-
-- Enhance contenteditable support. [[#98]](https://github.com/yuku-t/jquery-textcomplete/pull/98) (Thanks for [@mikol](https://github.com/mikol))
-- Support absolute left/right placement. [[#96]](https://github.com/yuku-t/jquery-textcomplete/pull/96) (Thanks for [@ericktai](https://github.com/ericktai))
-- Support absolute height, scrollbar, pageup and pagedown. [[#87]](https://github.com/yuku-t/jquery-textcomplete/pull/87) (Thanks for [@alan2wong](https://github.com/alan2wong))
-
-### Jul 2, 2014 - v0.2.4
-
-- Fix horizonal position on contentEditable elements. [[#92]](https://github.com/yuku-t/jquery-textcomplete/pull/92)
-
-### Jun 24, 2014 - v0.2.3
-
-- Option to supply list view position function. [[#88]](https://github.com/yuku-t/jquery-textcomplete/pull/88)
-
-### Jun 8, 2014 - v0.2.2
-
-- Append dropdown element to body element by default.
-- Tiny refactoring. [#84]
-- Ignore tab key when modifier keys are being pushed. [[#85]](https://github.com/yuku-t/jquery-textcomplete/pull/85)
-- Manual triggering.
-
-### May 15, 2014 - v0.2.1
-
-- Support `appendTo` option.
-- `header` and `footer` supports a function.
-- Remove textcomplate-wrapper element.
-
-### May 2, 2014 - v0.2
-
-- Contenteditable support.
-- Several bugfixes.
-- Support `header` and `footer` setting.
-
-### April 4, 2014 - v0.1.4.1
-
-- Support placement option.
-- Emacs-style prev/next keybindings.
-- Replay searchFunc for the last term on slow network env.
-- Several bugfixes.
-
-### March 7, 2014 - v0.1.3
-
-- Several bugfixes.
-- Support RTL positioning.
-
-### February 8, 2014 - v0.1.2
-
-- Enable to append strategies on the fly.
-- Enable to stop autocompleting.
-- Enable to apply multiple textareas at once.
-- Don't show popup on pressing arrow up and down keys.
-- Hide dropdown by pressing ESC key.
-- Prevent showing a dropdown when it just autocompleted.
-- ~~Support RTL positioning.~~
-
-### February 2, 2014 - v0.1.1
-
-- Introduce `textComplete:show`, `textComplete:hide` and `textComplete:select` events.
-
-### October 28, 2013 - v0.1.0
-
-- Now strategies argument is an Array of strategy objects.
-
-### October 28, 2013 - v0.0.4
-
-- Several bugfixes.
-- Up and Down arrows cycle instead of exit.
-- Support Zepto.
-- Support jQuery.overlay.
-
-### September 11, 2013 - v0.0.3
-
-- Some performance improvement.
-- Imprement lazy callbacking on search function.
-
-### September 8, 2013 - v0.0.2
-
-- Support IE8.
-- Some performance improvement.
-- Imprement cache option.
-
-### September 2, 2013 - v0.0.1
-
-- Initial release.
-
 License
 -------
 
-Licensed under the MIT License
+Licensed under the MIT License.
+
+Credits
+-------
+
+### Contributors
+
+Patches and code improvements were contributed by:
+
+https://github.com/yuku-t/jquery-textcomplete/graphs/contributors
