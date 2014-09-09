@@ -299,3 +299,12 @@ License
 -------
 
 Licensed under the MIT License.
+
+Credits
+-------
+
+### Contributors
+
+Patches and code improvements were contributed by:
+
+https://github.com/yuku-t/jquery-textcomplete/graphs/contributors
