@@ -1,6 +1,6 @@
 # Changelog
 
-## `master`
+## `v0.3.0` - Sep 10, 2014
 
 - Revive header and footer options.
 - Consider the tab-size of textarea.
