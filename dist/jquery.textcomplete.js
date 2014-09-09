@@ -131,7 +131,8 @@ if (typeof jQuery === 'undefined') {
   }
 
   Completer.DEFAULTS = {
-    appendTo: $('body')
+    appendTo: $('body'),
+    zIndex: '100'
   };
 
   $.extend(Completer.prototype, {
@@ -288,7 +289,7 @@ if (typeof jQuery === 'undefined') {
   //
   // element - Textarea or contenteditable element.
   function Dropdown(element, completer, option) {
-    this.$el       = Dropdown.createElement();
+    this.$el       = Dropdown.createElement(option);
     this.completer = completer;
     this.id        = completer.id + 'dropdown';
     this._data     = []; // zipped data.
@@ -308,12 +309,12 @@ if (typeof jQuery === 'undefined') {
     // Class methods
     // -------------
 
-    createElement: function () {
+    createElement: function (option) {
       return $('<ul class="dropdown-menu"></ul>').css({
         display: 'none',
         left: 0,
         position: 'absolute',
-        zIndex: '100'
+        zIndex: option.zIndex
       });
     }
   });

@@ -122,7 +122,7 @@ var replaceFunc = function (value) {
 };
 ```
 
-The `option` is an optional Object which MAY have `appendTo`, `height` , `maxCount`, `placement`, `header` and `footer`. If `appendTo` is given, the element of dropdown is appended into the specified element. If `height` is given, the dropdown element's height will be fixed.
+The `option` is an optional Object which MAY have `appendTo`, `height` , `maxCount`, `placement`, `header`, `footer` and `zIndex`. If `appendTo` is given, the element of dropdown is appended into the specified element. If `height` is given, the dropdown element's height will be fixed.
 
 ```js
 var option = {
@@ -131,13 +131,16 @@ var option = {
   maxCount:  maxCountNumber,  // 10
   placement: placementStr,    // ''
   header:    headerStrOrFunc, // undefined
-  footer:    footerStrOrFunc  // undefined
+  footer:    footerStrOrFunc, // undefined
+  zIndex:    zIndexStr        // '100'
 };
 ```
 
 The `maxCountNumber` MUST be a Number and default to 10. Even if `searchFunc` callbacks with large array, the array will be truncated into `maxCountNumber` elements.
 
 If `placementStr` includes 'top', it positions the drop-down to above the caret. If `placementStr` includes 'absleft' and 'absright', it positions the drop-down absolutely to the very left and right respectively. You can mix them.
+
+You can override the z-index property of dropdown element using `zIndex` option.
 
 ```js
 var placementStr = 'top|absleft';

@@ -81,7 +81,8 @@
   }
 
   Completer.DEFAULTS = {
-    appendTo: $('body')
+    appendTo: $('body'),
+    zIndex: '100'
   };
 
   $.extend(Completer.prototype, {

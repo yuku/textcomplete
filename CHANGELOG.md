@@ -1,5 +1,9 @@
 # Changelog
 
+## `master`
+
+- Add zIndex option.
+
 ## `v0.3.0-beta2` - Sep 9, 2014
 
 - Make sure that all demos work fine.
