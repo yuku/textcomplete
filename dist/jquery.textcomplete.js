@@ -925,4 +925,6 @@ if (typeof jQuery === 'undefined') {
       return selection.toString().substring(0, range.startOffset);
     }
   });
+
+  $.fn.textcomplete.ContentEditable = ContentEditable;
 }(jQuery);
