@@ -297,6 +297,7 @@ if (typeof jQuery === 'undefined') {
 
     // Override setPosition method.
     if (option.listPosition) { this.setPosition = option.listPosition; }
+    if (option.height) { this.$el.height(option.height); }
     var self = this;
     $.each(['maxCount', 'placement', 'footer', 'header'], function (_i, name) {
       if (option[name] != null) { self[name] = option[name]; }

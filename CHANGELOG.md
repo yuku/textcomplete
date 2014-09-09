@@ -2,6 +2,7 @@
 
 ## `master`
 
+- Revive height option.
 - Add zIndex option.
 
 ## `v0.3.0-beta2` - Sep 9, 2014
