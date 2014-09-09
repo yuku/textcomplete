@@ -21,7 +21,7 @@
     'font-weight', 'height', 'letter-spacing', 'word-spacing', 'line-height',
     'text-decoration', 'text-align', 'width', 'padding-top', 'padding-right',
     'padding-bottom', 'padding-left', 'margin-top', 'margin-right',
-    'margin-bottom', 'margin-left', 'border-style', 'box-sizing'
+    'margin-bottom', 'margin-left', 'border-style', 'box-sizing', 'tab-size'
   ];
 
   Textarea.prototype = new $.fn.textcomplete.Input();
