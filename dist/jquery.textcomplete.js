@@ -833,7 +833,7 @@ if (typeof jQuery === 'undefined') {
       var color = $('<div></div>').css(['color']).color;
       if (typeof color !== 'undefined') {
         return function () {
-          this.$el.css(Textarea.COPY_PROPERTIES);
+          return this.$el.css(Textarea.COPY_PROPERTIES);
         };
       } else { // jQuery < 1.8
         return function () {
