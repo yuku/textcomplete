@@ -104,6 +104,7 @@
       var viewName = element.isContentEditable ? 'ContentEditable' : 'Textarea';
       this.input = new $.fn.textcomplete[viewName](element, this, this.option);
       this.dropdown = new $.fn.textcomplete.Dropdown(element, this, this.option);
+      // TODO: Throw error if `this.option.appendTo` is 'position: static'.
       this.dropdown.$el.appendTo(this.option.appendTo);
     },
 

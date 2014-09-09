@@ -1,3 +1,7 @@
+// NOTE: TextComplete plugin has contenteditable support but it does not work
+//       fine especially on old IEs.
+//       Any pull requests are REALLY welcome.
+
 +function ($) {
   'use strict';
 
@@ -8,9 +12,11 @@
   ContentEditable.prototype = new $.fn.textcomplete.Input();
 
   $.extend(ContentEditable.prototype, {
-    // Private methods
-    // ---------------
+    // Public methods
+    // --------------
 
+    // Update the content with the given value and strategy.
+    // When an dropdown item is selected, it is executed.
     select: function (value, strategy) {
       var pre = this._getTextFromHeadToCaret();
       var sel = window.getSelection()
@@ -38,6 +44,15 @@
     // Private methods
     // ---------------
 
+    // Returns the caret's relative position from the contenteditable's
+    // left top corner.
+    //
+    // Examples
+    //
+    //   this._getCaretRelativePosition()
+    //   //=> { top: 18, left: 200, lineHeight: 16 }
+    //
+    // Dropdown's position will be decided using the result.
     _getCaretRelativePosition: function () {
       var range = window.getSelection().getRangeAt(0).cloneRange();
       var node = document.createElement('span');
@@ -54,6 +69,14 @@
       return position;
     },
 
+    // Returns the string between the first character and the caret.
+    // Completer will be triggered with the result for start autocompleting.
+    //
+    // Example
+    //
+    //   // Suppose the html is '<b>hello</b> wor|ld' and | is the caret.
+    //   this._getTextFromHeadToCaret()
+    //   // => ' wor'  // not '<b>hello</b> wor'
     _getTextFromHeadToCaret: function () {
       var range = window.getSelection().getRangeAt(0);
       var selection = range.cloneRange();

@@ -154,6 +154,7 @@ if (typeof jQuery === 'undefined') {
       var viewName = element.isContentEditable ? 'ContentEditable' : 'Textarea';
       this.input = new $.fn.textcomplete[viewName](element, this, this.option);
       this.dropdown = new $.fn.textcomplete.Dropdown(element, this, this.option);
+      // TODO: Throw error if `this.option.appendTo` is 'position: static'.
       this.dropdown.$el.appendTo(this.option.appendTo);
     },
 
@@ -702,6 +703,8 @@ if (typeof jQuery === 'undefined') {
     },
 
     // Returns the caret's relative coordinates from body's left top corner.
+    //
+    // FIXME: Calculate the left top corner of `this.option.appendTo` element.
     getCaretPosition: function () {
       var position = this._getCaretRelativePosition();
       var textareaOffset = this.$el.offset();
@@ -860,6 +863,10 @@ if (typeof jQuery === 'undefined') {
   $.fn.textcomplete.Textarea = Textarea;
 }(jQuery);
 
+// NOTE: TextComplete plugin has contenteditable support but it does not work
+//       fine especially on old IEs.
+//       Any pull requests are REALLY welcome.
+
 +function ($) {
   'use strict';
 
@@ -870,9 +877,11 @@ if (typeof jQuery === 'undefined') {
   ContentEditable.prototype = new $.fn.textcomplete.Input();
 
   $.extend(ContentEditable.prototype, {
-    // Private methods
-    // ---------------
+    // Public methods
+    // --------------
 
+    // Update the content with the given value and strategy.
+    // When an dropdown item is selected, it is executed.
     select: function (value, strategy) {
       var pre = this._getTextFromHeadToCaret();
       var sel = window.getSelection()
@@ -900,6 +909,15 @@ if (typeof jQuery === 'undefined') {
     // Private methods
     // ---------------
 
+    // Returns the caret's relative position from the contenteditable's
+    // left top corner.
+    //
+    // Examples
+    //
+    //   this._getCaretRelativePosition()
+    //   //=> { top: 18, left: 200, lineHeight: 16 }
+    //
+    // Dropdown's position will be decided using the result.
     _getCaretRelativePosition: function () {
       var range = window.getSelection().getRangeAt(0).cloneRange();
       var node = document.createElement('span');
@@ -916,6 +934,14 @@ if (typeof jQuery === 'undefined') {
       return position;
     },
 
+    // Returns the string between the first character and the caret.
+    // Completer will be triggered with the result for start autocompleting.
+    //
+    // Example
+    //
+    //   // Suppose the html is '<b>hello</b> wor|ld' and | is the caret.
+    //   this._getTextFromHeadToCaret()
+    //   // => ' wor'  // not '<b>hello</b> wor'
     _getTextFromHeadToCaret: function () {
       var range = window.getSelection().getRangeAt(0);
       var selection = range.cloneRange();

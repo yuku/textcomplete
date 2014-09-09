@@ -32,6 +32,8 @@
     },
 
     // Returns the caret's relative coordinates from body's left top corner.
+    //
+    // FIXME: Calculate the left top corner of `this.option.appendTo` element.
     getCaretPosition: function () {
       var position = this._getCaretRelativePosition();
       var textareaOffset = this.$el.offset();
