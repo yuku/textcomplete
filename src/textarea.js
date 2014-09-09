@@ -6,13 +6,7 @@
   //
   // Managing a textarea. It doesn't know a Dropdown.
   function Textarea(element, completer, option) {
-    this.el        = element;
-    this.$el       = $(element);
-    this.id        = completer.id + 'textarea';
-    this.completer = completer;
-    this.option    = option;
-
-    this._bindEvents();
+    this.initialize(element, completer, option);
   }
 
   Textarea.DIV_PROPERTIES = {

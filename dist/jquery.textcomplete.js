@@ -686,6 +686,16 @@ if (typeof jQuery === 'undefined') {
     // Public methods
     // --------------
 
+    initialize: function (element, completer, option) {
+      this.el        = element;
+      this.$el       = $(element);
+      this.id        = completer.id + this.constructor.name;
+      this.completer = completer;
+      this.option    = option;
+
+      this._bindEvents();
+    },
+
     destroy: function () {
       this.$el.off('.' + this.id); // Remove all event handlers.
       this.$el = this.el = this.completer = null;
@@ -743,13 +753,7 @@ if (typeof jQuery === 'undefined') {
   //
   // Managing a textarea. It doesn't know a Dropdown.
   function Textarea(element, completer, option) {
-    this.el        = element;
-    this.$el       = $(element);
-    this.id        = completer.id + 'textarea';
-    this.completer = completer;
-    this.option    = option;
-
-    this._bindEvents();
+    this.initialize(element, completer, option);
   }
 
   Textarea.DIV_PROPERTIES = {
@@ -860,13 +864,7 @@ if (typeof jQuery === 'undefined') {
   'use strict';
 
   function ContentEditable (element, completer, option) {
-    this.el        = element;
-    this.$el       = $(element);
-    this.id        = completer.id + 'contenteditable';
-    this.completer = completer;
-    this.option    = option;
-
-    this._bindEvents();
+    this.initialize(element, completer, option);
   }
 
   ContentEditable.prototype = new $.fn.textcomplete.Input();

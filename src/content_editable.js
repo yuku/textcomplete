@@ -2,13 +2,7 @@
   'use strict';
 
   function ContentEditable (element, completer, option) {
-    this.el        = element;
-    this.$el       = $(element);
-    this.id        = completer.id + 'contenteditable';
-    this.completer = completer;
-    this.option    = option;
-
-    this._bindEvents();
+    this.initialize(element, completer, option);
   }
 
   ContentEditable.prototype = new $.fn.textcomplete.Input();
