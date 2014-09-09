@@ -10,7 +10,7 @@
 }
 
 textarea, .contenteditable1 {
-    padding-top: 20px;
+    padding-top: 20px !important;
     display: block;
     width: 100%;
 }

@@ -3,8 +3,8 @@
     <head>
         <title>jQuery.textcomplete</title>
 
-        <link href="media/stylesheets/bootstrap.css" rel="stylesheet"/>
-        <link href="media/stylesheets/font-awesome.css" rel="stylesheet"/>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="media/stylesheets/main.css" rel="stylesheet"/>
         <link href="media/stylesheets/shCoreDefault.css" rel="stylesheet"/>
     </head>
@@ -26,8 +26,8 @@
 
             <h3 id="basic-usage">Basic Usage</h3>
             <div class="textarea-wrapper">
-                <span class="label">#textarea1</span>
-                <textarea id="textarea1" rows="4">:a</textarea>
+                <span class="label label-default">#textarea1</span>
+                <textarea class="form-control" id="textarea1" rows="4">:a</textarea>
             </div>
 <pre class="brush: js; script">
 $('#textarea1').textcomplete([
@@ -62,16 +62,15 @@ $('#textarea1').textcomplete([
         index: 1,
         replace: function (word) {
             return word + ' ';
-        },
-        placement: 'top'
+        }
     }
 ]);
 </pre>
 
             <h3 id="insert-cursor-after-autocomplete">Insert Cursor After Autocomplete</h3>
             <div class="textarea-wrapper">
-                <span class="label">#textarea2</span>
-                <textarea id="textarea2" rows="4">Please input HTML element: </textarea>
+                <span class="label label-default">#textarea2</span>
+                <textarea class="form-control" id="textarea2" rows="4">Please input HTML element: </textarea>
             </div>
 <pre class="brush: js; script">
 var elements = ['span', 'div', 'h1', 'h2', 'h3'];
@@ -93,8 +92,8 @@ $('#textarea2').textcomplete([
 
             <h3 id="use-with-jquery-overlay">Use with <a href="http://yuku-t.com/jquery-overlay/" target="_blank">jQuery.overlay</a></h3>
             <div class="textarea-wrapper">
-                <span class="label">#textarea3</span>
-                <textarea id="textarea3" rows="4">Hey @guys,
+                <span class="label label-default">#textarea3</span>
+                <textarea class="form-control" id="textarea3" rows="4">Hey @guys,
 All words start with @ are emphasized like @this.</textarea>
             </div>
 <pre class="brush: js; script">
@@ -124,12 +123,12 @@ $('#textarea3').textcomplete([
 
             <h3 id="apply-to-multiple-textareas">Apply to Multiple Textareas</h3>
             <div class="textarea-wrapper">
-                <span class="label">.textarea4</span>
-                <textarea class="textarea4" rows="4"></textarea>
+                <span class="label label-default">.textarea4</span>
+                <textarea class="textarea4 form-control" rows="4"></textarea>
             </div>
             <div class="textarea-wrapper">
-                <span class="label">.textarea4</span>
-                <textarea class="textarea4" rows="4"></textarea>
+                <span class="label label-default">.textarea4</span>
+                <textarea class="textarea4 form-control" rows="4"></textarea>
             </div>
 <pre class="brush: js; script">
 $('.textarea4').textcomplete([
@@ -151,8 +150,8 @@ $('.textarea4').textcomplete([
 
             <h3 id="customizing-header-footer">Customizing header, footer</h3>
             <div class="textarea-wrapper">
-                <span class="label">#textarea5</span>
-                <textarea id="textarea5" rows="4">:a</textarea>
+                <span class="label label-default">#textarea5</span>
+                <textarea class="form-control" id="textarea5" rows="4">:a</textarea>
             </div>
 <pre class="brush: js; script">
 $('#textarea5').textcomplete([
@@ -169,14 +168,15 @@ $('#textarea5').textcomplete([
         replace: function (value) {
             return ':' + value + ': ';
         },
-        index: 1,
-        maxCount: 5,
-        header: function (data) {
-          return '&lt;strong style="text-align: center; display: block;"&gt;' + data.length + '&lt;/strong&gt;';
-        },
-        footer: '&lt;strong style="text-align: center; display: block;"&gt;Footer&lt;/strong&gt;'
+        index: 1
     }
-]).on('focus', function () {
+], {
+    maxCount: 5,
+    header: function (data) {
+        return '&lt;strong style="text-align: center; display: block;"&gt;' + data.length + '&lt;/strong&gt;';
+    },
+    footer: '&lt;strong style="text-align: center; display: block;"&gt;Footer&lt;/strong&gt;'
+}).on('focus', function () {
     var textComplete = $(this).data('textComplete');
     // Cursor has not set yet. And wait 100ms to skip global click event.
     setTimeout(function () {
@@ -187,7 +187,7 @@ $('#textarea5').textcomplete([
 </pre>
             <h3 id="apply-to-contenteditables">Apply to Contenteditables</h3>
             <div class="textarea-wrapper">
-                <span class="label">.contenteditable1</span>
+                <span class="label label-default">.contenteditable1</span>
                 <div class="contenteditable1" contenteditable="true"><b>Look</b> at this <em>glorious</em> contenteditable.</div>
             </div>
 <pre class="brush: js; script">
@@ -213,10 +213,10 @@ $('.contenteditable1').textcomplete([
             </p>
         </div>
 
-        <script src="media/javascripts/jquery-1.10.2.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <!-- <script src="media/javascripts/zepto-1.0.js"></script> -->
         <script src="http://yuku-t.com/jquery-overlay/jquery.overlay.js"></script>
-        <script src="jquery.textcomplete.js"></script>
+        <script src="media/javascripts/jquery.textcomplete.js"></script>
         <script src="media/javascripts/emoji.js"></script>
         <script src="media/javascripts/shCore.js"></script>
         <script src="media/javascripts/shBrushJScript.js"></script>
