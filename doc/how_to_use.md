@@ -37,16 +37,19 @@ var strategy = {
   // Optional                 // Default
   index:     indexNumber,     // 2
   template:  templateFunc,    // function (value) { return value; }
-  cache:     cacheBoolean     // false
+  cache:     cacheBoolean,    // false
+  context:   contextFunc      // function (text) { return true; }
 }
 ```
 
-The `matchRegExp` and `indexNumber` MUST be a RegExp and a Number respectively. `matchRegExp` MUST contain capturing groups and SHOULD end with `$`. `indexNumber` defaults to 2. The word captured by `indexNumber`-th group is going to be the `term` argument of `searchFunc`.
+The `matchRegExp`, `indexNumber` and `contextFunc` MUST be a RegExp, a Number and a Function respectively. `contextFunc` is called with the current value of the target textarea. It works as a preprocessor. When it returns `false`, the strategy is skipped. When it returns a String, `matchRegExp` tests the returned string. `matchRegExp` MUST contain capturing groups and SHOULD end with `$`. `indexNumber` defaults to 2. The word captured by `indexNumber`-th group is going to be the `term` argument of `searchFunc`.
 
 ```js
 // Detect the word starting with '@' as a query term.
 var matchRegExp = /(^|\s)@(\w*)$/;
 var indexNumber = 2;
+// Normalizing the input text.
+var contextFunc = function (text) { return text.toLowerCase(); };
 ```
 
 The `searchFunc` MUST be a Function which gets two arguments, `term` and `callback`. It MUST invoke `callback` with an Array. It is guaranteed that the function will be invoked exclusively even though it contains async call.

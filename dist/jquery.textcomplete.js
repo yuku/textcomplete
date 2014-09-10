@@ -107,6 +107,10 @@ if (typeof jQuery === 'undefined') {
     };
   };
 
+  var isString = function (obj) {
+    return Object.prototype.toString.call(obj) === '[object String]';
+  };
+
   var uniqueId = 0;
 
   function Completer(element, option) {
@@ -216,8 +220,12 @@ if (typeof jQuery === 'undefined') {
     _extractSearchQuery: function (text) {
       for (var i = 0; i < this.strategies.length; i++) {
         var strategy = this.strategies[i];
-        var match = text.match(strategy.match);
-        if (match) { return [strategy, match[strategy.index]]; }
+        var context = strategy.context(text);
+        if (context || context === '') {
+          if (isString(context)) { text = context; }
+          var match = text.match(strategy.match);
+          if (match) { return [strategy, match[strategy.index]]; }
+        }
       }
       return []
     },
@@ -667,6 +675,7 @@ if (typeof jQuery === 'undefined') {
 
     // Optional
     cache:     false,
+    context:   function () { return true; },
     index:     2,
     template:  function (obj) { return obj; }
   });

@@ -38,6 +38,7 @@
 
     // Optional
     cache:     false,
+    context:   function () { return true; },
     index:     2,
     template:  function (obj) { return obj; }
   });

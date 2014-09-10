@@ -2,6 +2,7 @@
 
 ## `master`
 
+- Add context strategy option.
 - Recycle `.dropdown-menu` element if available.
 - Add debounce option.
 
