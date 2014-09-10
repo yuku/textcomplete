@@ -1,5 +1,9 @@
 # Changelog
 
+## `master`
+
+- Rename `Input` as `Adapter`.
+
 ## `v0.3.1` - Sep 10, 2014
 
 - Add `context` strategy option.

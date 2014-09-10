@@ -146,7 +146,7 @@ if (typeof jQuery === 'undefined') {
     id:         null,
     option:     null,
     strategies: null,
-    input:      null,
+    adapter:    null,
     dropdown:   null,
     $el:        null,
 
@@ -157,15 +157,15 @@ if (typeof jQuery === 'undefined') {
       var element = this.$el.get(0);
       // Initialize view objects.
       var viewName = element.isContentEditable ? 'ContentEditable' : 'Textarea';
-      this.input = new $.fn.textcomplete[viewName](element, this, this.option);
+      this.adapter = new $.fn.textcomplete[viewName](element, this, this.option);
       this.dropdown = new $.fn.textcomplete.Dropdown(element, this, this.option);
     },
 
     destroy: function () {
       this.$el.off('.' + this.id);
-      this.input.destroy();
+      this.adapter.destroy();
       this.dropdown.destroy();
-      this.$el = this.input = this.dropdown = null;
+      this.$el = this.adapter = this.dropdown = null;
     },
 
     // Invoke textcomplete.
@@ -193,15 +193,15 @@ if (typeof jQuery === 'undefined') {
       Array.prototype.push.apply(this.strategies, strategies);
     },
 
-    // Insert the value into input view. It is called when the dropdown is clicked
+    // Insert the value into adapter view. It is called when the dropdown is clicked
     // or selected.
     //
     // value    - The selected element of the array callbacked from search func.
     // strategy - The Strategy object.
     select: function (value, strategy) {
-      this.input.select(value, strategy);
+      this.adapter.select(value, strategy);
       this.fire('change').fire('textComplete:select', value, strategy);
-      this.input.focus();
+      this.adapter.focus();
     },
 
     // Private properties
@@ -236,7 +236,7 @@ if (typeof jQuery === 'undefined') {
       strategy.search(term, function (data, stillSearching) {
         if (!self.dropdown.shown) {
           self.dropdown.activate();
-          self.dropdown.setPosition(self.input.getCaretPosition());
+          self.dropdown.setPosition(self.adapter.getCaretPosition());
         }
         if (self._clearAtNext) {
           // The first callback in the current lock.
@@ -336,8 +336,8 @@ if (typeof jQuery === 'undefined') {
     // Public properties
     // -----------------
 
-    $el:       null,
-    $inputEl:  null,
+    $el:       null,  // jQuery object of ul.dropdown-menu element.
+    $inputEl:  null,  // jQuery object of target textarea.
     completer: null,
     footer:    null,
     header:    null,
@@ -718,9 +718,9 @@ if (typeof jQuery === 'undefined') {
     };
   };
 
-  function Input () {}
+  function Adapter () {}
 
-  $.extend(Input.prototype, {
+  $.extend(Adapter.prototype, {
     // Public properties
     // -----------------
 
@@ -750,6 +750,15 @@ if (typeof jQuery === 'undefined') {
     destroy: function () {
       this.$el.off('.' + this.id); // Remove all event handlers.
       this.$el = this.el = this.completer = null;
+    },
+
+    // Update the element with the given value and strategy.
+    //
+    // value    - The selected object. It is one of the item of the array
+    //            which was callbacked from the search function.
+    // strategy - The Strategy associated with the selected value.
+    select: function (/* value, strategy */) {
+      throw new Error('Not implemented');
     },
 
     // Returns the caret's relative coordinates from body's left top corner.
@@ -795,14 +804,14 @@ if (typeof jQuery === 'undefined') {
     }
   });
 
-  $.fn.textcomplete.Input = Input;
+  $.fn.textcomplete.Adapter = Adapter;
 }(jQuery);
 
 +function ($) {
   'use strict';
 
-  // Textarea view
-  // =============
+  // Textarea adapter
+  // ================
   //
   // Managing a textarea. It doesn't know a Dropdown.
   function Textarea(element, completer, option) {
@@ -824,7 +833,7 @@ if (typeof jQuery === 'undefined') {
     'margin-bottom', 'margin-left', 'border-style', 'box-sizing', 'tab-size'
   ];
 
-  Textarea.prototype = new $.fn.textcomplete.Input();
+  Textarea.prototype = new $.fn.textcomplete.Adapter();
 
   $.extend(Textarea.prototype, {
     // Public methods
@@ -920,11 +929,15 @@ if (typeof jQuery === 'undefined') {
 +function ($) {
   'use strict';
 
+  // ContentEditable adapter
+  // =======================
+  //
+  // Adapter for contenteditable elements.
   function ContentEditable (element, completer, option) {
     this.initialize(element, completer, option);
   }
 
-  ContentEditable.prototype = new $.fn.textcomplete.Input();
+  ContentEditable.prototype = new $.fn.textcomplete.Adapter();
 
   $.extend(ContentEditable.prototype, {
     // Public methods

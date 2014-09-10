@@ -5,11 +5,15 @@
 +function ($) {
   'use strict';
 
+  // ContentEditable adapter
+  // =======================
+  //
+  // Adapter for contenteditable elements.
   function ContentEditable (element, completer, option) {
     this.initialize(element, completer, option);
   }
 
-  ContentEditable.prototype = new $.fn.textcomplete.Input();
+  ContentEditable.prototype = new $.fn.textcomplete.Adapter();
 
   $.extend(ContentEditable.prototype, {
     // Public methods

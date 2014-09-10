@@ -32,9 +32,9 @@
     };
   };
 
-  function Input () {}
+  function Adapter () {}
 
-  $.extend(Input.prototype, {
+  $.extend(Adapter.prototype, {
     // Public properties
     // -----------------
 
@@ -64,6 +64,15 @@
     destroy: function () {
       this.$el.off('.' + this.id); // Remove all event handlers.
       this.$el = this.el = this.completer = null;
+    },
+
+    // Update the element with the given value and strategy.
+    //
+    // value    - The selected object. It is one of the item of the array
+    //            which was callbacked from the search function.
+    // strategy - The Strategy associated with the selected value.
+    select: function (/* value, strategy */) {
+      throw new Error('Not implemented');
     },
 
     // Returns the caret's relative coordinates from body's left top corner.
@@ -109,5 +118,5 @@
     }
   });
 
-  $.fn.textcomplete.Input = Input;
+  $.fn.textcomplete.Adapter = Adapter;
 }(jQuery);

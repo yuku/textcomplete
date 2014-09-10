@@ -66,8 +66,8 @@
     // Public properties
     // -----------------
 
-    $el:       null,
-    $inputEl:  null,
+    $el:       null,  // jQuery object of ul.dropdown-menu element.
+    $inputEl:  null,  // jQuery object of target textarea.
     completer: null,
     footer:    null,
     header:    null,

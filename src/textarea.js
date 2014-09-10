@@ -1,8 +1,8 @@
 +function ($) {
   'use strict';
 
-  // Textarea view
-  // =============
+  // Textarea adapter
+  // ================
   //
   // Managing a textarea. It doesn't know a Dropdown.
   function Textarea(element, completer, option) {
@@ -24,7 +24,7 @@
     'margin-bottom', 'margin-left', 'border-style', 'box-sizing', 'tab-size'
   ];
 
-  Textarea.prototype = new $.fn.textcomplete.Input();
+  Textarea.prototype = new $.fn.textcomplete.Adapter();
 
   $.extend(Textarea.prototype, {
     // Public methods

@@ -19,7 +19,7 @@ module.exports = function (grunt) {
           'src/completer.js',
           'src/dropdown.js',
           'src/strategy.js',
-          'src/input.js',
+          'src/adapter.js',
           'src/textarea.js',
           'src/content_editable.js'
         ],

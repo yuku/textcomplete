@@ -96,7 +96,7 @@
     id:         null,
     option:     null,
     strategies: null,
-    input:      null,
+    adapter:    null,
     dropdown:   null,
     $el:        null,
 
@@ -107,15 +107,15 @@
       var element = this.$el.get(0);
       // Initialize view objects.
       var viewName = element.isContentEditable ? 'ContentEditable' : 'Textarea';
-      this.input = new $.fn.textcomplete[viewName](element, this, this.option);
+      this.adapter = new $.fn.textcomplete[viewName](element, this, this.option);
       this.dropdown = new $.fn.textcomplete.Dropdown(element, this, this.option);
     },
 
     destroy: function () {
       this.$el.off('.' + this.id);
-      this.input.destroy();
+      this.adapter.destroy();
       this.dropdown.destroy();
-      this.$el = this.input = this.dropdown = null;
+      this.$el = this.adapter = this.dropdown = null;
     },
 
     // Invoke textcomplete.
@@ -143,15 +143,15 @@
       Array.prototype.push.apply(this.strategies, strategies);
     },
 
-    // Insert the value into input view. It is called when the dropdown is clicked
+    // Insert the value into adapter view. It is called when the dropdown is clicked
     // or selected.
     //
     // value    - The selected element of the array callbacked from search func.
     // strategy - The Strategy object.
     select: function (value, strategy) {
-      this.input.select(value, strategy);
+      this.adapter.select(value, strategy);
       this.fire('change').fire('textComplete:select', value, strategy);
-      this.input.focus();
+      this.adapter.focus();
     },
 
     // Private properties
@@ -186,7 +186,7 @@
       strategy.search(term, function (data, stillSearching) {
         if (!self.dropdown.shown) {
           self.dropdown.activate();
-          self.dropdown.setPosition(self.input.getCaretPosition());
+          self.dropdown.setPosition(self.adapter.getCaretPosition());
         }
         if (self._clearAtNext) {
           // The first callback in the current lock.
