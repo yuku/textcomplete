@@ -1,5 +1,9 @@
 # Changelog
 
+## `master`
+
+- Add debounce option.
+
 ## `v0.3.0` - Sep 10, 2014
 
 - Revive header and footer options.

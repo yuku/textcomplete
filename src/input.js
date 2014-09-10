@@ -1,6 +1,37 @@
 +function ($) {
   'use strict';
 
+  var now = Date.now || function () { return new Date().getTime(); };
+
+  // Returns a function, that, as long as it continues to be invoked, will not
+  // be triggered. The function will be called after it stops being called for
+  // `wait` msec.
+  //
+  // This utility function was originally implemented at Underscore.js.
+  var debounce = function (func, wait) {
+    var timeout, args, context, timestamp, result;
+    var later = function () {
+      var last = now() - timestamp;
+      if (last < wait) {
+        timeout = setTimeout(later, wait - last);
+      } else {
+        timeout = null;
+        result = func.apply(context, args);
+        context = args = null;
+      }
+    };
+
+    return function () {
+      context = this;
+      args = arguments;
+      timestamp = now();
+      if (!timeout) {
+        timeout = setTimeout(later, wait);
+      }
+      return result;
+    };
+  };
+
   function Input () {}
 
   $.extend(Input.prototype, {
@@ -22,6 +53,10 @@
       this.id        = completer.id + this.constructor.name;
       this.completer = completer;
       this.option    = option;
+
+      if (this.option.debounce) {
+        this._onKeyup = debounce(this._onKeyup, this.option.debounce);
+      }
 
       this._bindEvents();
     },
