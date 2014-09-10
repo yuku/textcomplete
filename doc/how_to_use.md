@@ -114,7 +114,8 @@ var option = {
   header:    headerStrOrFunc, // undefined
   footer:    footerStrOrFunc, // undefined
   zIndex:    zIndexStr,       // '100'
-  debounce:  debounceNumber   // undefined
+  debounce:  debounceNumber,  // undefined
+  adapter:   adapterClass     // undefined
 };
 ```
 
@@ -129,6 +130,8 @@ Textcomplete debounces `debounceNumber` milliseconds, so `searchFunc` is not cal
 ```js
 var placementStr = 'top|absleft';
 ```
+
+If you want to use textcomplete with a rich editor, please write an adapter for it and give the adapter as `adapterClass`.
 
 Finally, if you want to stop autocompleting, give `'destroy'` to `textcomplete` method as follows:
 

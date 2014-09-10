@@ -2,6 +2,7 @@
 
 ## `master`
 
+- Add `adapter` option.
 - Rename `Input` as `Adapter`.
 
 ## `v0.3.1` - Sep 10, 2014
