@@ -2,6 +2,7 @@
 
 ## `master`
 
+- Recycle `.dropdown-menu` element if available.
 - Add debounce option.
 
 ## `v0.3.0` - Sep 10, 2014

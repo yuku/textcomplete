@@ -155,8 +155,6 @@ if (typeof jQuery === 'undefined') {
       var viewName = element.isContentEditable ? 'ContentEditable' : 'Textarea';
       this.input = new $.fn.textcomplete[viewName](element, this, this.option);
       this.dropdown = new $.fn.textcomplete.Dropdown(element, this, this.option);
-      // TODO: Throw error if `this.option.appendTo` is 'position: static'.
-      this.dropdown.$el.appendTo(this.option.appendTo);
     },
 
     destroy: function () {
@@ -289,7 +287,7 @@ if (typeof jQuery === 'undefined') {
   //
   // element - Textarea or contenteditable element.
   function Dropdown(element, completer, option) {
-    this.$el       = Dropdown.createElement(option);
+    this.$el       = Dropdown.findOrCreateElement(option);
     this.completer = completer;
     this.id        = completer.id + 'dropdown';
     this._data     = []; // zipped data.
@@ -310,13 +308,19 @@ if (typeof jQuery === 'undefined') {
     // Class methods
     // -------------
 
-    createElement: function (option) {
-      return $('<ul class="dropdown-menu"></ul>').css({
-        display: 'none',
-        left: 0,
-        position: 'absolute',
-        zIndex: option.zIndex
-      });
+    findOrCreateElement: function (option) {
+      var $parent = option.appendTo;
+      if (!($parent instanceof $)) { $parent = $($parent); }
+      var $el = $parent.children('.dropdown-menu')
+      if (!$el.length) {
+        $el = $('<ul class="dropdown-menu"></ul>').css({
+          display: 'none',
+          left: 0,
+          position: 'absolute',
+          zIndex: option.zIndex
+        }).appendTo($parent);
+      }
+      return $el;
     }
   });
 
