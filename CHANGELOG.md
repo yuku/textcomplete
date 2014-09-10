@@ -1,17 +1,17 @@
 # Changelog
 
-## `master`
+## `v0.3.1` - Sep 10, 2014
 
-- Add context strategy option.
+- Add `context` strategy option.
 - Recycle `.dropdown-menu` element if available.
-- Add debounce option.
+- Add `debounce` option.
 
 ## `v0.3.0` - Sep 10, 2014
 
-- Revive header and footer options.
-- Consider the tab-size of textarea.
-- Revive height option.
-- Add zIndex option.
+- Revive `header` and `footer` options.
+- Consider the `tab-size` of textarea.
+- Revive `height` option.
+- Add `zIndex` option.
 
 ## `v0.3.0-beta2` - Sep 9, 2014
 
