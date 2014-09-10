@@ -107,6 +107,10 @@ if (typeof jQuery === 'undefined') {
     };
   };
 
+  var isString = function (obj) {
+    return Object.prototype.toString.call(obj) === '[object String]';
+  };
+
   var uniqueId = 0;
 
   function Completer(element, option) {
@@ -155,8 +159,6 @@ if (typeof jQuery === 'undefined') {
       var viewName = element.isContentEditable ? 'ContentEditable' : 'Textarea';
       this.input = new $.fn.textcomplete[viewName](element, this, this.option);
       this.dropdown = new $.fn.textcomplete.Dropdown(element, this, this.option);
-      // TODO: Throw error if `this.option.appendTo` is 'position: static'.
-      this.dropdown.$el.appendTo(this.option.appendTo);
     },
 
     destroy: function () {
@@ -218,8 +220,12 @@ if (typeof jQuery === 'undefined') {
     _extractSearchQuery: function (text) {
       for (var i = 0; i < this.strategies.length; i++) {
         var strategy = this.strategies[i];
-        var match = text.match(strategy.match);
-        if (match) { return [strategy, match[strategy.index]]; }
+        var context = strategy.context(text);
+        if (context || context === '') {
+          if (isString(context)) { text = context; }
+          var match = text.match(strategy.match);
+          if (match) { return [strategy, match[strategy.index]]; }
+        }
       }
       return []
     },
@@ -289,7 +295,7 @@ if (typeof jQuery === 'undefined') {
   //
   // element - Textarea or contenteditable element.
   function Dropdown(element, completer, option) {
-    this.$el       = Dropdown.createElement(option);
+    this.$el       = Dropdown.findOrCreateElement(option);
     this.completer = completer;
     this.id        = completer.id + 'dropdown';
     this._data     = []; // zipped data.
@@ -310,13 +316,19 @@ if (typeof jQuery === 'undefined') {
     // Class methods
     // -------------
 
-    createElement: function (option) {
-      return $('<ul class="dropdown-menu"></ul>').css({
-        display: 'none',
-        left: 0,
-        position: 'absolute',
-        zIndex: option.zIndex
-      });
+    findOrCreateElement: function (option) {
+      var $parent = option.appendTo;
+      if (!($parent instanceof $)) { $parent = $($parent); }
+      var $el = $parent.children('.dropdown-menu')
+      if (!$el.length) {
+        $el = $('<ul class="dropdown-menu"></ul>').css({
+          display: 'none',
+          left: 0,
+          position: 'absolute',
+          zIndex: option.zIndex
+        }).appendTo($parent);
+      }
+      return $el;
     }
   });
 
@@ -663,6 +675,7 @@ if (typeof jQuery === 'undefined') {
 
     // Optional
     cache:     false,
+    context:   function () { return true; },
     index:     2,
     template:  function (obj) { return obj; }
   });
@@ -673,6 +686,37 @@ if (typeof jQuery === 'undefined') {
 
 +function ($) {
   'use strict';
+
+  var now = Date.now || function () { return new Date().getTime(); };
+
+  // Returns a function, that, as long as it continues to be invoked, will not
+  // be triggered. The function will be called after it stops being called for
+  // `wait` msec.
+  //
+  // This utility function was originally implemented at Underscore.js.
+  var debounce = function (func, wait) {
+    var timeout, args, context, timestamp, result;
+    var later = function () {
+      var last = now() - timestamp;
+      if (last < wait) {
+        timeout = setTimeout(later, wait - last);
+      } else {
+        timeout = null;
+        result = func.apply(context, args);
+        context = args = null;
+      }
+    };
+
+    return function () {
+      context = this;
+      args = arguments;
+      timestamp = now();
+      if (!timeout) {
+        timeout = setTimeout(later, wait);
+      }
+      return result;
+    };
+  };
 
   function Input () {}
 
@@ -695,6 +739,10 @@ if (typeof jQuery === 'undefined') {
       this.id        = completer.id + this.constructor.name;
       this.completer = completer;
       this.option    = option;
+
+      if (this.option.debounce) {
+        this._onKeyup = debounce(this._onKeyup, this.option.debounce);
+      }
 
       this._bindEvents();
     },

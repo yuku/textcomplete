@@ -44,13 +44,8 @@ $('#textarea1').textcomplete([
         replace: function (value) {
             return ':' + value + ': ';
         },
-        index: 1,
-        maxCount: 5
-    }
-]);
-
-// You can append strategies to an already existing textcomplete object.
-$('#textarea1').textcomplete([
+        index: 1
+    },
     { // tech companies
         words: ['apple', 'google', 'facebook', 'github'],
         match: /\b(\w{2,})$/,
@@ -171,18 +166,10 @@ $('#textarea5').textcomplete([
         index: 1
     }
 ], {
-    maxCount: 5,
     header: function (data) {
         return '&lt;strong style="text-align: center; display: block;"&gt;' + data.length + '&lt;/strong&gt;';
     },
     footer: '&lt;strong style="text-align: center; display: block;"&gt;Footer&lt;/strong&gt;'
-}).on('focus', function () {
-    var textComplete = $(this).data('textComplete');
-    // Cursor has not set yet. And wait 100ms to skip global click event.
-    setTimeout(function () {
-        // Cursor is ready.
-        textComplete.trigger();
-    }, 100);
 });
 </pre>
             <h3 id="apply-to-contenteditables">Apply to Contenteditables</h3>
@@ -204,6 +191,62 @@ $('.contenteditable1').textcomplete([
         replace: function (word) {
             return word + '&nbsp;';
         }
+    }
+]);
+</pre>
+            <h3 id="simple-markdown-editor">Simple Markdown editor</h3>
+            <div class="textarea-wrapper">
+                <span class="label label-default">#textarea6</span>
+                <textarea class="form-control" id="textarea6" rows="4">Emoji strategy does not work inside a inline code or code block.</textarea>
+            </div>
+<pre class="brush: js; script">
+var isInCode = false
+function check(text) {
+    var match;
+    match = text.match(/`{3,}/g);
+    if (match &amp;&amp; match.length % 2) {
+        isInCode = true;
+    } else {
+        match = text.match(/`/g);
+        if (match &amp;&amp; match.length % 2) {
+            isInCode = true;
+        } else {
+            isInCode = false;
+        }
+    }
+}
+$('#textarea6').textcomplete([
+    { // emoji strategy
+        match: /\B:([\-+\w]*)$/,
+        search: function (term, callback) {
+            callback($.map(emojies, function (emoji) {
+                return emoji.indexOf(term) === 0 ? emoji : null;
+            }));
+        },
+        template: function (value) {
+            return '&lt;img src="media/images/emoji/' + value + '.png"&gt;&lt;/img&gt;' + value;
+        },
+        replace: function (value) {
+            return ':' + value + ': ';
+        },
+        index: 1,
+        context: function (text) {
+            check(text);
+            return !isInCode;
+        }
+    },
+    { // Code block language strategy
+        langs: ['js', 'rb', 'py', 'pl'],
+        match: /(^|\n)```(\w*)$/,
+        search: function (term, callback) {
+            callback($.map(this.langs, function (lang) {
+                return lang.indexOf(term) === 0 ? lang : null;
+            }));
+        },
+        replace: function (lang) {
+            return '$1```' + lang + '\n';
+        },
+        context: function () { return isInCode; }
     }
 ]);
 </pre>
