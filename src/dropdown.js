@@ -3,9 +3,15 @@
 
   var include = function (zippedData, datum) {
     var i, elem;
+    var idProperty = datum.strategy.idProperty
     for (i = 0; i < zippedData.length; i++) {
       elem = zippedData[i];
-      if (elem.value === datum.value && elem.strategy === datum.strategy) return true;
+      if (elem.strategy !== datum.strategy) continue;
+      if (idProperty) {
+        if (elem.value[idProperty] === datum.value[idProperty]) return true;
+      } else {
+        if (elem.value === datum.value) return true;
+      }
     }
     return false;
   };

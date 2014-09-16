@@ -2,6 +2,7 @@
 
 ## `master`
 
+- Add `idProperty` option.
 - Add `adapter` option.
 - Rename `Input` as `Adapter`.
 

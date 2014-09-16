@@ -32,15 +32,16 @@
     // -----------------
 
     // Required
-    match:     null,
-    replace:   null,
-    search:    null,
+    match:      null,
+    replace:    null,
+    search:     null,
 
     // Optional
-    cache:     false,
-    context:   function () { return true; },
-    index:     2,
-    template:  function (obj) { return obj; }
+    cache:      false,
+    context:    function () { return true; },
+    index:      2,
+    template:   function (obj) { return obj; },
+    idProperty: null
   });
 
   $.fn.textcomplete.Strategy = Strategy;

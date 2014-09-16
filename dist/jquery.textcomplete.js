@@ -279,9 +279,15 @@ if (typeof jQuery === 'undefined') {
 
   var include = function (zippedData, datum) {
     var i, elem;
+    var idProperty = datum.strategy.idProperty
     for (i = 0; i < zippedData.length; i++) {
       elem = zippedData[i];
-      if (elem.value === datum.value && elem.strategy === datum.strategy) return true;
+      if (elem.strategy !== datum.strategy) continue;
+      if (idProperty) {
+        if (elem.value[idProperty] === datum.value[idProperty]) return true;
+      } else {
+        if (elem.value === datum.value) return true;
+      }
     }
     return false;
   };
@@ -675,15 +681,16 @@ if (typeof jQuery === 'undefined') {
     // -----------------
 
     // Required
-    match:     null,
-    replace:   null,
-    search:    null,
+    match:      null,
+    replace:    null,
+    search:     null,
 
     // Optional
-    cache:     false,
-    context:   function () { return true; },
-    index:     2,
-    template:  function (obj) { return obj; }
+    cache:      false,
+    context:    function () { return true; },
+    index:      2,
+    template:   function (obj) { return obj; },
+    idProperty: null
   });
 
   $.fn.textcomplete.Strategy = Strategy;

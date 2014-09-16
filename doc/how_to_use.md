@@ -30,15 +30,16 @@ The `strategy` is an Object which MUST have `match`, `search` and `replace` and 
 ```js
 var strategy = {
   // Required
-  match:     matchRegExp,
-  search:    searchFunc,
-  replace:   replaceFunc,
+  match:      matchRegExp,
+  search:     searchFunc,
+  replace:    replaceFunc,
 
   // Optional                 // Default
-  index:     indexNumber,     // 2
-  template:  templateFunc,    // function (value) { return value; }
-  cache:     cacheBoolean,    // false
-  context:   contextFunc      // function (text) { return true; }
+  index:      indexNumber,    // 2
+  template:   templateFunc,   // function (value) { return value; }
+  cache:      cacheBoolean,   // false
+  context:    contextFunc,    // function (text) { return true; }
+  idProperty: idPropertyStr   // null
 }
 ```
 
@@ -57,6 +58,8 @@ The `searchFunc` MUST be a Function which gets two arguments, `term` and `callba
 If you want to execute `callback` multiple times per a search, you SHOULD give `true` to the second argument while additional execution remains. This is useful to use data located at both local and remote. Note that you MUST invoke `callback` without truthy second argument at least once per a search.
 
 The `cacheBoolean` MUST be a Boolean. It defaults to `false`. If it is `true` the `searchFunc` will be memoized by `term` argument. This is useful to prevent excessive API access.
+
+TextComplete automatically make the dropdown unique when the callbacked array consists of Strings. If it consists of Objects and the dropdown shoud be unique, use `idPropertyStr` for teaching the specified property is good to identify each elements.
 
 ```js
 var searchFunc = function (term, callback) {
