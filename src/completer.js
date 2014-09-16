@@ -107,11 +107,15 @@
       var element = this.$el.get(0);
       // Initialize view objects.
       this.dropdown = new $.fn.textcomplete.Dropdown(element, this, this.option);
-      var Adapter;
+      var Adapter, viewName;
       if (this.option.adapter) {
         Adapter = this.option.adapter;
       } else {
-        var viewName = element.isContentEditable ? 'ContentEditable' : 'Textarea';
+        if (this.$el.is('textarea')) {
+          viewName = typeof element.selectionEnd === 'number' ? 'Textarea' : 'IETextarea';
+        } else {
+          viewName = 'ContentEditable';
+        }
         Adapter = $.fn.textcomplete[viewName];
       }
       this.adapter = new Adapter(element, this, this.option);

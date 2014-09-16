@@ -24,29 +24,22 @@
     'margin-bottom', 'margin-left', 'border-style', 'box-sizing', 'tab-size'
   ];
 
-  Textarea.prototype = new $.fn.textcomplete.Adapter();
-
-  $.extend(Textarea.prototype, {
+  $.extend(Textarea.prototype, $.fn.textcomplete.Adapter.prototype, {
     // Public methods
     // --------------
 
     // Update the textarea with the given value and strategy.
     select: function (value, strategy) {
       var pre = this._getTextFromHeadToCaret();
-      var selectionEnd = this.el.selectionEnd;
-      if (typeof selectionEnd === 'number') {
-        var post = this.el.value.substring(selectionEnd);
-        var newSubstr = strategy.replace(value);
-        if ($.isArray(newSubstr)) {
-          post = newSubstr[1] + post;
-          newSubstr = newSubstr[0];
-        }
-        pre = pre.replace(strategy.match, newSubstr);
-        this.$el.val(pre + post);
-        this.el.selectionStart = this.el.selectionEnd = pre.length;
-      } else if (document.selection) { // IE
-
+      var post = this.el.value.substring(this.el.selectionEnd);
+      var newSubstr = strategy.replace(value);
+      if ($.isArray(newSubstr)) {
+        post = newSubstr[1] + post;
+        newSubstr = newSubstr[0];
       }
+      pre = pre.replace(strategy.match, newSubstr);
+      this.$el.val(pre + post);
+      this.el.selectionStart = this.el.selectionEnd = pre.length;
     },
 
     // Private methods
@@ -98,15 +91,7 @@
     })($),
 
     _getTextFromHeadToCaret: function () {
-      var selectionEnd = this.el.selectionEnd;
-      if (typeof selectionEnd === 'number') {
-        return this.el.value.substring(0, selectionEnd);
-      } else if (document.selection) { // IE
-        var range = this.el.createTextRange();
-        range.moveStart('character', 0);
-        range.moveEnd('textedit');
-        return range.text;
-      }
+      return this.el.value.substring(0, this.el.selectionEnd);
     }
   });
 

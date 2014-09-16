@@ -13,9 +13,7 @@
     this.initialize(element, completer, option);
   }
 
-  ContentEditable.prototype = new $.fn.textcomplete.Adapter();
-
-  $.extend(ContentEditable.prototype, {
+  $.extend(ContentEditable.prototype, $.fn.textcomplete.Adapter.prototype, {
     // Public methods
     // --------------
 

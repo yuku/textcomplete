@@ -21,6 +21,7 @@ module.exports = function (grunt) {
           'src/strategy.js',
           'src/adapter.js',
           'src/textarea.js',
+          'src/ie_textarea.js',
           'src/content_editable.js'
         ],
         dest: 'dist/jquery.textcomplete.js'

@@ -2,6 +2,7 @@
 
 ## `master`
 
+- Add `IETextarea` adapter which supports IE8
 - Add `idProperty` option.
 - Add `adapter` option.
 - Rename `Input` as `Adapter`.

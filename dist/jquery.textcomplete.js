@@ -157,11 +157,15 @@ if (typeof jQuery === 'undefined') {
       var element = this.$el.get(0);
       // Initialize view objects.
       this.dropdown = new $.fn.textcomplete.Dropdown(element, this, this.option);
-      var Adapter;
+      var Adapter, viewName;
       if (this.option.adapter) {
         Adapter = this.option.adapter;
       } else {
-        var viewName = element.isContentEditable ? 'ContentEditable' : 'Textarea';
+        if (this.$el.is('textarea')) {
+          viewName = typeof element.selectionEnd === 'number' ? 'Textarea' : 'IETextarea';
+        } else {
+          viewName = 'ContentEditable';
+        }
         Adapter = $.fn.textcomplete[viewName];
       }
       this.adapter = new Adapter(element, this, this.option);
@@ -846,29 +850,22 @@ if (typeof jQuery === 'undefined') {
     'margin-bottom', 'margin-left', 'border-style', 'box-sizing', 'tab-size'
   ];
 
-  Textarea.prototype = new $.fn.textcomplete.Adapter();
-
-  $.extend(Textarea.prototype, {
+  $.extend(Textarea.prototype, $.fn.textcomplete.Adapter.prototype, {
     // Public methods
     // --------------
 
     // Update the textarea with the given value and strategy.
     select: function (value, strategy) {
       var pre = this._getTextFromHeadToCaret();
-      var selectionEnd = this.el.selectionEnd;
-      if (typeof selectionEnd === 'number') {
-        var post = this.el.value.substring(selectionEnd);
-        var newSubstr = strategy.replace(value);
-        if ($.isArray(newSubstr)) {
-          post = newSubstr[1] + post;
-          newSubstr = newSubstr[0];
-        }
-        pre = pre.replace(strategy.match, newSubstr);
-        this.$el.val(pre + post);
-        this.el.selectionStart = this.el.selectionEnd = pre.length;
-      } else if (document.selection) { // IE
-
+      var post = this.el.value.substring(this.el.selectionEnd);
+      var newSubstr = strategy.replace(value);
+      if ($.isArray(newSubstr)) {
+        post = newSubstr[1] + post;
+        newSubstr = newSubstr[0];
       }
+      pre = pre.replace(strategy.match, newSubstr);
+      this.$el.val(pre + post);
+      this.el.selectionStart = this.el.selectionEnd = pre.length;
     },
 
     // Private methods
@@ -920,19 +917,59 @@ if (typeof jQuery === 'undefined') {
     })($),
 
     _getTextFromHeadToCaret: function () {
-      var selectionEnd = this.el.selectionEnd;
-      if (typeof selectionEnd === 'number') {
-        return this.el.value.substring(0, selectionEnd);
-      } else if (document.selection) { // IE
-        var range = this.el.createTextRange();
-        range.moveStart('character', 0);
-        range.moveEnd('textedit');
-        return range.text;
-      }
+      return this.el.value.substring(0, this.el.selectionEnd);
     }
   });
 
   $.fn.textcomplete.Textarea = Textarea;
+}(jQuery);
+
++function ($) {
+  'use strict';
+
+  var sentinelChar = '吶';
+
+  function IETextarea(element, completer, option) {
+    this.initialize(element, completer, option);
+    $('<span>' + sentinelChar + '</span>').css({
+      position: 'absolute',
+      top: -9999,
+      left: -9999
+    }).insertBefore(element);
+  }
+
+  $.extend(IETextarea.prototype, $.fn.textcomplete.Textarea.prototype, {
+    // Public methods
+    // --------------
+
+    select: function (value, strategy) {
+      var pre = this._getTextFromHeadToCaret();
+      var post = this.el.value.substring(pre.length);
+      var newSubstr = strategy.replace(value);
+      if ($.isArray(newSubstr)) {
+        post = newSubstr[1] + post;
+        newSubstr = newSubstr[0];
+      }
+      pre = pre.replace(strategy.match, newSubstr);
+      this.$el.val(pre + post);
+      this.el.focus();
+      var range = this.el.createTextRange();
+      range.collapse(true);
+      range.moveEnd('character', pre.length);
+      range.moveStart('character', pre.length);
+      range.select();
+    },
+
+    _getTextFromHeadToCaret: function () {
+      this.el.focus();
+      var range = document.selection.createRange();
+      range.moveStart('character', -this.el.value.length);
+      var arr = range.text.split(sentinelChar)
+      return arr.length === 1 ? arr[0] : arr[1];
+    }
+  });
+
+  $.fn.textcomplete.IETextarea = IETextarea;
 }(jQuery);
 
 // NOTE: TextComplete plugin has contenteditable support but it does not work
@@ -950,9 +987,7 @@ if (typeof jQuery === 'undefined') {
     this.initialize(element, completer, option);
   }
 
-  ContentEditable.prototype = new $.fn.textcomplete.Adapter();
-
-  $.extend(ContentEditable.prototype, {
+  $.extend(ContentEditable.prototype, $.fn.textcomplete.Adapter.prototype, {
     // Public methods
     // --------------
 
