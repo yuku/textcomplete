@@ -1,6 +1,6 @@
 # Changelog
 
-## `master`
+## `v0.3.2` - Sep 16, 2014
 
 - Add `IETextarea` adapter which supports IE8
 - Add `idProperty` option.
