@@ -146,7 +146,7 @@ if (typeof jQuery === 'undefined') {
     id:         null,
     option:     null,
     strategies: null,
-    input:      null,
+    adapter:    null,
     dropdown:   null,
     $el:        null,
 
@@ -156,16 +156,26 @@ if (typeof jQuery === 'undefined') {
     initialize: function () {
       var element = this.$el.get(0);
       // Initialize view objects.
-      var viewName = element.isContentEditable ? 'ContentEditable' : 'Textarea';
-      this.input = new $.fn.textcomplete[viewName](element, this, this.option);
       this.dropdown = new $.fn.textcomplete.Dropdown(element, this, this.option);
+      var Adapter, viewName;
+      if (this.option.adapter) {
+        Adapter = this.option.adapter;
+      } else {
+        if (this.$el.is('textarea')) {
+          viewName = typeof element.selectionEnd === 'number' ? 'Textarea' : 'IETextarea';
+        } else {
+          viewName = 'ContentEditable';
+        }
+        Adapter = $.fn.textcomplete[viewName];
+      }
+      this.adapter = new Adapter(element, this, this.option);
     },
 
     destroy: function () {
       this.$el.off('.' + this.id);
-      this.input.destroy();
+      this.adapter.destroy();
       this.dropdown.destroy();
-      this.$el = this.input = this.dropdown = null;
+      this.$el = this.adapter = this.dropdown = null;
     },
 
     // Invoke textcomplete.
@@ -193,15 +203,15 @@ if (typeof jQuery === 'undefined') {
       Array.prototype.push.apply(this.strategies, strategies);
     },
 
-    // Insert the value into input view. It is called when the dropdown is clicked
+    // Insert the value into adapter view. It is called when the dropdown is clicked
     // or selected.
     //
     // value    - The selected element of the array callbacked from search func.
     // strategy - The Strategy object.
     select: function (value, strategy) {
-      this.input.select(value, strategy);
+      this.adapter.select(value, strategy);
       this.fire('change').fire('textComplete:select', value, strategy);
-      this.input.focus();
+      this.adapter.focus();
     },
 
     // Private properties
@@ -236,7 +246,7 @@ if (typeof jQuery === 'undefined') {
       strategy.search(term, function (data, stillSearching) {
         if (!self.dropdown.shown) {
           self.dropdown.activate();
-          self.dropdown.setPosition(self.input.getCaretPosition());
+          self.dropdown.setPosition(self.adapter.getCaretPosition());
         }
         if (self._clearAtNext) {
           // The first callback in the current lock.
@@ -273,9 +283,15 @@ if (typeof jQuery === 'undefined') {
 
   var include = function (zippedData, datum) {
     var i, elem;
+    var idProperty = datum.strategy.idProperty
     for (i = 0; i < zippedData.length; i++) {
       elem = zippedData[i];
-      if (elem.value === datum.value && elem.strategy === datum.strategy) return true;
+      if (elem.strategy !== datum.strategy) continue;
+      if (idProperty) {
+        if (elem.value[idProperty] === datum.value[idProperty]) return true;
+      } else {
+        if (elem.value === datum.value) return true;
+      }
     }
     return false;
   };
@@ -336,8 +352,8 @@ if (typeof jQuery === 'undefined') {
     // Public properties
     // -----------------
 
-    $el:       null,
-    $inputEl:  null,
+    $el:       null,  // jQuery object of ul.dropdown-menu element.
+    $inputEl:  null,  // jQuery object of target textarea.
     completer: null,
     footer:    null,
     header:    null,
@@ -669,15 +685,16 @@ if (typeof jQuery === 'undefined') {
     // -----------------
 
     // Required
-    match:     null,
-    replace:   null,
-    search:    null,
+    match:      null,
+    replace:    null,
+    search:     null,
 
     // Optional
-    cache:     false,
-    context:   function () { return true; },
-    index:     2,
-    template:  function (obj) { return obj; }
+    cache:      false,
+    context:    function () { return true; },
+    index:      2,
+    template:   function (obj) { return obj; },
+    idProperty: null
   });
 
   $.fn.textcomplete.Strategy = Strategy;
@@ -718,9 +735,9 @@ if (typeof jQuery === 'undefined') {
     };
   };
 
-  function Input () {}
+  function Adapter () {}
 
-  $.extend(Input.prototype, {
+  $.extend(Adapter.prototype, {
     // Public properties
     // -----------------
 
@@ -750,6 +767,15 @@ if (typeof jQuery === 'undefined') {
     destroy: function () {
       this.$el.off('.' + this.id); // Remove all event handlers.
       this.$el = this.el = this.completer = null;
+    },
+
+    // Update the element with the given value and strategy.
+    //
+    // value    - The selected object. It is one of the item of the array
+    //            which was callbacked from the search function.
+    // strategy - The Strategy associated with the selected value.
+    select: function (/* value, strategy */) {
+      throw new Error('Not implemented');
     },
 
     // Returns the caret's relative coordinates from body's left top corner.
@@ -795,14 +821,14 @@ if (typeof jQuery === 'undefined') {
     }
   });
 
-  $.fn.textcomplete.Input = Input;
+  $.fn.textcomplete.Adapter = Adapter;
 }(jQuery);
 
 +function ($) {
   'use strict';
 
-  // Textarea view
-  // =============
+  // Textarea adapter
+  // ================
   //
   // Managing a textarea. It doesn't know a Dropdown.
   function Textarea(element, completer, option) {
@@ -824,29 +850,22 @@ if (typeof jQuery === 'undefined') {
     'margin-bottom', 'margin-left', 'border-style', 'box-sizing', 'tab-size'
   ];
 
-  Textarea.prototype = new $.fn.textcomplete.Input();
-
-  $.extend(Textarea.prototype, {
+  $.extend(Textarea.prototype, $.fn.textcomplete.Adapter.prototype, {
     // Public methods
     // --------------
 
     // Update the textarea with the given value and strategy.
     select: function (value, strategy) {
       var pre = this._getTextFromHeadToCaret();
-      var selectionEnd = this.el.selectionEnd;
-      if (typeof selectionEnd === 'number') {
-        var post = this.el.value.substring(selectionEnd);
-        var newSubstr = strategy.replace(value);
-        if ($.isArray(newSubstr)) {
-          post = newSubstr[1] + post;
-          newSubstr = newSubstr[0];
-        }
-        pre = pre.replace(strategy.match, newSubstr);
-        this.$el.val(pre + post);
-        this.el.selectionStart = this.el.selectionEnd = pre.length;
-      } else if (document.selection) { // IE
-
+      var post = this.el.value.substring(this.el.selectionEnd);
+      var newSubstr = strategy.replace(value);
+      if ($.isArray(newSubstr)) {
+        post = newSubstr[1] + post;
+        newSubstr = newSubstr[0];
       }
+      pre = pre.replace(strategy.match, newSubstr);
+      this.$el.val(pre + post);
+      this.el.selectionStart = this.el.selectionEnd = pre.length;
     },
 
     // Private methods
@@ -898,19 +917,59 @@ if (typeof jQuery === 'undefined') {
     })($),
 
     _getTextFromHeadToCaret: function () {
-      var selectionEnd = this.el.selectionEnd;
-      if (typeof selectionEnd === 'number') {
-        return this.el.value.substring(0, selectionEnd);
-      } else if (document.selection) { // IE
-        var range = this.el.createTextRange();
-        range.moveStart('character', 0);
-        range.moveEnd('textedit');
-        return range.text;
-      }
+      return this.el.value.substring(0, this.el.selectionEnd);
     }
   });
 
   $.fn.textcomplete.Textarea = Textarea;
+}(jQuery);
+
++function ($) {
+  'use strict';
+
+  var sentinelChar = '吶';
+
+  function IETextarea(element, completer, option) {
+    this.initialize(element, completer, option);
+    $('<span>' + sentinelChar + '</span>').css({
+      position: 'absolute',
+      top: -9999,
+      left: -9999
+    }).insertBefore(element);
+  }
+
+  $.extend(IETextarea.prototype, $.fn.textcomplete.Textarea.prototype, {
+    // Public methods
+    // --------------
+
+    select: function (value, strategy) {
+      var pre = this._getTextFromHeadToCaret();
+      var post = this.el.value.substring(pre.length);
+      var newSubstr = strategy.replace(value);
+      if ($.isArray(newSubstr)) {
+        post = newSubstr[1] + post;
+        newSubstr = newSubstr[0];
+      }
+      pre = pre.replace(strategy.match, newSubstr);
+      this.$el.val(pre + post);
+      this.el.focus();
+      var range = this.el.createTextRange();
+      range.collapse(true);
+      range.moveEnd('character', pre.length);
+      range.moveStart('character', pre.length);
+      range.select();
+    },
+
+    _getTextFromHeadToCaret: function () {
+      this.el.focus();
+      var range = document.selection.createRange();
+      range.moveStart('character', -this.el.value.length);
+      var arr = range.text.split(sentinelChar)
+      return arr.length === 1 ? arr[0] : arr[1];
+    }
+  });
+
+  $.fn.textcomplete.IETextarea = IETextarea;
 }(jQuery);
 
 // NOTE: TextComplete plugin has contenteditable support but it does not work
@@ -920,13 +979,15 @@ if (typeof jQuery === 'undefined') {
 +function ($) {
   'use strict';
 
+  // ContentEditable adapter
+  // =======================
+  //
+  // Adapter for contenteditable elements.
   function ContentEditable (element, completer, option) {
     this.initialize(element, completer, option);
   }
 
-  ContentEditable.prototype = new $.fn.textcomplete.Input();
-
-  $.extend(ContentEditable.prototype, {
+  $.extend(ContentEditable.prototype, $.fn.textcomplete.Adapter.prototype, {
     // Public methods
     // --------------
 
