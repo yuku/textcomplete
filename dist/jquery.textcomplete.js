@@ -337,7 +337,7 @@ if (typeof jQuery === 'undefined') {
       if (!($parent instanceof $)) { $parent = $($parent); }
       var $el = $parent.children('.dropdown-menu')
       if (!$el.length) {
-        $el = $('<ul class="dropdown-menu"></ul>').css({
+        $el = $('<ul id="textcomplete-dropdown" class="dropdown-menu"></ul>').css({
           display: 'none',
           left: 0,
           position: 'absolute',
