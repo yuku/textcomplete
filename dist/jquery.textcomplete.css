@@ -1,33 +1,33 @@
 /* Sample */
 
-.dropdown-menu {
+#textcomplete-dropdown.dropdown-menu {
     border: 1px solid #ddd;
     background-color: white;
 }
 
-.dropdown-menu li {
+#textcomplete-dropdown.dropdown-menu li {
     border-top: 1px solid #ddd;
     padding: 2px 5px;
 }
 
-.dropdown-menu li:first-child {
+#textcomplete-dropdown.dropdown-menu li:first-child {
     border-top: none;
 }
 
-.dropdown-menu li:hover,
-.dropdown-menu .active {
+#textcomplete-dropdown.dropdown-menu li:hover,
+#textcomplete-dropdown.dropdown-menu .active {
     background-color: rgb(110, 183, 219);
 }
 
 
 /* SHOULD not modify */
 
-.dropdown-menu {
+#textcomplete-dropdown.dropdown-menu {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.dropdown-menu a:hover {
+#textcomplete-dropdown.dropdown-menu a:hover {
     cursor: pointer;
 }
