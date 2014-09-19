@@ -1,33 +1,33 @@
 /* Sample */
 
-.dropdown-menu {
+.dropdown-menu[data-dropdown="textcomplete"] {
     border: 1px solid #ddd;
     background-color: white;
 }
 
-.dropdown-menu li {
+.dropdown-menu[data-dropdown="textcomplete"] li {
     border-top: 1px solid #ddd;
     padding: 2px 5px;
 }
 
-.dropdown-menu li:first-child {
+.dropdown-menu[data-dropdown="textcomplete"] li:first-child {
     border-top: none;
 }
 
-.dropdown-menu li:hover,
-.dropdown-menu .active {
+.dropdown-menu[data-dropdown="textcomplete"] li:hover,
+.dropdown-menu[data-dropdown="textcomplete"] .active {
     background-color: rgb(110, 183, 219);
 }
 
 
 /* SHOULD not modify */
 
-.dropdown-menu {
+.dropdown-menu[data-dropdown="textcomplete"] {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.dropdown-menu a:hover {
+.dropdown-menu[data-dropdown="textcomplete"] a:hover {
     cursor: pointer;
 }
