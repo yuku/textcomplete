@@ -1,33 +1,33 @@
 /* Sample */
 
-#textcomplete-dropdown.dropdown-menu {
+.dropdown-menu[data-dropdown="textcomplete"] {
     border: 1px solid #ddd;
     background-color: white;
 }
 
-#textcomplete-dropdown.dropdown-menu li {
+.dropdown-menu[data-dropdown="textcomplete"] li {
     border-top: 1px solid #ddd;
     padding: 2px 5px;
 }
 
-#textcomplete-dropdown.dropdown-menu li:first-child {
+.dropdown-menu[data-dropdown="textcomplete"] li:first-child {
     border-top: none;
 }
 
-#textcomplete-dropdown.dropdown-menu li:hover,
-#textcomplete-dropdown.dropdown-menu .active {
+.dropdown-menu[data-dropdown="textcomplete"] li:hover,
+.dropdown-menu[data-dropdown="textcomplete"] .active {
     background-color: rgb(110, 183, 219);
 }
 
 
 /* SHOULD not modify */
 
-#textcomplete-dropdown.dropdown-menu {
+.dropdown-menu[data-dropdown="textcomplete"] {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-#textcomplete-dropdown.dropdown-menu a:hover {
+.dropdown-menu[data-dropdown="textcomplete"] a:hover {
     cursor: pointer;
 }
