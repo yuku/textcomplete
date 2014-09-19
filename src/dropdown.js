@@ -41,7 +41,7 @@
     if (option.listPosition) { this.setPosition = option.listPosition; }
     if (option.height) { this.$el.height(option.height); }
     var self = this;
-    $.each(['maxCount', 'placement', 'footer', 'header'], function (_i, name) {
+    $.each(['maxCount', 'placement', 'footer', 'header', 'className'], function (_i, name) {
       if (option[name] != null) { self[name] = option[name]; }
     });
     this._bindEvents(element);
@@ -82,6 +82,7 @@
     placement: '',
     shown:     false,
     data:      [],     // Shown zipped data.
+    className: '',
 
     // Public methods
     // --------------
@@ -126,6 +127,7 @@
       if (!this.shown) {
         this.clear();
         this.$el.show();
+        if (this.className) { this.$el.addClass(this.className); }
         this.completer.fire('textComplete:show');
         this.shown = true;
       }
@@ -135,6 +137,7 @@
     deactivate: function () {
       if (this.shown) {
         this.$el.hide();
+        if (this.className) { this.$el.removeClass(this.className); }
         this.completer.fire('textComplete:hide');
         this.shown = false;
       }

@@ -118,7 +118,8 @@ var option = {
   footer:    footerStrOrFunc, // undefined
   zIndex:    zIndexStr,       // '100'
   debounce:  debounceNumber,  // undefined
-  adapter:   adapterClass     // undefined
+  adapter:   adapterClass,    // undefined
+  className: classNameStr     // ''
 };
 ```
 
@@ -126,7 +127,7 @@ The `maxCountNumber` MUST be a Number and default to 10. Even if `searchFunc` ca
 
 If `placementStr` includes 'top', it positions the drop-down to above the caret. If `placementStr` includes 'absleft' and 'absright', it positions the drop-down absolutely to the very left and right respectively. You can mix them.
 
-You can override the z-index property of dropdown element using `zIndex` option.
+You can override the z-index property and the class attribute of dropdown element using `zIndex` and `className` option respectively.
 
 Textcomplete debounces `debounceNumber` milliseconds, so `searchFunc` is not called until user stops typing.
 
