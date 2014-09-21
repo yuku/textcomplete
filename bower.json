@@ -4,5 +4,16 @@
   "main": "dist/jquery.textcomplete.min.js",
   "dependencies": {
     "jquery": ">=1.7.0"
-  }
+  },
+  "authors": [
+    "Yuku TAKAHASHI <taka84u9@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
 }
