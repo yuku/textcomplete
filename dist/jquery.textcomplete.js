@@ -370,6 +370,9 @@ if (typeof jQuery === 'undefined') {
     // --------------
 
     destroy: function () {
+      // Don't remove $el because it may be shared by several textcompletes.
+      this.deactivate();
+
       this.$el.off('.' + this.id);
       this.$inputEl.off('.' + this.id);
       this.clear();
