@@ -30,7 +30,7 @@
 
     // Update the textarea with the given value and strategy.
     select: function (value, strategy) {
-      var pre = this._getTextFromHeadToCaret();
+      var pre = this.getTextFromHeadToCaret();
       var post = this.el.value.substring(this.el.selectionEnd);
       var newSubstr = strategy.replace(value);
       if ($.isArray(newSubstr)) {
@@ -55,7 +55,7 @@
     // Consequently, the span element's position is the thing what we want.
     _getCaretRelativePosition: function () {
       var dummyDiv = $('<div></div>').css(this._copyCss())
-        .text(this._getTextFromHeadToCaret());
+        .text(this.getTextFromHeadToCaret());
       var span = $('<span></span>').text('.').appendTo(dummyDiv);
       this.$el.before(dummyDiv);
       var position = span.position();
@@ -90,7 +90,7 @@
       }
     })($),
 
-    _getTextFromHeadToCaret: function () {
+    getTextFromHeadToCaret: function () {
       return this.el.value.substring(0, this.el.selectionEnd);
     }
   });

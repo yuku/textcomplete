@@ -131,6 +131,7 @@
     // Invoke textcomplete.
     trigger: function (text, skipUnchangedTerm) {
       if (!this.dropdown) { this.initialize(); }
+      text != null || (text = this.adapter.getTextFromHeadToCaret());
       var searchQuery = this._extractSearchQuery(text);
       if (searchQuery.length) {
         var term = searchQuery[1];

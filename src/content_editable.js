@@ -20,7 +20,7 @@
     // Update the content with the given value and strategy.
     // When an dropdown item is selected, it is executed.
     select: function (value, strategy) {
-      var pre = this._getTextFromHeadToCaret();
+      var pre = this.getTextFromHeadToCaret();
       var sel = window.getSelection()
       var range = sel.getRangeAt(0);
       var selection = range.cloneRange();
@@ -77,9 +77,9 @@
     // Example
     //
     //   // Suppose the html is '<b>hello</b> wor|ld' and | is the caret.
-    //   this._getTextFromHeadToCaret()
+    //   this.getTextFromHeadToCaret()
     //   // => ' wor'  // not '<b>hello</b> wor'
-    _getTextFromHeadToCaret: function () {
+    getTextFromHeadToCaret: function () {
       var range = window.getSelection().getRangeAt(0);
       var selection = range.cloneRange();
       selection.selectNodeContents(range.startContainer);
