@@ -3,6 +3,7 @@
 ## `master`
 
 - Add `className` option.
+- [Fix #118] Ignore `.textcomplete('destory')` on non-initialized elements.
 
 ## `v0.3.2` - Sep 16, 2014
 

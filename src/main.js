@@ -27,6 +27,7 @@ if (typeof jQuery === 'undefined') {
         $this.data('textComplete', completer);
       }
       if (typeof strategies === 'string') {
+        if (!completer) return;
         args.shift()
         completer[strategies].apply(completer, args);
       } else {
