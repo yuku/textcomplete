@@ -6,6 +6,7 @@
 - [Fix #118] Ignore `.textcomplete('destory')` on non-initialized elements.
 - [Fix #119] Trigger completer with the current text by default.
 - [Fix #120] Hide dropdown before destroying it.
+- [Fix #121] Don't throw an exception even if a jquery click event is manually triggered.
 
 ## `v0.3.2` - Sep 16, 2014
 
