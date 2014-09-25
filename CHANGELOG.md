@@ -1,6 +1,6 @@
 # Changelog
 
-## `master`
+## `v0.3.3` - Sep 25, 2014.
 
 - Add `className` option.
 - [Fix #118] Ignore `.textcomplete('destory')` on non-initialized elements.
