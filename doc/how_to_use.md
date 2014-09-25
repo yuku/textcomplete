@@ -53,7 +53,7 @@ var indexNumber = 2;
 var contextFunc = function (text) { return text.toLowerCase(); };
 ```
 
-The `searchFunc` MUST be a Function which gets two arguments, `term` and `callback`. It MUST invoke `callback` with an Array. It is guaranteed that the function will be invoked exclusively even though it contains async call.
+The `searchFunc` MUST be a Function which gets two arguments, `term` and `callback`. It MAY have the third argument `match` which is the result of regexp matching. It MUST invoke `callback` with an Array. It is guaranteed that the function will be invoked exclusively even though it contains async call.
 
 If you want to execute `callback` multiple times per a search, you SHOULD give `true` to the second argument while additional execution remains. This is useful to use data located at both local and remote. Note that you MUST invoke `callback` without truthy second argument at least once per a search.
 
@@ -62,7 +62,8 @@ The `cacheBoolean` MUST be a Boolean. It defaults to `false`. If it is `true` th
 TextComplete automatically make the dropdown unique when the callbacked array consists of Strings. If it consists of Objects and the dropdown shoud be unique, use `idPropertyStr` for teaching the specified property is good to identify each elements.
 
 ```js
-var searchFunc = function (term, callback) {
+var searchFunc = function (term, callback, match) {
+  // term === match[indexNumber]
   callback(cache[term], true); // Show local cache immediately.
 
   $.getJSON('/search', { q: term })

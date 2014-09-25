@@ -176,8 +176,8 @@
 
     // Parse the given text and extract the first matching strategy.
     //
-    // Returns an array including the strategy and the query term if the
-    // text matches an strategy; otherwise returns an empty array..
+    // Returns an array including the strategy, the query term and the match
+    // object if the text matches an strategy; otherwise returns an empty array.
     _extractSearchQuery: function (text) {
       for (var i = 0; i < this.strategies.length; i++) {
         var strategy = this.strategies[i];
@@ -185,14 +185,14 @@
         if (context || context === '') {
           if (isString(context)) { text = context; }
           var match = text.match(strategy.match);
-          if (match) { return [strategy, match[strategy.index]]; }
+          if (match) { return [strategy, match[strategy.index], match]; }
         }
       }
       return []
     },
 
     // Call the search method of selected strategy..
-    _search: lock(function (free, strategy, term) {
+    _search: lock(function (free, strategy, term, match) {
       var self = this;
       strategy.search(term, function (data, stillSearching) {
         if (!self.dropdown.shown) {
@@ -210,7 +210,7 @@
           free();
           self._clearAtNext = true; // Call dropdown.clear at the next time.
         }
-      });
+      }, match);
     }),
 
     // Build a parameter for Dropdown#render.
