@@ -359,7 +359,6 @@
         position = {
           top: 'auto',
           bottom: this.$el.parent().height() - (position.top) + _offset,
-          bottom: this.$el.parent().height() - position.top + position.lineHeight,
           left: position.left
         };
       } else {
