@@ -951,7 +951,7 @@ if (typeof jQuery === 'undefined') {
     // --------------
 
     select: function (value, strategy) {
-      var pre = this._getTextFromHeadToCaret();
+      var pre = this.getTextFromHeadToCaret();
       var post = this.el.value.substring(pre.length);
       var newSubstr = strategy.replace(value);
       if ($.isArray(newSubstr)) {
@@ -968,7 +968,7 @@ if (typeof jQuery === 'undefined') {
       range.select();
     },
 
-    _getTextFromHeadToCaret: function () {
+    getTextFromHeadToCaret: function () {
       this.el.focus();
       var range = document.selection.createRange();
       range.moveStart('character', -this.el.value.length);
