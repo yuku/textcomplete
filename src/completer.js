@@ -123,8 +123,12 @@
 
     destroy: function () {
       this.$el.off('.' + this.id);
-      this.adapter.destroy();
-      this.dropdown.destroy();
+      if (this.adapter) {
+        this.adapter.destroy();
+      }
+      if (this.dropdown) {
+        this.dropdown.destroy();
+      }
       this.$el = this.adapter = this.dropdown = null;
     },
 
