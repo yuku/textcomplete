@@ -30,6 +30,9 @@ if (typeof jQuery === 'undefined') {
         if (!completer) return;
         args.shift()
         completer[strategies].apply(completer, args);
+        if (strategies === 'destroy') {
+          $this.removeData('textComplete');
+        }
       } else {
         // For backward compatibility.
         // TODO: Remove at v0.4
