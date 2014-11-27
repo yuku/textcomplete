@@ -30,9 +30,6 @@ if (typeof jQuery === 'undefined') {
         if (!completer) return;
         args.shift()
         completer[strategies].apply(completer, args);
-        if (strategies === 'destroy') {
-          $this.removeData('textComplete');
-        }
       } else {
         // For backward compatibility.
         // TODO: Remove at v0.4
@@ -122,7 +119,7 @@ if (typeof jQuery === 'undefined') {
     this.id         = 'textcomplete' + uniqueId++;
     this.strategies = [];
     this.views      = [];
-    this.option     = $.extend({}, Completer._getDefaults(), option);
+    this.option     = $.extend({}, Completer.DEFAULTS, option);
 
     if (!this.$el.is('textarea') && !element.isContentEditable) {
       throw new Error('textcomplete must be called to a Textarea or a ContentEditable.');
@@ -138,16 +135,10 @@ if (typeof jQuery === 'undefined') {
     }
   }
 
-  Completer._getDefaults = function () {
-    if (!Completer.DEFAULTS) {
-      Completer.DEFAULTS = {
-        appendTo: $('body'),
-        zIndex: '100'
-      };
-    }
-
-    return Completer.DEFAULTS;
-  }
+  Completer.DEFAULTS = {
+    appendTo: $('body'),
+    zIndex: '100'
+  };
 
   $.extend(Completer.prototype, {
     // Public properties
