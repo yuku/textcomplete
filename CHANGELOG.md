@@ -1,5 +1,11 @@
 # Changelog
 
+## `v0.3.4` - Dec 3, 2014.
+
+- [#143] Loading script in head and destroy method bugfixes. (thanks for [@marcogrcr](https://github.com/marcogrcr))
+- [#138] Fix error when destroy is called before the field is focused. (thanks for [@smilledge](https://github.com/smilledge))
+- [#133] Fix IE bug where it would only trigger when tha carrot was at the end of the line. (thanks for [@eleventhal](https://github.com/eleventhal))
+
 ## `v0.3.3` - Sep 25, 2014.
 
 - Add `className` option.
