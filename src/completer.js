@@ -160,7 +160,7 @@
       this.$el.trigger(eventName, args);
       return this;
     },
-    
+
     register: function (strategies) {
       Array.prototype.push.apply(this.strategies, strategies);
     },
