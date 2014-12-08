@@ -40,7 +40,7 @@ if (typeof jQuery === 'undefined') {
           $.each(['header', 'footer', 'placement', 'maxCount'], function (name) {
             if (obj[name]) {
               completer.option[name] = obj[name];
-              warn(name + 'as a strategy param is deplicated. Use option.');
+              warn(name + 'as a strategy param is deprecated. Use option.');
               delete obj[name];
             }
           });
