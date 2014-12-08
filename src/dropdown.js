@@ -36,6 +36,7 @@
     this.id        = completer.id + 'dropdown';
     this._data     = []; // zipped data.
     this.$inputEl  = $(element);
+    this.option    = option;
 
     // Override setPosition method.
     if (option.listPosition) { this.setPosition = option.listPosition; }
@@ -157,7 +158,7 @@
 
     isEnter: function (e) {
       var modifiers = e.ctrlKey || e.altKey || e.metaKey || e.shiftKey;
-      return !modifiers && (e.keyCode === 13 || e.keyCode === 9)  // ENTER, TAB
+      return !modifiers && (e.keyCode === 13 || e.keyCode === 9 || (this.option.completeOnSpace === true && e.keyCode === 32))  // ENTER, TAB
     },
 
     isPageup: function (e) {
