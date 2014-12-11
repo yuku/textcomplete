@@ -30,6 +30,9 @@ if (typeof jQuery === 'undefined') {
         if (!completer) return;
         args.shift()
         completer[strategies].apply(completer, args);
+        if (strategies === 'destroy') {
+          $this.removeData('textComplete');
+        }
       } else {
         // For backward compatibility.
         // TODO: Remove at v0.4
@@ -119,7 +122,7 @@ if (typeof jQuery === 'undefined') {
     this.id         = 'textcomplete' + uniqueId++;
     this.strategies = [];
     this.views      = [];
-    this.option     = $.extend({}, Completer.DEFAULTS, option);
+    this.option     = $.extend({}, Completer._getDefaults(), option);
 
     if (!this.$el.is('textarea') && !element.isContentEditable) {
       throw new Error('textcomplete must be called to a Textarea or a ContentEditable.');
@@ -135,10 +138,16 @@ if (typeof jQuery === 'undefined') {
     }
   }
 
-  Completer.DEFAULTS = {
-    appendTo: $('body'),
-    zIndex: '100'
-  };
+  Completer._getDefaults = function () {
+    if (!Completer.DEFAULTS) {
+      Completer.DEFAULTS = {
+        appendTo: $('body'),
+        zIndex: '100'
+      };
+    }
+
+    return Completer.DEFAULTS;
+  }
 
   $.extend(Completer.prototype, {
     // Public properties
@@ -322,6 +331,7 @@ if (typeof jQuery === 'undefined') {
     this.id        = completer.id + 'dropdown';
     this._data     = []; // zipped data.
     this.$inputEl  = $(element);
+    this.option    = option;
 
     // Override setPosition method.
     if (option.listPosition) { this.setPosition = option.listPosition; }
@@ -443,7 +453,7 @@ if (typeof jQuery === 'undefined') {
 
     isEnter: function (e) {
       var modifiers = e.ctrlKey || e.altKey || e.metaKey || e.shiftKey;
-      return !modifiers && (e.keyCode === 13 || e.keyCode === 9)  // ENTER, TAB
+      return !modifiers && (e.keyCode === 13 || e.keyCode === 9 || (this.option.completeOnSpace === true && e.keyCode === 32))  // ENTER, TAB
     },
 
     isPageup: function (e) {

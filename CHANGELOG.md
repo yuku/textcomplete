@@ -1,5 +1,9 @@
 # Changelog
 
+## `v0.3.5` - Dec 11, 2014.
+
+- [#141] Adds functionality to complete selection on space key. (thanks for [@gauravtiwari5050](https://github.com/gauravtiwari5050))
+
 ## `v0.3.4` - Dec 3, 2014.
 
 - [#143] Loading script in head and destroy method bugfixes. (thanks for [@marcogrcr](https://github.com/marcogrcr))
