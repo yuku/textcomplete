@@ -40,7 +40,7 @@ if (typeof jQuery === 'undefined') {
           $.each(['header', 'footer', 'placement', 'maxCount'], function (name) {
             if (obj[name]) {
               completer.option[name] = obj[name];
-              warn(name + 'as a strategy param is deplicated. Use option.');
+              warn(name + 'as a strategy param is deprecated. Use option.');
               delete obj[name];
             }
           });
@@ -72,7 +72,7 @@ if (typeof jQuery === 'undefined') {
   //   lockedFunc();  // none
   //   lockedFunc();  // none
   //   // 1 sec past then
-  //   // => 'Hello, world' 
+  //   // => 'Hello, world'
   //   lockedFunc();  // => 'Hello, world'
   //   lockedFunc();  // none
   //
@@ -124,8 +124,8 @@ if (typeof jQuery === 'undefined') {
     this.views      = [];
     this.option     = $.extend({}, Completer._getDefaults(), option);
 
-    if (!this.$el.is('textarea') && !element.isContentEditable) {
-      throw new Error('textcomplete must be called to a Textarea or a ContentEditable.');
+    if (!this.$el.is('textarea') && !element.isContentEditable && element.contentEditable != 'true') {
+      throw new Error('textcomplete must be called on a Textarea or a ContentEditable.');
     }
 
     if (element === document.activeElement) {
@@ -210,7 +210,8 @@ if (typeof jQuery === 'undefined') {
     },
 
     fire: function (eventName) {
-      this.$el.trigger(eventName);
+      var args = Array.prototype.slice.call(arguments, 1);
+      this.$el.trigger(eventName, args);
       return this;
     },
 

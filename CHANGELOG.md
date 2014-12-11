@@ -1,12 +1,17 @@
 # Changelog
 
+## `v0.3.6` - Dec 11, 2014.
+
+- [#147] Support element.contentEditable compatibility check. (thanks for [@nick-desteffen](https://github.com/nick-desteffen))
+- [#145] Fixes the fire function for events with additional parameters. (thanks for [@Dan-Nolan](https://github.com/Dan-Nolan))
+
 ## `v0.3.5` - Dec 11, 2014.
 
+- [#143] Loading script in head and destroy method bugfixes. (thanks for [@marcogrcr](https://github.com/marcogrcr))
 - [#141] Adds functionality to complete selection on space key. (thanks for [@gauravtiwari5050](https://github.com/gauravtiwari5050))
 
 ## `v0.3.4` - Dec 3, 2014.
 
-- [#143] Loading script in head and destroy method bugfixes. (thanks for [@marcogrcr](https://github.com/marcogrcr))
 - [#138] Fix error when destroy is called before the field is focused. (thanks for [@smilledge](https://github.com/smilledge))
 - [#133] Fix IE bug where it would only trigger when tha carrot was at the end of the line. (thanks for [@eleventhal](https://github.com/eleventhal))
 
