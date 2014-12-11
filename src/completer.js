@@ -18,7 +18,7 @@
   //   lockedFunc();  // none
   //   lockedFunc();  // none
   //   // 1 sec past then
-  //   // => 'Hello, world' 
+  //   // => 'Hello, world'
   //   lockedFunc();  // => 'Hello, world'
   //   lockedFunc();  // none
   //
@@ -70,8 +70,8 @@
     this.views      = [];
     this.option     = $.extend({}, Completer._getDefaults(), option);
 
-    if (!this.$el.is('textarea') && !element.isContentEditable) {
-      throw new Error('textcomplete must be called to a Textarea or a ContentEditable.');
+    if (!this.$el.is('textarea') && !element.isContentEditable && element.contentEditable != 'true') {
+      throw new Error('textcomplete must be called on a Textarea or a ContentEditable.');
     }
 
     if (element === document.activeElement) {
