@@ -70,7 +70,7 @@
     this.views      = [];
     this.option     = $.extend({}, Completer._getDefaults(), option);
 
-    if (!this.$el.is('textarea') && !element.isContentEditable && element.contentEditable != 'true') {
+    if (!this.$el.is('input[type=text]') && !this.$el.is('textarea') && !element.isContentEditable && element.contentEditable != 'true') {
       throw new Error('textcomplete must be called on a Textarea or a ContentEditable.');
     }
 
@@ -117,7 +117,7 @@
       if (this.option.adapter) {
         Adapter = this.option.adapter;
       } else {
-        if (this.$el.is('textarea')) {
+        if (this.$el.is('textarea') || this.$el.is('input[type=text]')) {
           viewName = typeof element.selectionEnd === 'number' ? 'Textarea' : 'IETextarea';
         } else {
           viewName = 'ContentEditable';
