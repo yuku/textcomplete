@@ -95,7 +95,7 @@
     // ---------------
 
     _bindEvents: function () {
-      this.$el.on('keyup.' + this.id, $.proxy(this._onKeyup, this));
+      this.$el.bind('keyup.' + this.id, $.proxy(this._onKeyup, this));
     },
 
     _onKeyup: function (e) {

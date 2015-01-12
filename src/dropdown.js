@@ -17,7 +17,7 @@
   };
 
   var dropdownViews = {};
-  $(document).on('click', function (e) {
+  $(document).bind('click', function (e) {
     var id = e.originalEvent && e.originalEvent.keepTextCompleteDropdown;
     $.each(dropdownViews, function (key, view) {
       if (key !== id) { view.deactivate(); }
@@ -181,9 +181,9 @@
     // ---------------
 
     _bindEvents: function () {
-      this.$el.on('mousedown.' + this.id, '.textcomplete-item', $.proxy(this._onClick, this))
-      this.$el.on('mouseover.' + this.id, '.textcomplete-item', $.proxy(this._onMouseover, this));
-      this.$inputEl.on('keydown.' + this.id, $.proxy(this._onKeydown, this));
+      this.$el.bind('mousedown.' + this.id, '.textcomplete-item', $.proxy(this._onClick, this))
+      this.$el.bind('mouseover.' + this.id, '.textcomplete-item', $.proxy(this._onMouseover, this));
+      this.$inputEl.bind('keydown.' + this.id, $.proxy(this._onKeydown, this));
     },
 
     _onClick: function (e) {
@@ -352,7 +352,7 @@
       }
     },
 
-    _applyPlacement: function (position) { 
+    _applyPlacement: function (position) {
       // If the 'placement' option set to 'top', move the position above the element.
       if (this.placement.indexOf('top') !== -1) {
         // Overwrite the position object to set the 'bottom' property instead of the top.

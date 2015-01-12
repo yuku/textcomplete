@@ -313,7 +313,7 @@ if (typeof jQuery === 'undefined') {
   };
 
   var dropdownViews = {};
-  $(document).on('click', function (e) {
+  $(document).bind('click', function (e) {
     var id = e.originalEvent && e.originalEvent.keepTextCompleteDropdown;
     $.each(dropdownViews, function (key, view) {
       if (key !== id) { view.deactivate(); }
@@ -477,9 +477,9 @@ if (typeof jQuery === 'undefined') {
     // ---------------
 
     _bindEvents: function () {
-      this.$el.on('mousedown.' + this.id, '.textcomplete-item', $.proxy(this._onClick, this))
-      this.$el.on('mouseover.' + this.id, '.textcomplete-item', $.proxy(this._onMouseover, this));
-      this.$inputEl.on('keydown.' + this.id, $.proxy(this._onKeydown, this));
+      this.$el.bind('mousedown.' + this.id, '.textcomplete-item', $.proxy(this._onClick, this))
+      this.$el.bind('mouseover.' + this.id, '.textcomplete-item', $.proxy(this._onMouseover, this));
+      this.$inputEl.bind('keydown.' + this.id, $.proxy(this._onKeydown, this));
     },
 
     _onClick: function (e) {
@@ -821,7 +821,7 @@ if (typeof jQuery === 'undefined') {
     // ---------------
 
     _bindEvents: function () {
-      this.$el.on('keyup.' + this.id, $.proxy(this._onKeyup, this));
+      this.$el.bind('keyup.' + this.id, $.proxy(this._onKeyup, this));
     },
 
     _onKeyup: function (e) {
