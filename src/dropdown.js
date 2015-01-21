@@ -117,6 +117,22 @@
 
     setPosition: function (position) {
       this.$el.css(this._applyPlacement(position));
+
+      // Make the dropdown fixed if the input is also fixed
+      // This can't be done during init, as textcomplete may be used on multiple elements on the same page
+      // Because the same dropdown is reused behind the scenes, we need to recheck every time the dropdown is showed
+      var position = 'absolute';
+      // Check if input or one of its parents has positioning we need to care about
+      this.$inputEl.add(this.$inputEl.parents()).each(function() { 
+        if($(this).css('position') === 'absolute') // The element has absolute positioning, so it's all OK
+          return false;
+        if($(this).css('position') === 'fixed') {
+          position = 'fixed';
+          return false;
+        }
+      });
+      this.$el.css({ position: position }); // Update positioning
+
       return this;
     },
 
