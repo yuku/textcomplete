@@ -1,5 +1,9 @@
 # Changelog
 
+## `v0.3.7` - Jan 21, 2015.
+
+- [#149] Support input[type=text]. (thanks for [@pafcu](https://github.com/pafcu))
+
 ## `v0.3.6` - Dec 11, 2014.
 
 - [#147] Support element.contentEditable compatibility check. (thanks for [@nick-desteffen](https://github.com/nick-desteffen))
