@@ -66,6 +66,7 @@
       position.left -= this.$el.offset().left;
       position.top += $node.height() - this.$el.offset().top;
       position.lineHeight = $node.height();
+      $node.remove();
       var dir = this.$el.attr('dir') || this.$el.css('direction');
       if (dir === 'rtl') { position.left -= this.listView.$el.width(); }
       return position;
