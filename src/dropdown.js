@@ -271,7 +271,7 @@
     _enter: function () {
       var datum = this.data[parseInt(this._getActiveElement().data('index'), 10)];
       this.completer.select(datum.value, datum.strategy);
-      this._setScroll();
+      this.deactivate();
     },
 
     _pageup: function () {
