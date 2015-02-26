@@ -1,5 +1,10 @@
 # Changelog
 
+## `v0.3.8` - Feb 26, 2015.
+
+- [#154] Fix completion with enter key. (thanks for [@tleruitte](https://github.com/tleruitte))
+- [#153] Fix empty span node is inserted. (thanks for [@tleruitte](https://github.com/tleruitte))
+
 ## `v0.3.7` - Jan 21, 2015.
 
 - [#149] Support input[type=text]. (thanks for [@pafcu](https://github.com/pafcu))
