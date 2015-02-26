@@ -8,11 +8,12 @@ jQuery MUST be loaded ahead.
 <script src="path/to/jquery.textcomplete.js"></script>
 ```
 
-Then `jQuery.fn.textcomplete` is defined. The method MUST be called for textarea elements or contenteditable elements.
+Then `jQuery.fn.textcomplete` is defined. The method MUST be called for textarea elements, contenteditable elements or `input[type="text"]`.
 
 ```js
 $('textarea').textcomplete(strategies, option);  // Recommended.
 // $('[contenteditable="true"]').textcomplete(strategies, option);
+// $('input[type="text"]').textcomplete(strategies, option);
 ```
 
 The `strategies` is an Array. Each element is called as strategy object.
@@ -25,7 +26,7 @@ var strategies = [
 ];
 ```
 
-The `strategy` is an Object which MUST have `match`, `search` and `replace` and MAY have `index`, `template` and `cache`.
+The `strategy` is an Object which MUST have `match`, `search` and `replace` and MAY have `index`, `template`, `cache`, `context` and `idProperty`.
 
 ```js
 var strategy = {
@@ -43,7 +44,11 @@ var strategy = {
 }
 ```
 
-The `matchRegExp`, `indexNumber` and `contextFunc` MUST be a RegExp, a Number and a Function respectively. `contextFunc` is called with the current value of the target textarea. It works as a preprocessor. When it returns `false`, the strategy is skipped. When it returns a String, `matchRegExp` tests the returned string. `matchRegExp` MUST contain capturing groups and SHOULD end with `$`. `indexNumber` defaults to 2. The word captured by `indexNumber`-th group is going to be the `term` argument of `searchFunc`.
+The `matchRegExp`, `indexNumber` and `contextFunc` MUST be a RegExp, a Number and a Function respectively.
+
+`contextFunc` is called with the current value of the target textarea and it works as a preprocessor. When it returns `false`, the strategy is skipped. When it returns a String, `matchRegExp` tests the returned string.
+
+`matchRegExp` MUST contain capturing groups and SHOULD end with `$`. The word captured by `indexNumber`-th group is going to be the `term` argument of `searchFunc`. `indexNumber` defaults to 2.
 
 ```js
 // Detect the word starting with '@' as a query term.
