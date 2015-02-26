@@ -106,6 +106,7 @@
     // Suppress searching if it returns true.
     _skipSearch: function (clickEvent) {
       switch (clickEvent.keyCode) {
+        case 13: // ENTER
         case 40: // DOWN
         case 38: // UP
           return true;
