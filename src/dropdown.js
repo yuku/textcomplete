@@ -123,7 +123,7 @@
       // Because the same dropdown is reused behind the scenes, we need to recheck every time the dropdown is showed
       var position = 'absolute';
       // Check if input or one of its parents has positioning we need to care about
-      this.$inputEl.add(this.$inputEl.parents()).each(function() { 
+      this.$inputEl.add(this.$inputEl.parents()).each(function() {
         if($(this).css('position') === 'absolute') // The element has absolute positioning, so it's all OK
           return false;
         if($(this).css('position') === 'fixed') {
@@ -183,6 +183,10 @@
 
     isPagedown: function (e) {
       return e.keyCode === 34;  // PAGEDOWN
+    },
+
+    isEscape: function (e) {
+      return e.keyCode === 27;  // ESCAPE
     },
 
     // Private properties
@@ -245,6 +249,9 @@
       } else if (this.isPagedown(e)) {
         e.preventDefault();
         this._pagedown();
+      } else if (this.isEscape(e)) {
+        e.preventDefault();
+        this.deactivate();
       }
     },
 
@@ -368,7 +375,7 @@
       }
     },
 
-    _applyPlacement: function (position) { 
+    _applyPlacement: function (position) {
       // If the 'placement' option set to 'top', move the position above the element.
       if (this.placement.indexOf('top') !== -1) {
         // Overwrite the position object to set the 'bottom' property instead of the top.
