@@ -1,5 +1,9 @@
 # Changelog
 
+## `v0.3.9` - Mar 3, 2015.
+
+- [#155] Deactivate dropdown on escape. (thanks for [@EnTeQuAk](https://github.com/EnTeQuAk))
+
 ## `v0.3.8` - Feb 26, 2015.
 
 - [#154] Fix completion with enter key. (thanks for [@tleruitte](https://github.com/tleruitte))
