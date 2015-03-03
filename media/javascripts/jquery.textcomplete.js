@@ -419,7 +419,7 @@ if (typeof jQuery === 'undefined') {
       // Because the same dropdown is reused behind the scenes, we need to recheck every time the dropdown is showed
       var position = 'absolute';
       // Check if input or one of its parents has positioning we need to care about
-      this.$inputEl.add(this.$inputEl.parents()).each(function() { 
+      this.$inputEl.add(this.$inputEl.parents()).each(function() {
         if($(this).css('position') === 'absolute') // The element has absolute positioning, so it's all OK
           return false;
         if($(this).css('position') === 'fixed') {
@@ -479,6 +479,10 @@ if (typeof jQuery === 'undefined') {
 
     isPagedown: function (e) {
       return e.keyCode === 34;  // PAGEDOWN
+    },
+
+    isEscape: function (e) {
+      return e.keyCode === 27;  // ESCAPE
     },
 
     // Private properties
@@ -541,6 +545,9 @@ if (typeof jQuery === 'undefined') {
       } else if (this.isPagedown(e)) {
         e.preventDefault();
         this._pagedown();
+      } else if (this.isEscape(e)) {
+        e.preventDefault();
+        this.deactivate();
       }
     },
 
@@ -567,7 +574,7 @@ if (typeof jQuery === 'undefined') {
     _enter: function () {
       var datum = this.data[parseInt(this._getActiveElement().data('index'), 10)];
       this.completer.select(datum.value, datum.strategy);
-      this._setScroll();
+      this.deactivate();
     },
 
     _pageup: function () {
@@ -664,7 +671,7 @@ if (typeof jQuery === 'undefined') {
       }
     },
 
-    _applyPlacement: function (position) { 
+    _applyPlacement: function (position) {
       // If the 'placement' option set to 'top', move the position above the element.
       if (this.placement.indexOf('top') !== -1) {
         // Overwrite the position object to set the 'bottom' property instead of the top.
@@ -848,6 +855,7 @@ if (typeof jQuery === 'undefined') {
     // Suppress searching if it returns true.
     _skipSearch: function (clickEvent) {
       switch (clickEvent.keyCode) {
+        case 13: // ENTER
         case 40: // DOWN
         case 38: // UP
           return true;
@@ -1079,6 +1087,7 @@ if (typeof jQuery === 'undefined') {
       position.left -= this.$el.offset().left;
       position.top += $node.height() - this.$el.offset().top;
       position.lineHeight = $node.height();
+      $node.remove();
       var dir = this.$el.attr('dir') || this.$el.css('direction');
       if (dir === 'rtl') { position.left -= this.listView.$el.width(); }
       return position;
