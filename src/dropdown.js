@@ -56,16 +56,12 @@
     findOrCreateElement: function (option) {
       var $parent = option.appendTo;
       if (!($parent instanceof $)) { $parent = $($parent); }
-      var $el = $parent.children('.dropdown-menu')
-      if (!$el.length) {
-        $el = $('<ul class="dropdown-menu"></ul>').css({
-          display: 'none',
-          left: 0,
-          position: 'absolute',
-          zIndex: option.zIndex
-        }).appendTo($parent);
-      }
-      return $el;
+      return $('<ul class="dropdown-menu"></ul>').css({
+        display: 'none',
+        left: 0,
+        position: 'absolute',
+        zIndex: option.zIndex
+      }).appendTo($parent);
     }
   });
 
