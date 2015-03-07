@@ -1,5 +1,9 @@
 # Changelog
 
+## master
+
+- Support giving a function which returns a regexp to `match` option for dynamic matching.
+
 ## `v0.3.9` - Mar 3, 2015.
 
 - [#155] Deactivate dropdown on escape. (thanks for [@EnTeQuAk](https://github.com/EnTeQuAk))

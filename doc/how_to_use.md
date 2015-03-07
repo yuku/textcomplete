@@ -31,7 +31,7 @@ The `strategy` is an Object which MUST have `match`, `search` and `replace` and 
 ```js
 var strategy = {
   // Required
-  match:      matchRegExp,
+  match:      matchRegExpOrFunc,
   search:     searchFunc,
   replace:    replaceFunc,
 
@@ -44,15 +44,16 @@ var strategy = {
 }
 ```
 
-The `matchRegExp`, `indexNumber` and `contextFunc` MUST be a RegExp, a Number and a Function respectively.
+The `matchRegExpOrFunc` MUST be a RegExp or a Function which returns a RegExp.
+And `indexNumber` and `contextFunc` MUST be a Number and a Function respectively.
 
-`contextFunc` is called with the current value of the target textarea and it works as a preprocessor. When it returns `false`, the strategy is skipped. When it returns a String, `matchRegExp` tests the returned string.
+`contextFunc` is called with the current value of the target textarea and it works as a preprocessor. When it returns `false`, the strategy is skipped. When it returns a String, `matchRegExpOrFunc` tests the returned string.
 
-`matchRegExp` MUST contain capturing groups and SHOULD end with `$`. The word captured by `indexNumber`-th group is going to be the `term` argument of `searchFunc`. `indexNumber` defaults to 2.
+`matchRegExpOrFunc` MUST contain capturing groups and SHOULD end with `$`. The word captured by `indexNumber`-th group is going to be the `term` argument of `searchFunc`. `indexNumber` defaults to 2.
 
 ```js
 // Detect the word starting with '@' as a query term.
-var matchRegExp = /(^|\s)@(\w*)$/;
+var matchRegExpOrFunc = /(^|\s)@(\w*)$/;
 var indexNumber = 2;
 // Normalizing the input text.
 var contextFunc = function (text) { return text.toLowerCase(); };
@@ -98,10 +99,10 @@ The `replaceFunc` MUST be a Function which returns a String or an Array of two S
 var replaceFunc = function (value) { return '$1@' + value + ' '; };
 ```
 
-The result is going to be used to replace the value of textarea using `String.prototype.replace` with `matchRegExp`:
+The result is going to be used to replace the value of textarea using `String.prototype.replace` with `matchRegExpOrFunc`:
 
 ```js
-textarea.value = textarea.value.replace(matchRegExp, replaceFunc(value));
+textarea.value = textarea.value.replace(matchRegExpOrFunc, replaceFunc(value));
 ```
 
 Suppose you want to do autocomplete for HTML elements, you may want to reposition the cursor in the middle of elements after the autocomplete. In this case, you can do that by making `replaceFunc` return an Array of two Strings. Then the cursor points between these two strings.
