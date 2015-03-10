@@ -115,6 +115,10 @@ if (typeof jQuery === 'undefined') {
     return Object.prototype.toString.call(obj) === '[object String]';
   };
 
+  var isFunction = function (obj) {
+    return Object.prototype.toString.call(obj) === '[object Function]';
+  };
+
   var uniqueId = 0;
 
   function Completer(element, option) {
@@ -248,8 +252,9 @@ if (typeof jQuery === 'undefined') {
         var strategy = this.strategies[i];
         var context = strategy.context(text);
         if (context || context === '') {
+          var matchRegexp = isFunction(strategy.match) ? strategy.match(text) : strategy.match;
           if (isString(context)) { text = context; }
-          var match = text.match(strategy.match);
+          var match = text.match(matchRegexp);
           if (match) { return [strategy, match[strategy.index], match]; }
         }
       }
