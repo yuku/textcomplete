@@ -1,7 +1,8 @@
 # Changelog
 
-## master
+## `v0.4.0` - Mar 10, 2015.
 
+- Publish to [npmjs](https://www.npmjs.com/package/jquery-textcomplete).
 - Support giving a function which returns a regexp to `match` option for dynamic matching.
 
 ## `v0.3.9` - Mar 3, 2015.
