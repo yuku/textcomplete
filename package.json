@@ -7,6 +7,10 @@
     "type": "git",
     "url": "git://github.com/yuku-t/jquery-textcomplete.git"
   },
+  "keywords": [
+    "jquery-plugin",
+    "zepto-plugin"
+  ],
   "bugs": {
     "url": "https://github.com/yuku-t/jquery-textcompelte/issues"
   },
