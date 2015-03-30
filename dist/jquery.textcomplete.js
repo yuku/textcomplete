@@ -520,7 +520,12 @@ if (typeof jQuery === 'undefined') {
       var self = this;
       // Deactive at next tick to allow other event handlers to know whether
       // the dropdown has been shown or not.
-      setTimeout(function () { self.deactivate(); }, 0);
+      setTimeout(function () {
+        self.deactivate();
+        if (e.type === 'touchstart') {
+          self.$inputEl.focus();
+        }
+      }, 0);
     },
 
     // Activate hovered item.
