@@ -55,7 +55,7 @@
     // Consequently, the span element's position is the thing what we want.
     _getCaretRelativePosition: function () {
       var dummyDiv = $('<div></div>').css(this._copyCss())
-        .text(this.getTextFromHeadToCaret());
+        .text(this.getTextFromHeadToCaret().replace(/\r\n/g, "\n"));
       var span = $('<span></span>').text('.').appendTo(dummyDiv);
       this.$el.before(dummyDiv);
       var position = span.position();
