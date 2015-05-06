@@ -176,6 +176,7 @@
     // strategy - The Strategy object.
     // e        - Click or keydown event object.
     select: function (value, strategy, e) {
+      this._term = null;
       this.adapter.select(value, strategy, e);
       this.fire('change').fire('textComplete:select', value, strategy);
       this.adapter.focus();
