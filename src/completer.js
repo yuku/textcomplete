@@ -175,6 +175,7 @@
     // value    - The selected element of the array callbacked from search func.
     // strategy - The Strategy object.
     select: function (value, strategy) {
+      this._term = null;
       this.adapter.select(value, strategy);
       this.fire('change').fire('textComplete:select', value, strategy);
       this.adapter.focus();
