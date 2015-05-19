@@ -267,13 +267,13 @@ if (typeof jQuery === 'undefined') {
       strategy.search(term, function (data, stillSearching) {
         if (!self.dropdown.shown) {
           self.dropdown.activate();
-          self.dropdown.setPosition(self.adapter.getCaretPosition());
         }
         if (self._clearAtNext) {
           // The first callback in the current lock.
           self.dropdown.clear();
           self._clearAtNext = false;
         }
+        self.dropdown.setPosition(self.adapter.getCaretPosition());
         self.dropdown.render(self._zip(data, strategy));
         if (!stillSearching) {
           // The last callback in the current lock.
@@ -408,6 +408,7 @@ if (typeof jQuery === 'undefined') {
         this._renderFooter(unzippedData);
         if (contentsHtml) {
           this._renderContents(contentsHtml);
+          this._fitToBottom();
           this._activateIndexedItem();
         }
         this._setScroll();
@@ -673,6 +674,14 @@ if (typeof jQuery === 'undefined') {
         this._$footer.before(html);
       } else {
         this.$el.append(html);
+      }
+    },
+
+    _fitToBottom: function() {
+      var windowHeight = $(window).height();
+      var height = this.$el.height();
+      if ((this.$el.position().top + height) > windowHeight) {
+        this.$el.offset({top: windowHeight - height});
       }
     },
 
