@@ -59,7 +59,13 @@ $('#textarea1').textcomplete([
             return word + ' ';
         }
     }
-]);
+], {
+    onKeydown: function (e, commands) {
+        if (e.ctrlKey &amp;&amp; e.keyCode === 74) { // CTRL-J
+            return commands.KEY_ENTER;
+        }
+    }
+});
 </pre>
 
             <h3 id="insert-cursor-after-autocomplete">Insert Cursor After Autocomplete</h3>
