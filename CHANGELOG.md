@@ -1,6 +1,6 @@
 # Changelog
 
-## `master`
+## `v0.5.0` - Jun 8, 2015.
 
 - Support `onKeydown` option.
 
