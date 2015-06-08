@@ -113,7 +113,7 @@ var replaceFunc = function (value) {
 };
 ```
 
-The `option` is an optional Object which MAY have `appendTo`, `height` , `maxCount`, `placement`, `header`, `footer`, `zIndex` and `debounce`. If `appendTo` is given, the element of dropdown is appended into the specified element. If `height` is given, the dropdown element's height will be fixed.
+The `option` is an optional Object which MAY have `appendTo`, `height` , `maxCount`, `placement`, `header`, `footer`, `zIndex`, `debounce` and `onKeydown`. If `appendTo` is given, the element of dropdown is appended into the specified element. If `height` is given, the dropdown element's height will be fixed.
 
 ```js
 var option = {
@@ -126,7 +126,8 @@ var option = {
   zIndex:    zIndexStr,       // '100'
   debounce:  debounceNumber,  // undefined
   adapter:   adapterClass,    // undefined
-  className: classNameStr     // ''
+  className: classNameStr,    // ''
+  onKeydown: onKeydownFunc    // undefined
 };
 ```
 
@@ -135,6 +136,21 @@ The `maxCountNumber` MUST be a Number and default to 10. Even if `searchFunc` ca
 If `placementStr` includes 'top', it positions the drop-down to above the caret. If `placementStr` includes 'absleft' and 'absright', it positions the drop-down absolutely to the very left and right respectively. You can mix them.
 
 You can override the z-index property and the class attribute of dropdown element using `zIndex` and `className` option respectively.
+
+If you want to add some additional keyboard shortcut, set a function to `onKeydown` option. The function will be called with two arguments, the keydown event and commands hash.
+
+```js
+var onKeydownFunc = function (e, commands) {
+  // `commands` has `KEY_UP`, `KEY_DOWN`, `KEY_ENTER`, `KEY_PAGEUP`, `KEY_PAGEDOWN`,
+  // `KEY_ESCAPE` and `SKIP_DEFAULT`.
+  if (e.ctrlKey && e.keyCode === 74) {
+    // Treat CTRL-J as enter key.
+    return commands.KEY_ENTER;
+  }
+  // If the function does not return a result or undefined is returned,
+  // the plugin uses default behavior.
+};
+```
 
 Textcomplete debounces `debounceNumber` milliseconds, so `searchFunc` is not called until user stops typing.
 

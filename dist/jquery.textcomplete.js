@@ -325,6 +325,16 @@ if (typeof jQuery === 'undefined') {
     });
   });
 
+  var commands = {
+    SKIP_DEFAULT: 0,
+    KEY_UP: 1,
+    KEY_DOWN: 2,
+    KEY_ENTER: 3,
+    KEY_PAGEUP: 4,
+    KEY_PAGEDOWN: 5,
+    KEY_ESCAPE: 6
+  };
+
   // Dropdown view
   // =============
 
@@ -416,8 +426,8 @@ if (typeof jQuery === 'undefined') {
       }
     },
 
-    setPosition: function (position) {
-      this.$el.css(this._applyPlacement(position));
+    setPosition: function (pos) {
+      this.$el.css(this._applyPlacement(pos));
 
       // Make the dropdown fixed if the input is also fixed
       // This can't be done during init, as textcomplete may be used on multiple elements on the same page
@@ -535,24 +545,58 @@ if (typeof jQuery === 'undefined') {
 
     _onKeydown: function (e) {
       if (!this.shown) { return; }
+
+      var command;
+
+      if ($.isFunction(this.option.onKeydown)) {
+        command = this.option.onKeydown(e, commands);
+      }
+
+      if (command == null) {
+        command = this._defaultKeydown(e);
+      }
+
+      switch (command) {
+        case commands.KEY_UP:
+          e.preventDefault();
+          this._up();
+          break;
+        case commands.KEY_DOWN:
+          e.preventDefault();
+          this._down();
+          break;
+        case commands.KEY_ENTER:
+          e.preventDefault();
+          this._enter();
+          break;
+        case commands.KEY_PAGEUP:
+          e.preventDefault();
+          this._pageup();
+          break;
+        case commands.KEY_PAGEDOWN:
+          e.preventDefault();
+          this._pagedown();
+          break;
+        case commands.KEY_ESCAPE:
+          e.preventDefault();
+          this.deactivate();
+          break;
+      }
+    },
+
+    _defaultKeydown: function (e) {
       if (this.isUp(e)) {
-        e.preventDefault();
-        this._up();
+        return commands.KEY_UP;
       } else if (this.isDown(e)) {
-        e.preventDefault();
-        this._down();
+        return commands.KEY_DOWN;
       } else if (this.isEnter(e)) {
-        e.preventDefault();
-        this._enter();
+        return commands.KEY_ENTER;
       } else if (this.isPageup(e)) {
-        e.preventDefault();
-        this._pageup();
+        return commands.KEY_PAGEUP;
       } else if (this.isPagedown(e)) {
-        e.preventDefault();
-        this._pagedown();
+        return commands.KEY_PAGEDOWN;
       } else if (this.isEscape(e)) {
-        e.preventDefault();
-        this.deactivate();
+        return commands.KEY_ESCAPE;
       }
     },
 
@@ -700,6 +744,7 @@ if (typeof jQuery === 'undefined') {
   });
 
   $.fn.textcomplete.Dropdown = Dropdown;
+  $.extend($.fn.textcomplete, commands);
 }(jQuery);
 
 +function ($) {
