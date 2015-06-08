@@ -1,6 +1,6 @@
 # Changelog
 
-## `master`
+## `v0.5.1` - Jun 8, 2015.
 
 - Now a replace function is invoked with a user event.
 
