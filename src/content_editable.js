@@ -19,7 +19,7 @@
 
     // Update the content with the given value and strategy.
     // When an dropdown item is selected, it is executed.
-    select: function (value, strategy) {
+    select: function (value, strategy, e) {
       var pre = this.getTextFromHeadToCaret();
       var sel = window.getSelection()
       var range = sel.getRangeAt(0);
@@ -27,7 +27,7 @@
       selection.selectNodeContents(range.startContainer);
       var content = selection.toString();
       var post = content.substring(range.startOffset);
-      var newSubstr = strategy.replace(value);
+      var newSubstr = strategy.replace(value, e);
       if ($.isArray(newSubstr)) {
         post = newSubstr[1] + post;
         newSubstr = newSubstr[0];

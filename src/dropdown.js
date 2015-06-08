@@ -224,7 +224,7 @@
         $el = $el.closest('.textcomplete-item');
       }
       var datum = this.data[parseInt($el.data('index'), 10)];
-      this.completer.select(datum.value, datum.strategy);
+      this.completer.select(datum.value, datum.strategy, e);
       var self = this;
       // Deactive at next tick to allow other event handlers to know whether
       // the dropdown has been shown or not.
@@ -266,7 +266,7 @@
           break;
         case commands.KEY_ENTER:
           e.preventDefault();
-          this._enter();
+          this._enter(e);
           break;
         case commands.KEY_PAGEUP:
           e.preventDefault();
@@ -319,9 +319,9 @@
       this._setScroll();
     },
 
-    _enter: function () {
+    _enter: function (e) {
       var datum = this.data[parseInt(this._getActiveElement().data('index'), 10)];
-      this.completer.select(datum.value, datum.strategy);
+      this.completer.select(datum.value, datum.strategy, e);
       this.deactivate();
     },
 

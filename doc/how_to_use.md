@@ -93,16 +93,16 @@ var templateFunc = function (value) {
 //   templateFunc = function (value) { return value; };
 ```
 
-The `replaceFunc` MUST be a Function which returns a String or an Array of two Strings. It is going to be invoked when a user will click and select an item of autocomplete dropdown.
+The `replaceFunc` MUST be a Function which returns a String or an Array of two Strings. It is invoked when a user will click and select an item of autocomplete dropdown.
 
 ```js
-var replaceFunc = function (value) { return '$1@' + value + ' '; };
+var replaceFunc = function (value, event) { return '$1@' + value + ' '; };
 ```
 
 The result is going to be used to replace the value of textarea using `String.prototype.replace` with `matchRegExpOrFunc`:
 
 ```js
-textarea.value = textarea.value.replace(matchRegExpOrFunc, replaceFunc(value));
+textarea.value = textarea.value.replace(matchRegExpOrFunc, replaceFunc(value, event));
 ```
 
 Suppose you want to do autocomplete for HTML elements, you may want to reposition the cursor in the middle of elements after the autocomplete. In this case, you can do that by making `replaceFunc` return an Array of two Strings. Then the cursor points between these two strings.

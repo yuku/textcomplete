@@ -1,5 +1,9 @@
 # Changelog
 
+## `master`
+
+- Now a replace function is invoked with a user event.
+
 ## `v0.5.0` - Jun 8, 2015.
 
 - Support `onKeydown` option.

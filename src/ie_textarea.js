@@ -16,10 +16,10 @@
     // Public methods
     // --------------
 
-    select: function (value, strategy) {
+    select: function (value, strategy, e) {
       var pre = this.getTextFromHeadToCaret();
       var post = this.el.value.substring(pre.length);
-      var newSubstr = strategy.replace(value);
+      var newSubstr = strategy.replace(value, e);
       if ($.isArray(newSubstr)) {
         post = newSubstr[1] + post;
         newSubstr = newSubstr[0];

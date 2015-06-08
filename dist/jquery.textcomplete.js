@@ -228,8 +228,9 @@ if (typeof jQuery === 'undefined') {
     //
     // value    - The selected element of the array callbacked from search func.
     // strategy - The Strategy object.
-    select: function (value, strategy) {
-      this.adapter.select(value, strategy);
+    // e        - Click or keydown event object.
+    select: function (value, strategy, e) {
+      this.adapter.select(value, strategy, e);
       this.fire('change').fire('textComplete:select', value, strategy);
       this.adapter.focus();
     },
@@ -525,7 +526,7 @@ if (typeof jQuery === 'undefined') {
         $el = $el.closest('.textcomplete-item');
       }
       var datum = this.data[parseInt($el.data('index'), 10)];
-      this.completer.select(datum.value, datum.strategy);
+      this.completer.select(datum.value, datum.strategy, e);
       var self = this;
       // Deactive at next tick to allow other event handlers to know whether
       // the dropdown has been shown or not.
@@ -567,7 +568,7 @@ if (typeof jQuery === 'undefined') {
           break;
         case commands.KEY_ENTER:
           e.preventDefault();
-          this._enter();
+          this._enter(e);
           break;
         case commands.KEY_PAGEUP:
           e.preventDefault();
@@ -620,9 +621,9 @@ if (typeof jQuery === 'undefined') {
       this._setScroll();
     },
 
-    _enter: function () {
+    _enter: function (e) {
       var datum = this.data[parseInt(this._getActiveElement().data('index'), 10)];
-      this.completer.select(datum.value, datum.strategy);
+      this.completer.select(datum.value, datum.strategy, e);
       this.deactivate();
     },
 
@@ -952,10 +953,10 @@ if (typeof jQuery === 'undefined') {
     // --------------
 
     // Update the textarea with the given value and strategy.
-    select: function (value, strategy) {
+    select: function (value, strategy, e) {
       var pre = this.getTextFromHeadToCaret();
       var post = this.el.value.substring(this.el.selectionEnd);
-      var newSubstr = strategy.replace(value);
+      var newSubstr = strategy.replace(value, e);
       if ($.isArray(newSubstr)) {
         post = newSubstr[1] + post;
         newSubstr = newSubstr[0];
@@ -1039,10 +1040,10 @@ if (typeof jQuery === 'undefined') {
     // Public methods
     // --------------
 
-    select: function (value, strategy) {
+    select: function (value, strategy, e) {
       var pre = this.getTextFromHeadToCaret();
       var post = this.el.value.substring(pre.length);
-      var newSubstr = strategy.replace(value);
+      var newSubstr = strategy.replace(value, e);
       if ($.isArray(newSubstr)) {
         post = newSubstr[1] + post;
         newSubstr = newSubstr[0];
@@ -1090,7 +1091,7 @@ if (typeof jQuery === 'undefined') {
 
     // Update the content with the given value and strategy.
     // When an dropdown item is selected, it is executed.
-    select: function (value, strategy) {
+    select: function (value, strategy, e) {
       var pre = this.getTextFromHeadToCaret();
       var sel = window.getSelection()
       var range = sel.getRangeAt(0);
@@ -1098,7 +1099,7 @@ if (typeof jQuery === 'undefined') {
       selection.selectNodeContents(range.startContainer);
       var content = selection.toString();
       var post = content.substring(range.startOffset);
-      var newSubstr = strategy.replace(value);
+      var newSubstr = strategy.replace(value, e);
       if ($.isArray(newSubstr)) {
         post = newSubstr[1] + post;
         newSubstr = newSubstr[0];

@@ -174,8 +174,9 @@
     //
     // value    - The selected element of the array callbacked from search func.
     // strategy - The Strategy object.
-    select: function (value, strategy) {
-      this.adapter.select(value, strategy);
+    // e        - Click or keydown event object.
+    select: function (value, strategy, e) {
+      this.adapter.select(value, strategy, e);
       this.fire('change').fire('textComplete:select', value, strategy);
       this.adapter.focus();
     },
