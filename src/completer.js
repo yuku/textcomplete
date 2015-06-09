@@ -221,7 +221,7 @@
           self._clearAtNext = false;
         }
         self.dropdown.setPosition(self.adapter.getCaretPosition());
-        self.dropdown.render(self._zip(data, strategy));
+        self.dropdown.render(self._zip(data, strategy, term));
         if (!stillSearching) {
           // The last callback in the current lock.
           free();
@@ -236,9 +236,9 @@
     //
     //  this._zip(['a', 'b'], 's');
     //  //=> [{ value: 'a', strategy: 's' }, { value: 'b', strategy: 's' }]
-    _zip: function (data, strategy) {
+    _zip: function (data, strategy, term) {
       return $.map(data, function (value) {
-        return { value: value, strategy: strategy };
+        return { value: value, strategy: strategy, term: term };
       });
     }
   });
