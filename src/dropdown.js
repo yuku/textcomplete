@@ -117,6 +117,7 @@
         this._renderFooter(unzippedData);
         if (contentsHtml) {
           this._renderContents(contentsHtml);
+          this._fitToBottom();
           this._activateIndexedItem();
         }
         this._setScroll();
@@ -416,6 +417,14 @@
         this._$footer.before(html);
       } else {
         this.$el.append(html);
+      }
+    },
+
+    _fitToBottom: function() {
+      var windowHeight = $(window).height();
+      var height = this.$el.height();
+      if ((this.$el.position().top + height) > windowHeight) {
+        this.$el.offset({top: windowHeight - height});
       }
     },
 
