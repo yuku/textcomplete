@@ -1,5 +1,9 @@
 # Changelog
 
+## `v0.5.2` - Jun 29, 2015.
+
+- [#172] Keep dropdown list in browser window. (thanks for [@kambayashia](https://github.com/kambayashia))
+
 ## `v0.5.1` - Jun 8, 2015.
 
 - Now a replace function is invoked with a user event.
