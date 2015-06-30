@@ -368,9 +368,9 @@ if (typeof jQuery === 'undefined') {
     findOrCreateElement: function (option) {
       var $parent = option.appendTo;
       if (!($parent instanceof $)) { $parent = $($parent); }
-      var $el = $parent.children('.dropdown-menu')
+      var $el = $parent.children('.textcomplete-dropdown')
       if (!$el.length) {
-        $el = $('<ul class="dropdown-menu"></ul>').css({
+        $el = $('<ul class="dropdown-menu textcomplete-dropdown"></ul>').css({
           display: 'none',
           left: 0,
           position: 'absolute',
