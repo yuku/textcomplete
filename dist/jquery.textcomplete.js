@@ -303,6 +303,8 @@ if (typeof jQuery === 'undefined') {
 +function ($) {
   'use strict';
 
+  var $window = $(window);
+
   var include = function (zippedData, datum) {
     var i, elem;
     var idProperty = datum.strategy.idProperty
@@ -723,10 +725,10 @@ if (typeof jQuery === 'undefined') {
     },
 
     _fitToBottom: function() {
-      var windowHeight = $(window).height();
+      var windowScrollBottom = $window.scrollTop() + $window.height();
       var height = this.$el.height();
-      if ((this.$el.position().top + height) > windowHeight) {
-        this.$el.offset({top: windowHeight - height});
+      if ((this.$el.position().top + height) > windowScrollBottom) {
+        this.$el.offset({top: windowScrollBottom - height});
       }
     },
 
