@@ -1,5 +1,8 @@
 # Changelog
 
+## `v0.6.0` - Jun 30, 2015.
+- Now dropdown elements have "textcomplete-dropdown" class.
+
 ## `v0.5.2` - Jun 29, 2015.
 
 - [#172] Keep dropdown list in browser window. (thanks for [@kambayashia](https://github.com/kambayashia))
