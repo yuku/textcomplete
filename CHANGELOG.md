@@ -1,5 +1,8 @@
 # Changelog
 
+## `v0.6.1` - Jun 30, 2015.
+- Fix bug that Dropdown.\_fitToBottom does not consider window scroll
+
 ## `v0.6.0` - Jun 30, 2015.
 - Now dropdown elements have "textcomplete-dropdown" class.
 
