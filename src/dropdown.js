@@ -54,7 +54,7 @@
     if (option.listPosition) { this.setPosition = option.listPosition; }
     if (option.height) { this.$el.height(option.height); }
     var self = this;
-    $.each(['maxCount', 'placement', 'footer', 'header', 'className'], function (_i, name) {
+    $.each(['maxCount', 'placement', 'footer', 'header', 'noResultsMessage', 'className'], function (_i, name) {
       if (option[name] != null) { self[name] = option[name]; }
     });
     this._bindEvents(element);
@@ -123,6 +123,8 @@
           this._activateIndexedItem();
         }
         this._setScroll();
+      } else if (this.noResultsMessage) {
+        this._renderNoResultsMessage(unzippedData);
       } else if (this.shown) {
         this.deactivate();
       }
@@ -153,7 +155,7 @@
       this.$el.html('');
       this.data = [];
       this._index = 0;
-      this._$header = this._$footer = null;
+      this._$header = this._$footer = this._$noResultsMessage = null;
     },
 
     activate: function () {
@@ -208,6 +210,7 @@
     _data:    null,  // Currently shown zipped data.
     _index:   null,
     _$header: null,
+    _$noResultsMessage: null,
     _$footer: null,
 
     // Private methods
@@ -411,6 +414,16 @@
         }
         var html = $.isFunction(this.footer) ? this.footer(unzippedData) : this.footer;
         this._$footer.html(html);
+      }
+    },
+
+    _renderNoResultsMessage: function (unzippedData) {
+      if (this.noResultsMessage) {
+        if (!this._$noResultsMessage) {
+          this._$noResultsMessage = $('<li class="textcomplete-no-results-message"></li>').appendTo(this.$el);
+        }
+        var html = $.isFunction(this.noResultsMessage) ? this.noResultsMessage(unzippedData) : this.noResultsMessage;
+        this._$noResultsMessage.html(html);
       }
     },
 
