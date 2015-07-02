@@ -43,7 +43,7 @@
   //
   // element - Textarea or contenteditable element.
   function Dropdown(element, completer, option) {
-    this.$el       = Dropdown.findOrCreateElement(option);
+    this.$el       = Dropdown.createElement(option);
     this.completer = completer;
     this.id        = completer.id + 'dropdown';
     this._data     = []; // zipped data.
@@ -65,18 +65,19 @@
     // Class methods
     // -------------
 
-    findOrCreateElement: function (option) {
+    createElement: function (option) {
       var $parent = option.appendTo;
       if (!($parent instanceof $)) { $parent = $($parent); }
-      var $el = $parent.children('.textcomplete-dropdown')
-      if (!$el.length) {
-        $el = $('<ul class="dropdown-menu textcomplete-dropdown"></ul>').css({
+      var $el = $('<ul></ul>')
+        .addClass('dropdown-menu textcomplete-dropdown')
+        .attr('id', 'textcomplete-dropdown-' + option._oid)
+        .css({
           display: 'none',
           left: 0,
           position: 'absolute',
           zIndex: option.zIndex
-        }).appendTo($parent);
-      }
+        })
+        .appendTo($parent);
       return $el;
     }
   });
