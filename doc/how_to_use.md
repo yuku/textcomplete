@@ -85,7 +85,7 @@ var searchFunc = function (term, callback, match) {
 The `templateFunc` MUST be a Function which returns a string. The function is going to be called as an iteretor for the array given to the `callback` of `searchFunc`. You can change the style of each dropdown item.
 
 ```js
-var templateFunc = function (value) {
+var templateFunc = function (value, term) {
   // `value` is an element of array callbacked by searchFunc.
   return '<b>' + value + '</b>';
 };
@@ -127,7 +127,8 @@ var option = {
   debounce:  debounceNumber,  // undefined
   adapter:   adapterClass,    // undefined
   className: classNameStr,    // ''
-  onKeydown: onKeydownFunc    // undefined
+  onKeydown: onKeydownFunc,   // undefined
+  noResultMessage: noResultMessageStrOrFunc  // undefined
 };
 ```
 

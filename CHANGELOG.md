@@ -1,5 +1,12 @@
 # Changelog
 
+## `master`
+- [#179] Add support for a "no results" message like the header/footer. (thanks for [@wbinnssmith](https://github.com/wbinnssmith))
+- [#177] Yield the search term to the template function. (thanks for [@wbinnssmith](https://github.com/wbinnssmith))
+- Stop sharing a dropdown element.
+- [#167] Add amd wrapper. (thanks for [@Mavrin](https://github.com/Mavrin))
+- [#163] Added touch devices support. (thanks for [@corvis](https://github.com/corvis))
+
 ## `v0.6.1` - Jun 30, 2015.
 - Fix bug that Dropdown.\_fitToBottom does not consider window scroll
 
