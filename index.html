@@ -185,7 +185,7 @@ $('#textarea5').textcomplete([
             </div>
 <pre class="brush: js; script">
 $('.contenteditable1').textcomplete([
-    { // tech companies
+    {
         words: ['stunning', 'amazing', 'incredible', 'fantastic', 'fantabulous'],
         match: /\b(\w{2,})$/,
         search: function (term, callback) {
@@ -253,6 +253,27 @@ $('#textarea6').textcomplete([
             return '$1```' + lang + '\n';
         },
         context: function () { return isInCode; }
+    }
+]);
+</pre>
+            <h3 id="input-element">Input element</h3>
+            <div class="textarea-wrapper">
+                <input class="form-control" id="input1" type="text"></textarea>
+            </div>
+<pre class="brush: js; script">
+$('#input1').textcomplete([
+    { // tech companies
+        words: ['apple', 'google', 'facebook', 'github'],
+        match: /\b(\w{2,})$/,
+        search: function (term, callback) {
+            callback($.map(this.words, function (word) {
+                return word.indexOf(term) === 0 ? word : null;
+            }));
+        },
+        index: 1,
+        replace: function (word) {
+            return word + ' ';
+        }
     }
 ]);
 </pre>
