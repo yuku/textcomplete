@@ -1152,12 +1152,6 @@ if (typeof jQuery === 'undefined') {
         post = newSubstr[1] + post;
         newSubstr = newSubstr[0];
       }
-      // RTL support, LEFT-TO-RIGHT EMBEDDING ("LRE", hexadecimal 202A)
-      // http://www.fileformat.info/info/unicode/char/202a/index.htm
-      var dir = this.$el.attr('dir') || this.$el.css('direction');
-      if(dir === 'rtl') {
-        newSubstr = '\u202A' + newSubstr + '\u202A';
-      }
       pre = pre.replace(strategy.match, newSubstr);
       range.selectNodeContents(range.startContainer);
       range.deleteContents();
