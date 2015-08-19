@@ -1,6 +1,9 @@
 # Changelog
 
-## `master`
+## `0.7.1` - Aug 19, 2015.
+- Remove RTL support because of some bugs.
+
+## `0.7.0` - Jul 2, 2015.
 - [#179] Add support for a "no results" message like the header/footer. (thanks for [@wbinnssmith](https://github.com/wbinnssmith))
 - [#177] Yield the search term to the template function. (thanks for [@wbinnssmith](https://github.com/wbinnssmith))
 - Stop sharing a dropdown element.
