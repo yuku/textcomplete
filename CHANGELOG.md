@@ -1,5 +1,8 @@
 # Changelog
 
+## `0.7.2` - Aug 26, 2015.
+- [#170] Reset \_term after selected. (thanks for [@icharlie](https://github.com/icharlie))
+
 ## `0.7.1` - Aug 19, 2015.
 - Remove RTL support because of some bugs.
 
