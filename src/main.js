@@ -22,6 +22,7 @@ if (typeof jQuery === 'undefined') {
   $.fn.textcomplete = function (strategies, option) {
     var args = Array.prototype.slice.call(arguments);
     return this.each(function () {
+      var self = this;
       var $this = $(this);
       var completer = $this.data('textComplete');
       if (!completer) {
@@ -49,7 +50,10 @@ if (typeof jQuery === 'undefined') {
             }
           });
         });
-        completer.register($.fn.textcomplete.Strategy.parse(strategies));
+        completer.register($.fn.textcomplete.Strategy.parse(strategies, {
+          el: self,
+          $el: $this
+        }));
       }
     });
   };

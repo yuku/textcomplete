@@ -1,5 +1,8 @@
 # Changelog
 
+## `master`
+- Add `Strategy#el` and `Strategy#$el` which returns current input/textarea element and corresponding jquery object respectively..
+
 ## `0.7.2` - Aug 26, 2015.
 - [#170] Reset \_term after selected. (thanks for [@icharlie](https://github.com/icharlie))
 

@@ -35,6 +35,7 @@ if (typeof jQuery === 'undefined') {
   $.fn.textcomplete = function (strategies, option) {
     var args = Array.prototype.slice.call(arguments);
     return this.each(function () {
+      var self = this;
       var $this = $(this);
       var completer = $this.data('textComplete');
       if (!completer) {
@@ -62,7 +63,10 @@ if (typeof jQuery === 'undefined') {
             }
           });
         });
-        completer.register($.fn.textcomplete.Strategy.parse(strategies));
+        completer.register($.fn.textcomplete.Strategy.parse(strategies, {
+          el: self,
+          $el: $this
+        }));
       }
     });
   };
@@ -820,9 +824,12 @@ if (typeof jQuery === 'undefined') {
     if (this.cache) { this.search = memoize(this.search); }
   }
 
-  Strategy.parse = function (optionsArray) {
-    return $.map(optionsArray, function (options) {
-      return new Strategy(options);
+  Strategy.parse = function (strategiesArray, params) {
+    return $.map(strategiesArray, function (strategy) {
+      var strategyObj = new Strategy(strategy);
+      strategyObj.el = params.el;
+      strategyObj.$el = params.$el;
+      return strategyObj;
     });
   };
 

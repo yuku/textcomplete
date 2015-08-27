@@ -21,9 +21,12 @@
     if (this.cache) { this.search = memoize(this.search); }
   }
 
-  Strategy.parse = function (optionsArray) {
-    return $.map(optionsArray, function (options) {
-      return new Strategy(options);
+  Strategy.parse = function (strategiesArray, params) {
+    return $.map(strategiesArray, function (strategy) {
+      var strategyObj = new Strategy(strategy);
+      strategyObj.el = params.el;
+      strategyObj.$el = params.$el;
+      return strategyObj;
     });
   };
 
