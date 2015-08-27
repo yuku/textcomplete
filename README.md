@@ -16,7 +16,7 @@ Synopsis
 
 ```js
 $('textarea').textcomplete([{
-    match: /(^|\s)(\w{2,})$/,
+    match: /(^|\b)(\w{2,})$/,
     search: function (term, callback) {
         var words = ['google', 'facebook', 'github', 'microsoft', 'yahoo'];
         callback($.map(words, function (word) {
