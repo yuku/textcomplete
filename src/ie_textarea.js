@@ -20,18 +20,20 @@
       var pre = this.getTextFromHeadToCaret();
       var post = this.el.value.substring(pre.length);
       var newSubstr = strategy.replace(value, e);
-      if ($.isArray(newSubstr)) {
-        post = newSubstr[1] + post;
-        newSubstr = newSubstr[0];
+      if (typeof newSubstr !== 'undefined') {
+        if ($.isArray(newSubstr)) {
+          post = newSubstr[1] + post;
+          newSubstr = newSubstr[0];
+        }
+        pre = pre.replace(strategy.match, newSubstr);
+        this.$el.val(pre + post);
+        this.el.focus();
+        var range = this.el.createTextRange();
+        range.collapse(true);
+        range.moveEnd('character', pre.length);
+        range.moveStart('character', pre.length);
+        range.select();
       }
-      pre = pre.replace(strategy.match, newSubstr);
-      this.$el.val(pre + post);
-      this.el.focus();
-      var range = this.el.createTextRange();
-      range.collapse(true);
-      range.moveEnd('character', pre.length);
-      range.moveStart('character', pre.length);
-      range.select();
     },
 
     getTextFromHeadToCaret: function () {
