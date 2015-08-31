@@ -33,13 +33,15 @@
       var pre = this.getTextFromHeadToCaret();
       var post = this.el.value.substring(this.el.selectionEnd);
       var newSubstr = strategy.replace(value, e);
-      if ($.isArray(newSubstr)) {
-        post = newSubstr[1] + post;
-        newSubstr = newSubstr[0];
+      if (typeof newSubstr !== 'undefined') {
+        if ($.isArray(newSubstr)) {
+          post = newSubstr[1] + post;
+          newSubstr = newSubstr[0];
+        }
+        pre = pre.replace(strategy.match, newSubstr);
+        this.$el.val(pre + post);
+        this.el.selectionStart = this.el.selectionEnd = pre.length;
       }
-      pre = pre.replace(strategy.match, newSubstr);
-      this.$el.val(pre + post);
-      this.el.selectionStart = this.el.selectionEnd = pre.length;
     },
 
     // Private methods

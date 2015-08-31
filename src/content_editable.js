@@ -28,19 +28,21 @@
       var content = selection.toString();
       var post = content.substring(range.startOffset);
       var newSubstr = strategy.replace(value, e);
-      if ($.isArray(newSubstr)) {
-        post = newSubstr[1] + post;
-        newSubstr = newSubstr[0];
+      if (typeof newSubstr !== 'undefined') {
+        if ($.isArray(newSubstr)) {
+          post = newSubstr[1] + post;
+          newSubstr = newSubstr[0];
+        }
+        pre = pre.replace(strategy.match, newSubstr);
+        range.selectNodeContents(range.startContainer);
+        range.deleteContents();
+        var node = document.createTextNode(pre + post);
+        range.insertNode(node);
+        range.setStart(node, pre.length);
+        range.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(range);
       }
-      pre = pre.replace(strategy.match, newSubstr);
-      range.selectNodeContents(range.startContainer);
-      range.deleteContents();
-      var node = document.createTextNode(pre + post);
-      range.insertNode(node);
-      range.setStart(node, pre.length);
-      range.collapse(true);
-      sel.removeAllRanges();
-      sel.addRange(range);
     },
 
     // Private methods
