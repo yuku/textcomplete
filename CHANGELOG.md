@@ -1,5 +1,8 @@
 # Changelog
 
+## `0.8.0` - Aug 31, 2015.
+- [#204] If undefined is returned from a replace callback dont replace the text. (thanks for [@Petah](https://github.com/Petah))
+
 ## `0.7.3` - Aug 27, 2015.
 - Add `Strategy#el` and `Strategy#$el` which returns current input/textarea element and corresponding jquery object respectively..
 

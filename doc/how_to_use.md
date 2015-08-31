@@ -93,7 +93,7 @@ var templateFunc = function (value, term) {
 //   templateFunc = function (value) { return value; };
 ```
 
-The `replaceFunc` MUST be a Function which returns a String or an Array of two Strings. It is invoked when a user will click and select an item of autocomplete dropdown.
+The `replaceFunc` MUST be a Function which returns a String, an Array of two Strings or `undefined`. It is invoked when a user will click and select an item of autocomplete dropdown.
 
 ```js
 var replaceFunc = function (value, event) { return '$1@' + value + ' '; };
@@ -112,6 +112,8 @@ var replaceFunc = function (value) {
   return ['$1<' + value + '>', '</' + value + '>'];
 };
 ```
+
+If `undefined` is returned from a `replaceFunc`, textcomplete does not replace the text.
 
 The `option` is an optional Object which MAY have `appendTo`, `height` , `maxCount`, `placement`, `header`, `footer`, `zIndex`, `debounce` and `onKeydown`. If `appendTo` is given, the element of dropdown is appended into the specified element. If `height` is given, the dropdown element's height will be fixed.
 

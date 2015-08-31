@@ -1013,13 +1013,15 @@ if (typeof jQuery === 'undefined') {
       var pre = this.getTextFromHeadToCaret();
       var post = this.el.value.substring(this.el.selectionEnd);
       var newSubstr = strategy.replace(value, e);
-      if ($.isArray(newSubstr)) {
-        post = newSubstr[1] + post;
-        newSubstr = newSubstr[0];
+      if (typeof newSubstr !== 'undefined') {
+        if ($.isArray(newSubstr)) {
+          post = newSubstr[1] + post;
+          newSubstr = newSubstr[0];
+        }
+        pre = pre.replace(strategy.match, newSubstr);
+        this.$el.val(pre + post);
+        this.el.selectionStart = this.el.selectionEnd = pre.length;
       }
-      pre = pre.replace(strategy.match, newSubstr);
-      this.$el.val(pre + post);
-      this.el.selectionStart = this.el.selectionEnd = pre.length;
     },
 
     // Private methods
@@ -1100,18 +1102,20 @@ if (typeof jQuery === 'undefined') {
       var pre = this.getTextFromHeadToCaret();
       var post = this.el.value.substring(pre.length);
       var newSubstr = strategy.replace(value, e);
-      if ($.isArray(newSubstr)) {
-        post = newSubstr[1] + post;
-        newSubstr = newSubstr[0];
+      if (typeof newSubstr !== 'undefined') {
+        if ($.isArray(newSubstr)) {
+          post = newSubstr[1] + post;
+          newSubstr = newSubstr[0];
+        }
+        pre = pre.replace(strategy.match, newSubstr);
+        this.$el.val(pre + post);
+        this.el.focus();
+        var range = this.el.createTextRange();
+        range.collapse(true);
+        range.moveEnd('character', pre.length);
+        range.moveStart('character', pre.length);
+        range.select();
       }
-      pre = pre.replace(strategy.match, newSubstr);
-      this.$el.val(pre + post);
-      this.el.focus();
-      var range = this.el.createTextRange();
-      range.collapse(true);
-      range.moveEnd('character', pre.length);
-      range.moveStart('character', pre.length);
-      range.select();
     },
 
     getTextFromHeadToCaret: function () {
@@ -1156,19 +1160,21 @@ if (typeof jQuery === 'undefined') {
       var content = selection.toString();
       var post = content.substring(range.startOffset);
       var newSubstr = strategy.replace(value, e);
-      if ($.isArray(newSubstr)) {
-        post = newSubstr[1] + post;
-        newSubstr = newSubstr[0];
+      if (typeof newSubstr !== 'undefined') {
+        if ($.isArray(newSubstr)) {
+          post = newSubstr[1] + post;
+          newSubstr = newSubstr[0];
+        }
+        pre = pre.replace(strategy.match, newSubstr);
+        range.selectNodeContents(range.startContainer);
+        range.deleteContents();
+        var node = document.createTextNode(pre + post);
+        range.insertNode(node);
+        range.setStart(node, pre.length);
+        range.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(range);
       }
-      pre = pre.replace(strategy.match, newSubstr);
-      range.selectNodeContents(range.startContainer);
-      range.deleteContents();
-      var node = document.createTextNode(pre + post);
-      range.insertNode(node);
-      range.setStart(node, pre.length);
-      range.collapse(true);
-      sel.removeAllRanges();
-      sel.addRange(range);
     },
 
     // Private methods
