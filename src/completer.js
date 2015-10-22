@@ -150,7 +150,7 @@
       if (searchQuery.length) {
         var term = searchQuery[1];
         // Ignore shift-key, ctrl-key and so on.
-        if (skipUnchangedTerm && this._term === term) { return; }
+        if (skipUnchangedTerm && this._term === term && term !== "") { return; }
         this._term = term;
         this._search.apply(this, searchQuery);
       } else {
