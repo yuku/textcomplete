@@ -1,5 +1,8 @@
 # Changelog
 
+## `0.8.1` - Oct 22, 2015.
+- [#210] added condition to ignore skipUnchangedTerm for empty text. (thanks for [@meiriko](https://github.com/meiriko))
+
 ## `0.8.0` - Aug 31, 2015.
 - [#204] If undefined is returned from a replace callback dont replace the text. (thanks for [@Petah](https://github.com/Petah))
 
