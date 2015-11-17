@@ -213,6 +213,7 @@
     _search: lock(function (free, strategy, term, match) {
       var self = this;
       strategy.search(term, function (data, stillSearching) {
+        var checkPlacementAfterRender = !self.dropdown.shown;
         if (!self.dropdown.shown) {
           self.dropdown.activate();
         }
@@ -223,6 +224,9 @@
         }
         self.dropdown.setPosition(self.adapter.getCaretPosition());
         self.dropdown.render(self._zip(data, strategy, term));
+        if(checkPlacementAfterRender && self.dropdown._elementOffBottomOfScreen()){
+          self.dropdown.setPosition(self.adapter.getCaretPosition());
+        }
         if (!stillSearching) {
           // The last callback in the current lock.
           free();
