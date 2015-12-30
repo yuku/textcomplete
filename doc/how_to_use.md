@@ -130,7 +130,7 @@ var option = {
   adapter:   adapterClass,    // undefined
   className: classNameStr,    // ''
   onKeydown: onKeydownFunc,   // undefined
-  noResultMessage: noResultMessageStrOrFunc  // undefined
+  noResultsMessage: noResultsMessageStrOrFunc  // undefined
 };
 ```
 
