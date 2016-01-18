@@ -13,12 +13,12 @@
     "zepto-plugin"
   ],
   "bugs": {
-    "url": "https://github.com/yuku-t/jquery-textcompelte/issues"
+    "url": "https://github.com/yuku-t/jquery-textcomplete/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/yuku-t/jquery-textcompelte/blob/master/LICENSE"
+      "url": "https://github.com/yuku-t/jquery-textcomplete/blob/master/LICENSE"
     }
   ],
   "devDependencies": {
