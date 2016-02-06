@@ -65,7 +65,7 @@ If you want to execute `callback` multiple times per a search, you SHOULD give `
 
 The `cacheBoolean` MUST be a Boolean. It defaults to `false`. If it is `true` the `searchFunc` will be memoized by `term` argument. This is useful to prevent excessive API access.
 
-TextComplete automatically make the dropdown unique when the callbacked array consists of Strings. If it consists of Objects and the dropdown shoud be unique, use `idPropertyStr` for teaching the specified property is good to identify each elements.
+TextComplete automatically make the dropdown unique when the callbacked array consists of Strings. If it consists of Objects and the dropdown should be unique, use `idPropertyStr` for teaching the specified property is good to identify each elements.
 
 ```js
 var searchFunc = function (term, callback, match) {
@@ -82,7 +82,7 @@ var searchFunc = function (term, callback, match) {
 };
 ```
 
-The `templateFunc` MUST be a Function which returns a string. The function is going to be called as an iteretor for the array given to the `callback` of `searchFunc`. You can change the style of each dropdown item.
+The `templateFunc` MUST be a Function which returns a string. The function is going to be called as an iterator for the array given to the `callback` of `searchFunc`. You can change the style of each dropdown item.
 
 ```js
 var templateFunc = function (value, term) {
