@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
-## [Unreleased]
+## [1.0.0] - 2016-02-29
 ### Changed
 - Adheres keepachangelog.com.
 
@@ -242,7 +242,8 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.8.2...HEAD
+[Unreleased]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.8.2...v1.0.0
 [0.8.2]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.8.1...v0.8.2
 [0.8.1]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.8.0...v0.8.1
 [0.8.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.7.3...v0.8.0
