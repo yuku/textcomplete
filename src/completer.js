@@ -142,6 +142,12 @@
       this.$el = this.adapter = this.dropdown = null;
     },
 
+    deactivate: function () {
+      if (this.dropdown) {
+        this.dropdown.deactivate();
+      }
+    },
+
     // Invoke textcomplete.
     trigger: function (text, skipUnchangedTerm) {
       if (!this.dropdown) { this.initialize(); }
