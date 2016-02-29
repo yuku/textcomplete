@@ -75,14 +75,19 @@
       throw new Error('Not implemented');
     },
 
-    // Returns the caret's relative coordinates from body's left top corner.
-    //
-    // FIXME: Calculate the left top corner of `this.option.appendTo` element.
+    // Returns the caret's relative coordinates from the top left corner of the
+    // closest common ancestor element.
     getCaretPosition: function () {
       var position = this._getCaretRelativePosition();
+      var commonAncestor = this.$el.parents()
+        .filter(this.option.appendTo.parents().addBack())
+        .first()
+        .children()
+        .offsetParent();
       var offset = this.$el.offset();
-      position.top += offset.top;
-      position.left += offset.left;
+      var commonOffset = commonAncestor.offset();
+      position.top += offset.top - commonOffset.top;
+      position.left += offset.left - commonOffset.left;
       return position;
     },
 
