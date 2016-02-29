@@ -1,203 +1,285 @@
-# Changelog
+# Change Log
 
-## `0.8.2` - Feb 29, 2016.
-- [#233] Add deactivate method to Completer. (thanks for [@djreimer](https://github.com/djreimer))
+All notable changes to this project will be documented in this file.
 
-## `0.8.1` - Oct 22, 2015.
-- [#210] added condition to ignore skipUnchangedTerm for empty text. (thanks for [@meiriko](https://github.com/meiriko))
+This project adheres to [Semantic Versioning](http://semver.org/).
 
-## `0.8.0` - Aug 31, 2015.
-- [#204] If undefined is returned from a replace callback dont replace the text. (thanks for [@Petah](https://github.com/Petah))
+This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
-## `0.7.3` - Aug 27, 2015.
-- Add `Strategy#el` and `Strategy#$el` which returns current input/textarea element and corresponding jquery object respectively..
+## [Unreleased]
+### Changed
+- Adheres keepachangelog.com.
 
-## `0.7.2` - Aug 26, 2015.
-- [#170] Reset \_term after selected. (thanks for [@icharlie](https://github.com/icharlie))
+## [0.8.2] - 2016-02-29
+### Added
+- Add deactivate method to Completer. ([#233](https://github.com/yuku-t/jquery-textcomplete/pulls/233))
 
-## `0.7.1` - Aug 19, 2015.
+## [0.8.1] - 2015-10-22
+### Added
+- Add condition to ignore skipUnchangedTerm for empty text. ([#210](https://github.com/yuku-t/jquery-textcomplete/pulls/210))
+
+## [0.8.0] - 2015-08-31
+### Changed
+- If undefined is returned from a replace callback dont replace the text. ([#204](https://github.com/yuku-t/jquery-textcomplete/pulls/204))
+
+## [0.7.3] - 2015-08-27
+### Added
+- Add `Strategy#el` and `Strategy#$el` which returns current input/textarea element and corresponding jquery object respectively.
+
+## [0.7.2] - 2015-08-26
+### Fixed
+- Reset \_term after selected ([#170](https://github.com/yuku-t/jquery-textcomplete/pulls/170))
+
+## [0.7.1] - 2015-08-19
+### Changed
 - Remove RTL support because of some bugs.
 
-## `0.7.0` - Jul 2, 2015.
-- [#179] Add support for a "no results" message like the header/footer. (thanks for [@wbinnssmith](https://github.com/wbinnssmith))
-- [#177] Yield the search term to the template function. (thanks for [@wbinnssmith](https://github.com/wbinnssmith))
-- Stop sharing a dropdown element.
-- [#167] Add amd wrapper. (thanks for [@Mavrin](https://github.com/Mavrin))
-- [#163] Added touch devices support. (thanks for [@corvis](https://github.com/corvis))
+## [0.7.0] - 2015-07-02
+### Add
+- Add support for a "no results" message like the header/footer. ([#179](https://github.com/yuku-t/jquery-textcomplete/pulls/179))
+- Yield the search term to the template function. ([#177](https://github.com/yuku-t/jquery-textcomplete/pulls/177))
+- Add amd wrapper. ([#167](https://github.com/yuku-t/jquery-textcomplete/pulls/167))
+- Add touch devices support. ([#163](https://github.com/yuku-t/jquery-textcomplete/pulls/163))
 
-## `v0.6.1` - Jun 30, 2015.
+### Changed
+- Stop sharing a dropdown element.
+
+## [0.6.1] - 2015-06-30
+### Fixed
 - Fix bug that Dropdown.\_fitToBottom does not consider window scroll
 
-## `v0.6.0` - Jun 30, 2015.
+## [0.6.0] - 2015-06-30
+### Added
 - Now dropdown elements have "textcomplete-dropdown" class.
 
-## `v0.5.2` - Jun 29, 2015.
+## [0.5.2] - 2015-06-29
+### Fixed
+- Keep dropdown list in browser window. ([#172](https://github.com/yuku-t/jquery-textcomplete/pulls/172))
 
-- [#172] Keep dropdown list in browser window. (thanks for [@kambayashia](https://github.com/kambayashia))
-
-## `v0.5.1` - Jun 8, 2015.
-
+## [0.5.1] - 2015-06-08
+### Changed
 - Now a replace function is invoked with a user event.
 
-## `v0.5.0` - Jun 8, 2015.
-
+## [0.5.0] - 2015-06-08
+### Added
 - Support `onKeydown` option.
 
-## `v0.4.0` - Mar 10, 2015.
-
+## [0.4.0] - 2015-03-10
+### Added
 - Publish to [npmjs](https://www.npmjs.com/package/jquery-textcomplete).
 - Support giving a function which returns a regexp to `match` option for dynamic matching.
 
-## `v0.3.9` - Mar 3, 2015.
+## [0.3.9] - 2015-03-03
+### Fixed
+- Deactivate dropdown on escape. ([#155](https://github.com/yuku-t/jquery-textcomplete/pulls/155))
 
-- [#155] Deactivate dropdown on escape. (thanks for [@EnTeQuAk](https://github.com/EnTeQuAk))
+## [0.3.8] - 2015-02-26
+### Fixed
+- Fix completion with enter key. ([#154](https://github.com/yuku-t/jquery-textcomplete/pulls/154))
+- Fix empty span node is inserted. ([#153](https://github.com/yuku-t/jquery-textcomplete/pulls/153))
 
-## `v0.3.8` - Feb 26, 2015.
+## [0.3.7] - 2015-01-21
+### Added
+- Support input([type=text]. [#149](https://github.com/yuku-t/jquery-textcomplete/pulls/149))
 
-- [#154] Fix completion with enter key. (thanks for [@tleruitte](https://github.com/tleruitte))
-- [#153] Fix empty span node is inserted. (thanks for [@tleruitte](https://github.com/tleruitte))
+## [0.3.6] - 2014-12-11
+### Added
+- Support element.contentEditable compatibility check. ([#147](https://github.com/yuku-t/jquery-textcomplete/pulls/147))
 
-## `v0.3.7` - Jan 21, 2015.
+### Fixed
+- Fixes the fire function for events with additional parameters. ([#145](https://github.com/yuku-t/jquery-textcomplete/pulls/145))
 
-- [#149] Support input[type=text]. (thanks for [@pafcu](https://github.com/pafcu))
+## [0.3.5] - 2014-12-11
+### Added
+- Adds functionality to complete selection on space key. ([#141](https://github.com/yuku-t/jquery-textcomplete/pulls/141))
 
-## `v0.3.6` - Dec 11, 2014.
+### Fixed
+- Loading script in head and destroy method bugfixes. ([#143](https://github.com/yuku-t/jquery-textcomplete/pulls/143))
 
-- [#147] Support element.contentEditable compatibility check. (thanks for [@nick-desteffen](https://github.com/nick-desteffen))
-- [#145] Fixes the fire function for events with additional parameters. (thanks for [@Dan-Nolan](https://github.com/Dan-Nolan))
+## [0.3.4] - 2014-12-03
+### Fixed
+- Fix error when destroy is called before the field is focused. ([#138](https://github.com/yuku-t/jquery-textcomplete/pulls/138))
+- Fix IE bug where it would only trigger when tha carrot was at the end of the line. ([#133](https://github.com/yuku-t/jquery-textcomplete/pulls/133))
 
-## `v0.3.5` - Dec 11, 2014.
-
-- [#143] Loading script in head and destroy method bugfixes. (thanks for [@marcogrcr](https://github.com/marcogrcr))
-- [#141] Adds functionality to complete selection on space key. (thanks for [@gauravtiwari5050](https://github.com/gauravtiwari5050))
-
-## `v0.3.4` - Dec 3, 2014.
-
-- [#138] Fix error when destroy is called before the field is focused. (thanks for [@smilledge](https://github.com/smilledge))
-- [#133] Fix IE bug where it would only trigger when tha carrot was at the end of the line. (thanks for [@eleventhal](https://github.com/eleventhal))
-
-## `v0.3.3` - Sep 25, 2014.
-
+## [0.3.3] - 2014-09-25
+### Added
 - Add `className` option.
-- [Fix #118] Ignore `.textcomplete('destory')` on non-initialized elements.
-- [Fix #119] Trigger completer with the current text by default.
-- [Fix #120] Hide dropdown before destroying it.
-- [Fix #121] Don't throw an exception even if a jquery click event is manually triggered.
 - Add `match` as the third argument of a search function.
 
-## `v0.3.2` - Sep 16, 2014
+### Fixed
+- Ignore `.textcomplete('destory')` on non-initialized elements. ([#118](https://github.com/yuku-t/jquery-textcomplete/pulls/118))
+- Trigger completer with the current text by default. ([#119](https://github.com/yuku-t/jquery-textcomplete/pulls/119))
+- Hide dropdown before destroying it. ([#120](https://github.com/yuku-t/jquery-textcomplete/pulls/120))
+- Don't throw an exception even if a jquery click event is manually triggered. ([#121](https://github.com/yuku-t/jquery-textcomplete/pulls/121))
 
+## [0.3.2] - 2014-09-16
+### Added
 - Add `IETextarea` adapter which supports IE8
 - Add `idProperty` option.
 - Add `adapter` option.
+
+### Changed
 - Rename `Input` as `Adapter`.
 
-## `v0.3.1` - Sep 10, 2014
-
+## [0.3.1] - 2014-09-10
+### Added
 - Add `context` strategy option.
-- Recycle `.dropdown-menu` element if available.
 - Add `debounce` option.
 
-## `v0.3.0` - Sep 10, 2014
+### Changed
+- Recycle `.dropdown-menu` element if available.
 
-- Revive `header` and `footer` options.
+## [0.3.0] - 2014-09-10
+### Added
 - Consider the `tab-size` of textarea.
-- Revive `height` option.
 - Add `zIndex` option.
 
-## `v0.3.0-beta2` - Sep 9, 2014
+### Fixed
+- Revive `header` and `footer` options.
+- Revive `height` option.
 
+## [0.3.0-beta2] - 2014-09-09
+### Fixed
 - Make sure that all demos work fine.
 
-## `v0.3.0-beta1` - Aug 31, 2014
-
+## [0.3.0-beta1] - 2014-08-31
+### Fixed
 - Huge refactoring.
 
-## `v0.2.6` - Aug 16, 2014
-
+## [0.2.6] - 2014-08-16
+### Fixed
 - Repair contenteditable.
 
-## `v0.2.5` - Aug 7, 2014
+## [0.2.5] - 2014-08-07
+### Added
+- Enhance contenteditable support. ([#98](https://github.com/yuku-t/jquery-textcomplete/pull/98))
+- Support absolute left/right placement. ([#96](https://github.com/yuku-t/jquery-textcomplete/pull/96))
+- Support absolute height, scrollbar, pageup and pagedown. ([#87](https://github.com/yuku-t/jquery-textcomplete/pull/87))
 
-- Enhance contenteditable support. [[#98]](https://github.com/yuku-t/jquery-textcomplete/pull/98) (Thanks for [@mikol](https://github.com/mikol))
-- Support absolute left/right placement. [[#96]](https://github.com/yuku-t/jquery-textcomplete/pull/96) (Thanks for [@ericktai](https://github.com/ericktai))
-- Support absolute height, scrollbar, pageup and pagedown. [[#87]](https://github.com/yuku-t/jquery-textcomplete/pull/87) (Thanks for [@alan2wong](https://github.com/alan2wong))
+## [0.2.4] - 2014-07-02
+### Fixed
+- Fix horizonal position on contentEditable elements. ([#92](https://github.com/yuku-t/jquery-textcomplete/pull/92))
 
-## `v0.2.4` - Jul 2, 2014
+## [0.2.3] - 2014-06-24
+### Added
+- Option to supply list view position function. ([#88](https://github.com/yuku-t/jquery-textcomplete/pull/88))
 
-- Fix horizonal position on contentEditable elements. [[#92]](https://github.com/yuku-t/jquery-textcomplete/pull/92)
-
-## `v0.2.3` - Jun 24, 2014
-
-- Option to supply list view position function. [[#88]](https://github.com/yuku-t/jquery-textcomplete/pull/88)
-
-## `v0.2.2` - Jun 8, 2014 
-
+## [0.2.2] - 2014-06-08
+### Added
 - Append dropdown element to body element by default.
 - Tiny refactoring. [#84]
-- Ignore tab key when modifier keys are being pushed. [[#85]](https://github.com/yuku-t/jquery-textcomplete/pull/85)
+- Ignore tab key when modifier keys are being pushed. ([#85](https://github.com/yuku-t/jquery-textcomplete/pull/85))
 - Manual triggering.
 
-## `v0.2.1` - May 15, 2014
-
+## [0.2.1] - 2014-05-15
+### Added
 - Support `appendTo` option.
 - `header` and `footer` supports a function.
+
+### Changed
 - Remove textcomplate-wrapper element.
 
-## `v0.2` - May 2, 2014
-
+## [0.2.0] - 2014-05-02
+### Added
 - Contenteditable support.
 - Several bugfixes.
 - Support `header` and `footer` setting.
 
-## `v0.1.4.1` - April 4, 2014
-
+## [0.1.4.1] - 2014-04-04
+### Added
 - Support placement option.
 - Emacs-style prev/next keybindings.
 - Replay searchFunc for the last term on slow network env.
+
+### Fixed
 - Several bugfixes.
 
-## `v0.1.3` - March 7, 2014
-
-- Several bugfixes.
+## [0.1.3] - 2014-04-07
+### Added
 - Support RTL positioning.
 
-## `v0.1.2` - February 8, 2014
+### Fixed
+- Several bugfixes.
 
+## [0.1.2] - 2014-02-08
+### Added
 - Enable to append strategies on the fly.
 - Enable to stop autocompleting.
 - Enable to apply multiple textareas at once.
 - Don't show popup on pressing arrow up and down keys.
 - Hide dropdown by pressing ESC key.
 - Prevent showing a dropdown when it just autocompleted.
-- ~~Support RTL positioning.~~
 
-## `v0.1.1` - February 2, 2014
-
+## [0.1.1] - 2014-02-02
+### Added
 - Introduce `textComplete:show`, `textComplete:hide` and `textComplete:select` events.
 
-## `v0.1.0` - October 28, 2013
-
+## [0.1.0] - 2013-10-28
+### Added
 - Now strategies argument is an Array of strategy objects.
 
-## `v0.0.4` - October 28, 2013
-
-- Several bugfixes.
+## [0.0.4] - 2013-10-28
+### Added
 - Up and Down arrows cycle instead of exit.
 - Support Zepto.
 - Support jQuery.overlay.
 
-## `v0.0.3` - September 11, 2013
+### Fixed
+- Several bugfixes.
 
+## [0.0.3] - 2013-09-11
+### Added
 - Some performance improvement.
 - Implement lazy callbacking on search function.
 
-## `v0.0.2` - September 8, 2013
-
+## [0.0.2] - 2013-09-08
+### Added
 - Support IE8.
 - Some performance improvement.
 - Implement cache option.
 
-## `v0.0.1` - September 2, 2013
-
+## 0.0.1 - 2013-09-02
+### Added
 - Initial release.
+
+[Unreleased]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.8.2...HEAD
+[0.8.2]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.8.1...v0.8.2
+[0.8.1]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.8.0...v0.8.1
+[0.8.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.7.3...v0.8.0
+[0.7.3]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.7.2...v0.7.3
+[0.7.2]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.7.1...v0.7.2
+[0.7.1]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.7.0...v0.7.1
+[0.7.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.6.1...v0.7.0
+[0.6.1]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.6.0...v0.6.1
+[0.6.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.5.2...v0.6.0
+[0.5.2]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.5.1...v0.5.2
+[0.5.1]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.5.0...v0.5.1
+[0.5.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.4.0...v0.5.0
+[0.4.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.3.9...v0.4.0
+[0.3.9]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.3.8...v0.3.9
+[0.3.8]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.3.7...v0.3.8
+[0.3.7]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.3.6...v0.3.7
+[0.3.6]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.3.5...v0.3.6
+[0.3.5]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.3.4...v0.3.5
+[0.3.4]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.3.3...v0.3.4
+[0.3.3]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.3.2...v0.3.3
+[0.3.2]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.3.1...v0.3.2
+[0.3.1]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.3.0...v0.3.1
+[0.3.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.3.0-beta2...v0.3.0
+[0.3.0-beta2]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.3.0-beta1...v0.3.0-beta2
+[0.3.0-beta1]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.2.6...v0.3.0-beta1
+[0.2.6]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.2.5...v0.2.6
+[0.2.5]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.2.4...v0.2.5
+[0.2.4]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.2.3...v0.2.4
+[0.2.3]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.2.2...v0.2.3
+[0.2.2]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.2.1...v0.2.2
+[0.2.1]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.2.0...v0.2.1
+[0.2.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.1.4.1...v0.2.0
+[0.1.4.1]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.1.3...v0.1.4.1
+[0.1.3]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.1.2...v0.1.3
+[0.1.2]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.1.1...v0.1.2
+[0.1.1]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.1.0...v0.1.1
+[0.1.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.0.4...v0.1.0
+[0.0.4]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.0.3...v0.0.4
+[0.0.3]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.0.2...v0.0.3
+[0.0.2]: https://github.com/yuku-t/jquery-textcomplete/compare/v0.0.1...v0.0.2
