@@ -1,5 +1,8 @@
 # Changelog
 
+## `0.8.2` - Feb 29, 2016.
+- [#233] Add deactivate method to Completer. (thanks for [@djreimer](https://github.com/djreimer))
+
 ## `0.8.1` - Oct 22, 2015.
 - [#210] added condition to ignore skipUnchangedTerm for empty text. (thanks for [@meiriko](https://github.com/meiriko))
 

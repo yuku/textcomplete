@@ -217,6 +217,12 @@ if (typeof jQuery === 'undefined') {
       this.$el = this.adapter = this.dropdown = null;
     },
 
+    deactivate: function () {
+      if (this.dropdown) {
+        this.dropdown.deactivate();
+      }
+    },
+
     // Invoke textcomplete.
     trigger: function (text, skipUnchangedTerm) {
       if (!this.dropdown) { this.initialize(); }
@@ -225,7 +231,7 @@ if (typeof jQuery === 'undefined') {
       if (searchQuery.length) {
         var term = searchQuery[1];
         // Ignore shift-key, ctrl-key and so on.
-        if (skipUnchangedTerm && this._term === term) { return; }
+        if (skipUnchangedTerm && this._term === term && term !== "") { return; }
         this._term = term;
         this._search.apply(this, searchQuery);
       } else {
