@@ -450,10 +450,17 @@
       }
     },
 
+    // return true only if the popup leaves at least minGap (default is 0)
+    // pixels off the bottom. Used to avoid popup clipping
+    _elementOffBottomOfScreen: function(minGap){
+      return (this.$el.offsetParent().height() - this.$el.offset().top - this.$el.height() < (minGap || 0) );
+    },
+
     _applyPlacement: function (position) {
       // If the 'placement' option set to 'top', move the position above the element.
-      if (this.placement.indexOf('top') !== -1) {
-        // Overwrite the position object to set the 'bottom' property instead of the top.
+      if ( (this.placement.indexOf('top') !== -1) || (this.option.topOnClip && this._elementOffBottomOfScreen())){
+        // Overwrite the position object to set the 'bottom' property instead of the top
+        // or if the popup runs off the screen the to topOnClip option is set
         position = {
           top: 'auto',
           bottom: this.$el.parent().height() - position.top + position.lineHeight,
