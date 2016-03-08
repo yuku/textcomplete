@@ -76,11 +76,19 @@
     },
 
     // Returns the caret's relative coordinates from body's left top corner.
-    //
-    // FIXME: Calculate the left top corner of `this.option.appendTo` element.
     getCaretPosition: function () {
       var position = this._getCaretRelativePosition();
       var offset = this.$el.offset();
+
+      // Calculate the left top corner of `this.option.appendTo` element.
+      var $parent = this.option.appendTo;
+      if ($parent) {
+         if (!($parent instanceof $)) { $parent = $($parent); }
+         var parentOffset = $parent.offsetParent().offset();
+         offset.top -= parentOffset.top;
+         offset.left -= parentOffset.left;
+      }
+
       position.top += offset.top;
       position.left += offset.left;
       return position;
