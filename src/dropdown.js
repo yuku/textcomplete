@@ -121,6 +121,7 @@
         if (contentsHtml) {
           this._renderContents(contentsHtml);
           this._fitToBottom();
+          this._fitToRight();
           this._activateIndexedItem();
         }
         this._setScroll();
@@ -447,6 +448,17 @@
       var height = this.$el.height();
       if ((this.$el.position().top + height) > windowScrollBottom) {
         this.$el.offset({top: windowScrollBottom - height});
+      }
+    },
+
+    _fitToRight: function() {
+      // We don't know how wide our content is until the browser positions us, and at that point it clips us
+      // to the document width so we don't know if we would have overrun it. As a heuristic to avoid that clipping
+      // (which makes our elements wrap onto the next line and corrupt the next item), if we're close to the right
+      // edge, move left. We don't know how far to move left, so just keep nudging a bit.
+      var tolerance = 30; // pixels. Make wider than vertical scrollbar because we might not be able to use that space.
+      while (this.$el.offset().left + this.$el.width() > $window.width() - tolerance) {
+        this.$el.offset({left: this.$el.offset().left - tolerance});
       }
     },
 
