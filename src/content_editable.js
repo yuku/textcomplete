@@ -36,9 +36,28 @@
         pre = pre.replace(strategy.match, newSubstr);
         range.selectNodeContents(range.startContainer);
         range.deleteContents();
-        var node = document.createTextNode(pre + post);
-        range.insertNode(node);
-        range.setStart(node, pre.length);
+        
+        // create temporary elements
+        var preWrapper = document.createElement("div");
+        preWrapper.innerHTML = pre;
+        var postWrapper = document.createElement("div");
+        postWrapper.innerHTML = post;
+        
+        // create the fragment thats inserted
+        var fragment = document.createDocumentFragment();
+        var childNode;
+        var lastOfPre;
+        while (childNode = preWrapper.firstChild) {
+        	lastOfPre = fragment.appendChild(childNode);
+        }
+        while (childNode = postWrapper.firstChild) {
+        	fragment.appendChild(childNode);
+        }
+        
+        // insert the fragment & jump behind the last node in "pre"
+        range.insertNode(fragment);
+        range.setStartAfter(lastOfPre);
+        
         range.collapse(true);
         sel.removeAllRanges();
         sel.addRange(range);
