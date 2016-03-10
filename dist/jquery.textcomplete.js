@@ -451,6 +451,7 @@ if (typeof jQuery === 'undefined') {
         if (contentsHtml) {
           this._renderContents(contentsHtml);
           this._fitToBottom();
+          this._fitToRight();
           this._activateIndexedItem();
         }
         this._setScroll();
@@ -462,8 +463,6 @@ if (typeof jQuery === 'undefined') {
     },
 
     setPosition: function (pos) {
-      this.$el.css(this._applyPlacement(pos));
-
       // Make the dropdown fixed if the input is also fixed
       // This can't be done during init, as textcomplete may be used on multiple elements on the same page
       // Because the same dropdown is reused behind the scenes, we need to recheck every time the dropdown is showed
@@ -473,10 +472,13 @@ if (typeof jQuery === 'undefined') {
         if($(this).css('position') === 'absolute') // The element has absolute positioning, so it's all OK
           return false;
         if($(this).css('position') === 'fixed') {
+          pos.top -= $window.scrollTop();
+          pos.left -= $window.scrollLeft();					
           position = 'fixed';
           return false;
         }
       });
+      this.$el.css(this._applyPlacement(pos));
       this.$el.css({ position: position }); // Update positioning
 
       return this;
@@ -780,6 +782,17 @@ if (typeof jQuery === 'undefined') {
       }
     },
 
+    _fitToRight: function() {
+      // We don't know how wide our content is until the browser positions us, and at that point it clips us
+      // to the document width so we don't know if we would have overrun it. As a heuristic to avoid that clipping
+      // (which makes our elements wrap onto the next line and corrupt the next item), if we're close to the right
+      // edge, move left. We don't know how far to move left, so just keep nudging a bit.
+      var tolerance = 30; // pixels. Make wider than vertical scrollbar because we might not be able to use that space.
+      while (this.$el.offset().left + this.$el.width() > $window.width() - tolerance) {
+        this.$el.offset({left: this.$el.offset().left - tolerance});
+      }
+    },
+
     _applyPlacement: function (position) {
       // If the 'placement' option set to 'top', move the position above the element.
       if (this.placement.indexOf('top') !== -1) {
@@ -938,11 +951,19 @@ if (typeof jQuery === 'undefined') {
     },
 
     // Returns the caret's relative coordinates from body's left top corner.
-    //
-    // FIXME: Calculate the left top corner of `this.option.appendTo` element.
     getCaretPosition: function () {
       var position = this._getCaretRelativePosition();
       var offset = this.$el.offset();
+
+      // Calculate the left top corner of `this.option.appendTo` element.
+      var $parent = this.option.appendTo;
+      if ($parent) {
+         if (!($parent instanceof $)) { $parent = $($parent); }
+         var parentOffset = $parent.offsetParent().offset();
+         offset.top -= parentOffset.top;
+         offset.left -= parentOffset.left;
+      }
+
       position.top += offset.top;
       position.left += offset.left;
       return position;
@@ -1174,9 +1195,28 @@ if (typeof jQuery === 'undefined') {
         pre = pre.replace(strategy.match, newSubstr);
         range.selectNodeContents(range.startContainer);
         range.deleteContents();
-        var node = document.createTextNode(pre + post);
-        range.insertNode(node);
-        range.setStart(node, pre.length);
+        
+        // create temporary elements
+        var preWrapper = document.createElement("div");
+        preWrapper.innerHTML = pre;
+        var postWrapper = document.createElement("div");
+        postWrapper.innerHTML = post;
+        
+        // create the fragment thats inserted
+        var fragment = document.createDocumentFragment();
+        var childNode;
+        var lastOfPre;
+        while (childNode = preWrapper.firstChild) {
+        	lastOfPre = fragment.appendChild(childNode);
+        }
+        while (childNode = postWrapper.firstChild) {
+        	fragment.appendChild(childNode);
+        }
+        
+        // insert the fragment & jump behind the last node in "pre"
+        range.insertNode(fragment);
+        range.setStartAfter(lastOfPre);
+        
         range.collapse(true);
         sel.removeAllRanges();
         sel.addRange(range);

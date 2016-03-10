@@ -13,6 +13,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ### Fixed
 - Position relative to appendTo element. ([#234](https://github.com/yuku-t/jquery-textcomplete/pull/234))
 - Avoid dropdown bumping into right edge of window. ([#235](https://github.com/yuku-t/jquery-textcomplete/pull/235))
+- Fix top position issue when window is scrolled up and parents has fix position. ([#229](https://github.com/yuku-t/jquery-textcomplete/pull/229))
 
 ## [1.0.0] - 2016-02-29
 ### Changed
