@@ -141,8 +141,8 @@
         if($(this).css('position') === 'absolute') // The element has absolute positioning, so it's all OK
           return false;
         if($(this).css('position') === 'fixed') {
-          pos.top -= $(window).scrollTop();
-          pos.left -= $(window).scrollLeft();					
+          pos.top -= $window.scrollTop();
+          pos.left -= $window.scrollLeft();					
           position = 'fixed';
           return false;
         }
