@@ -1,6 +1,6 @@
 {
   "name": "jquery-textcomplete",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "main": "dist/jquery.textcomplete.js",
   "dependencies": {
     "jquery": ">=1.7.0"
