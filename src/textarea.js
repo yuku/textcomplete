@@ -1,9 +1,6 @@
 +function ($) {
   'use strict';
 
-  var userAgent = window.navigator.userAgent.toLowerCase();
-  var appVersion = window.navigator.appVersion.toLowerCase();
-
   // Textarea adapter
   // ================
   //
