@@ -10,6 +10,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ### Fixed
 - Remove dropdown element after `textcomplete('destroy')`.
 - Skip search after pressing tab.
+- Fix dropdown-menu positioning problem using textarea-caret package.
 
 ## [1.2.1] - 2016-03-14
 ### Fixed
