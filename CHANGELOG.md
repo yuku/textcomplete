@@ -7,6 +7,8 @@ This project adheres to [Semantic Versioning](http://semver.org/) by version 1.0
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [Unreleased]
+### Fixed
+- Remove dropdown element after `textcomplete('destroy')`.
 
 ## [1.2.1] - 2016-03-14
 ### Fixed

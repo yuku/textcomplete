@@ -108,6 +108,7 @@
       this.$el.off('.' + this.id);
       this.$inputEl.off('.' + this.id);
       this.clear();
+      this.$el.remove();
       this.$el = this.$inputEl = this.completer = null;
       delete dropdownViews[this.id]
     },
