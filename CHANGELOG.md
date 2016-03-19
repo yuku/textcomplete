@@ -9,6 +9,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ## [Unreleased]
 ### Fixed
 - Remove dropdown element after `textcomplete('destroy')`.
+- Skip search after pressing tab.
 
 ## [1.2.1] - 2016-03-14
 ### Fixed
