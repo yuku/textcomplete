@@ -117,6 +117,12 @@
       var contentsHtml = this._buildContents(zippedData);
       var unzippedData = $.map(this.data, function (d) { return d.value; });
       if (this.data.length) {
+        var strategy = zippedData[0].strategy;
+        if (strategy.id) {
+          this.$el.attr('data-strategy', strategy.id);
+        } else {
+          this.$el.removeAttr('data-strategy');
+        }
         this._renderHeader(unzippedData);
         this._renderFooter(unzippedData);
         if (contentsHtml) {

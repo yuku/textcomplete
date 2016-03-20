@@ -7,6 +7,10 @@ This project adheres to [Semantic Versioning](http://semver.org/) by version 1.0
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [Unreleased]
+### Added
+- Add optional "id" strategy parameter.
+
+## [1.2.2]
 ### Fixed
 - Remove dropdown element after `textcomplete('destroy')`.
 - Skip search after pressing tab.
@@ -265,7 +269,8 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.2.1...HEAD
+[Unreleased]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.2.2...HEAD
+[1.2.2]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.2.1...v1.2.2
 [1.2.1]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.0.0...v1.1.0

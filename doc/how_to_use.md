@@ -36,11 +36,12 @@ var strategy = {
   replace:    replaceFunc,
 
   // Optional                 // Default
-  index:      indexNumber,    // 2
-  template:   templateFunc,   // function (value) { return value; }
   cache:      cacheBoolean,   // false
   context:    contextFunc,    // function (text) { return true; }
-  idProperty: idPropertyStr   // null
+  id:         idString,       // null
+  idProperty: idPropertyStr,  // null
+  index:      indexNumber,    // 2
+  template:   templateFunc,   // function (value) { return value; }
 }
 ```
 
@@ -114,6 +115,8 @@ var replaceFunc = function (value) {
 ```
 
 If `undefined` is returned from a `replaceFunc`, textcomplete does not replace the text.
+
+If `idString` is given, textcomplete sets the value as `data-strategy` attribute of the dropdown element. You can change dropdown style by using the property.
 
 The `option` is an optional Object which MAY have `appendTo`, `height` , `maxCount`, `placement`, `header`, `footer`, `zIndex`, `debounce` and `onKeydown`. If `appendTo` is given, the element of dropdown is appended into the specified element. If `height` is given, the dropdown element's height will be fixed.
 

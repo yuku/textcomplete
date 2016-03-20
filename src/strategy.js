@@ -40,6 +40,7 @@
     search:     null,
 
     // Optional
+    id:         null,
     cache:      false,
     context:    function () { return true; },
     index:      2,
