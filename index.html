@@ -32,6 +32,7 @@
 <pre class="brush: js; script">
 $('#textarea1').textcomplete([
     { // emoji strategy
+        id: 'emoji',
         match: /\B:([\-+\w]*)$/,
         search: function (term, callback) {
             callback($.map(emojies, function (emoji) {
@@ -47,6 +48,7 @@ $('#textarea1').textcomplete([
         index: 1
     },
     { // tech companies
+        id: 'tech-companies',
         words: ['apple', 'google', 'facebook', 'github'],
         match: /\b(\w{2,})$/,
         search: function (term, callback) {
