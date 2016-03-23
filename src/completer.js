@@ -121,7 +121,7 @@
       if (this.option.adapter) {
         Adapter = this.option.adapter;
       } else {
-        if (this.$el.is('textarea') || this.$el.is('input[type=text]')) {
+        if (this.$el.is('textarea') || this.$el.is('input[type=text]') || this.$el.is('input[type=search]')) {
           viewName = typeof element.selectionEnd === 'number' ? 'Textarea' : 'IETextarea';
         } else {
           viewName = 'ContentEditable';
