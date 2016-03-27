@@ -7,6 +7,8 @@ This project adheres to [Semantic Versioning](http://semver.org/) by version 1.0
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [Unreleased]
+### Fixed
+- Fix dropdown position problem with `line-height: normal`.
 
 ## [1.3.1] - 2016-03-23
 ### Fixed
@@ -28,7 +30,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [1.2.0] - 2016-03-14
 ### Added
-- Support input[type=search] ([#236](https://github.com/yuku-t/jquery-textcomplete/pull/236))
+- Support `input[type=search]` ([#236](https://github.com/yuku-t/jquery-textcomplete/pull/236))
 
 ## [1.1.0] - 2016-03-10
 ### Added
