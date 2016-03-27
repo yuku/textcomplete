@@ -196,7 +196,7 @@ if (typeof jQuery === 'undefined') {
       if (this.option.adapter) {
         Adapter = this.option.adapter;
       } else {
-        if (this.$el.is('textarea') || this.$el.is('input[type=text]')) {
+        if (this.$el.is('textarea') || this.$el.is('input[type=text]') || this.$el.is('input[type=search]')) {
           viewName = typeof element.selectionEnd === 'number' ? 'Textarea' : 'IETextarea';
         } else {
           viewName = 'ContentEditable';
@@ -1055,9 +1055,28 @@ if (typeof jQuery === 'undefined') {
     _getCaretRelativePosition: function () {
       var p = $.fn.textcomplete.getCaretCoordinates(this.el, this.el.selectionStart);
       return {
-        top: p.top + parseInt(this.$el.css('line-height'), 10) - this.$el.scrollTop(),
+        top: p.top + this._calculateLineHeight() - this.$el.scrollTop(),
         left: p.left - this.$el.scrollLeft()
       };
+    },
+
+    _calculateLineHeight: function () {
+      var lineHeight = parseInt(this.$el.css('line-height'), 10);
+      if (isNaN(lineHeight)) {
+        // http://stackoverflow.com/a/4515470/1297336
+        var parentNode = this.el.parentNode;
+        var temp = document.createElement(this.el.nodeName);
+        var style = this.el.style;
+        temp.setAttribute(
+          'style',
+          'margin:0px;padding:0px;font-family:' + style.fontFamily + ';font-size:' + style.fontSize
+        );
+        temp.innerHTML = 'test';
+        parentNode.appendChild(temp);
+        lineHeight = temp.clientHeight;
+        parentNode.removeChild(temp);
+      }
+      return lineHeight;
     }
   });
 

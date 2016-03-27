@@ -279,6 +279,27 @@ $('#input1').textcomplete([
     }
 ]);
 </pre>
+            <h3 id="input-search-element">Input[type=search] element</h3>
+            <div class="textarea-wrapper">
+                <input class="form-control" id="input2" type="search" style="line-height: normal;"></textarea>
+            </div>
+<pre class="brush: js; script">
+$('#input2').textcomplete([
+    {
+        words: ['apple', 'google', 'facebook', 'github'],
+        match: /\b(\w{2,})$/,
+        search: function (term, callback) {
+            callback($.map(this.words, function (word) {
+                return word.indexOf(term) === 0 ? word : null;
+            }));
+        },
+        index: 1,
+        replace: function (word) {
+            return word + ' ';
+        }
+    }
+]);
+</pre>
             <h2>License</h2>
             <p>
                 MIT
