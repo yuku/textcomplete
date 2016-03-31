@@ -7,6 +7,8 @@ This project adheres to [Semantic Versioning](http://semver.org/) by version 1.0
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [Unreleased]
+### Fixed
+- Fix uncaught TypeError.
 
 ## [1.3.2] - 2016-03-27
 ### Fixed

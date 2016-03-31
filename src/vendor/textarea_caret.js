@@ -19,7 +19,7 @@
 //
 // https://github.com/component/textarea-caret-position
 
-(function () {
+(function ($) {
 
 // The properties that we copy into a mirrored div.
 // Note that some browsers, such as Firefox,
@@ -140,10 +140,6 @@ function getCaretCoordinates(element, position, options) {
   return coordinates;
 }
 
-if (typeof module != 'undefined' && typeof module.exports != 'undefined') {
-  module.exports = getCaretCoordinates;
-} else if(isBrowser){
-  window.$.fn.textcomplete.getCaretCoordinates = getCaretCoordinates;
-}
+$.fn.textcomplete.getCaretCoordinates = getCaretCoordinates;
 
-}());
+}(jQuery));
