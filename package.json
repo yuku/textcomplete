@@ -2,7 +2,7 @@
   "author": "Yuku Takahashi <taka84u9@gmail.com>",
   "name": "jquery-textcomplete",
   "main": "dist/jquery.textcomplete",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "homepage": "http://yuku-t.com/jquery-textcomplete",
   "repository": {
     "type": "git",

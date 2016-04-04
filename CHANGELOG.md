@@ -7,6 +7,8 @@ This project adheres to [Semantic Versioning](http://semver.org/) by version 1.0
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [Unreleased]
+
+## [1.3.3] - 2016-04-04
 ### Fixed
 - Fix uncaught TypeError.
 
@@ -281,7 +283,8 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.3.2...HEAD
+[Unreleased]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.3.3...HEAD
+[1.3.3]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.3.0...v1.3.1
 [1.3.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.2.2...v1.3.0
