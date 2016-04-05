@@ -1,5 +1,4 @@
-Autocomplete for Textarea
-=========================
+# Autocomplete for Textarea
 
 [![npm version](https://badge.fury.io/js/jquery-textcomplete.svg)](http://badge.fury.io/js/jquery-textcomplete)
 [![Bower version](https://badge.fury.io/bo/jquery-textcomplete.svg)](http://badge.fury.io/bo/jquery-textcomplete)
@@ -11,8 +10,7 @@ Introduces autocompleting power to textareas, like a GitHub comment form has.
 
 [Demo](http://yuku-t.com/jquery-textcomplete/).
 
-Synopsis
---------
+## Synopsis
 
 ```js
 $('textarea').textcomplete([{
@@ -29,25 +27,19 @@ $('textarea').textcomplete([{
 }]);
 ```
 
-Dependencies
-------------
+## Dependencies
 
 - jQuery (>= 1.7.0) OR Zepto (>= 1.0)
 
-Documents
----------
+## Documents
 
 See [doc](https://github.com/yuku-t/jquery-textcomplete/tree/master/doc) dir.
 
-License
--------
+## License
 
 Licensed under the MIT License.
 
-Credits
--------
-
-### Contributors
+## Contributors
 
 Patches and code improvements were contributed by:
 
