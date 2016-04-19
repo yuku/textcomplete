@@ -8,6 +8,10 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
 ## [Unreleased]
 
+## [1.3.4] - 2016-04-20
+### Fixed
+- Fix endless loop when RTL ([#247](https://github.com/yuku-t/jquery-textcomplete/pull/247))
+
 ## [1.3.3] - 2016-04-04
 ### Fixed
 - Fix uncaught TypeError.
@@ -283,7 +287,8 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.3.3...HEAD
+[Unreleased]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.3.4...HEAD
+[1.3.4]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.3.3...v1.3.4
 [1.3.3]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.3.2...v1.3.3
 [1.3.2]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.3.1...v1.3.2
 [1.3.1]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.3.0...v1.3.1
