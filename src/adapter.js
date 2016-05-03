@@ -77,7 +77,7 @@
 
     // Returns the caret's relative coordinates from body's left top corner.
     getCaretPosition: function () {
-      var position = this._getCaretRelativePosition();
+      var position = this._getCaretRelativePosition(this.option.caretOptions || {});
       var offset = this.$el.offset();
 
       // Calculate the left top corner of `this.option.appendTo` element.

@@ -135,6 +135,7 @@ var option = {
   onKeydown: onKeydownFunc,   // undefined
   noResultsMessage: noResultsMessageStrOrFunc,  // undefined
   topAlignThreshould: 0,      // $('.top').height()
+  caretOptions: caretOptions,
 };
 ```
 
@@ -169,6 +170,15 @@ If you want to use textcomplete with a rich editor, please write an adapter for 
 
 
 The `topAlignThreshould` value is used to define the limit of the dropdown top alignment. Currenctly, the default alignment works like this: if there is space below the line of typing, position the dropdown there. If there is no space, try to position above the line of typing. If there is no space above too, considering the topAlignThreshould, the dropdown is positioned below the element and the window height is increased because of the new element (dropdown) that was added.
+
+
+This plugin uses the [textarea-caret-position](https://github.com/component/textarea-caret-position) component.
+This component receive some options. So, we have a specific implementation of this plugin that receives the `alignToLastChar` as option. With this option you can define if you want the left position of the last caret you typed or the last occurence of a specific char.
+```js
+var caretOptions = {
+  alignToLastChar: '@',
+};
+```
 
 Finally, if you want to stop autocompleting, give `'destroy'` to `textcomplete` method as follows:
 

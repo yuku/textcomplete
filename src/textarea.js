@@ -36,8 +36,9 @@
     // Private methods
     // ---------------
 
-    _getCaretRelativePosition: function () {
-      var p = $.fn.textcomplete.getCaretCoordinates(this.el, this.el.selectionStart);
+    _getCaretRelativePosition: function (caretOptions) {
+      caretOptions = caretOptions || {};
+      var p = $.fn.textcomplete.getCaretCoordinates(this.el, this.el.selectionStart, caretOptions);
       return {
         top: p.top + this._calculateLineHeight() - this.$el.scrollTop(),
         left: p.left - this.$el.scrollLeft()

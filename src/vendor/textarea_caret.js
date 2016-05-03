@@ -1,16 +1,16 @@
 // The MIT License (MIT)
-// 
+//
 // Copyright (c) 2015 Jonathan Ong me@jongleberry.com
-// 
+//
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 // associated documentation files (the "Software"), to deal in the Software without restriction,
 // including without limitation the rights to use, copy, modify, merge, publish, distribute,
 // sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
 // furnished to do so, subject to the following conditions:
-// 
+//
 // The above copyright notice and this permission notice shall be included in all copies or
 // substantial portions of the Software.
-// 
+//
 // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
 // NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
 // NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
@@ -71,11 +71,12 @@ var isBrowser = (typeof window !== 'undefined');
 var isFirefox = (isBrowser && window.mozInnerScreenX != null);
 
 function getCaretCoordinates(element, position, options) {
+  options = options || {};
   if(!isBrowser) {
     throw new Error('textarea-caret-position#getCaretCoordinates should only be called in a browser');
   }
 
-  var debug = options && options.debug || false;
+  var debug = options.debug || false;
   if (debug) {
     var el = document.querySelector('#input-textarea-caret-position-mirror-div');
     if ( el ) { el.parentNode.removeChild(el); }
@@ -112,7 +113,8 @@ function getCaretCoordinates(element, position, options) {
     style.overflow = 'hidden';  // for Chrome to not render a scrollbar; IE keeps overflowY = 'scroll'
   }
 
-  div.textContent = element.value.substring(0, position);
+  var idx = options.alignToLastChar ? element.value.lastIndexOf(options.alignToLastChar) : position;
+  div.textContent = element.value.substring(0, idx);
   // the second special handling for input type="text" vs textarea: spaces need to be replaced with non-breaking spaces - http://stackoverflow.com/a/13402035/1269037
   if (element.nodeName === 'INPUT')
     div.textContent = div.textContent.replace(/\s/g, '\u00a0');
