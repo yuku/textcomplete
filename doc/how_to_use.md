@@ -133,7 +133,8 @@ var option = {
   adapter:   adapterClass,    // undefined
   className: classNameStr,    // ''
   onKeydown: onKeydownFunc,   // undefined
-  noResultsMessage: noResultsMessageStrOrFunc  // undefined
+  noResultsMessage: noResultsMessageStrOrFunc,  // undefined
+  topAlignThreshould: 0,      // $('.top').height()
 };
 ```
 
@@ -165,6 +166,9 @@ var placementStr = 'top|absleft';
 ```
 
 If you want to use textcomplete with a rich editor, please write an adapter for it and give the adapter as `adapterClass`.
+
+
+The `topAlignThreshould` value is used to define the limit of the dropdown top alignment. Currenctly, the default alignment works like this: if there is space below the line of typing, position the dropdown there. If there is no space, try to position above the line of typing. If there is no space above too, considering the topAlignThreshould, the dropdown is positioned below the element and the window height is increased because of the new element (dropdown) that was added.
 
 Finally, if you want to stop autocompleting, give `'destroy'` to `textcomplete` method as follows:
 

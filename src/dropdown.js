@@ -452,10 +452,17 @@
     },
 
     _fitToBottom: function() {
-      var windowScrollBottom = $window.scrollTop() + $window.height();
+      var windowScrollTop = $window.scrollTop();
+      var windowScrollBottom = windowScrollTop + $window.height();
       var height = this.$el.height();
+      var topAlignThreshould = this.option.topAlignThreshould || 0;
       if ((this.$el.position().top + height) > windowScrollBottom) {
-        this.$el.offset({top: windowScrollBottom - height});
+        var itemHeight = this.$el.find('.textcomplete-item').height();
+        var tolerance = 10;
+        var nextTop = (this.$el.position().top - height - itemHeight + tolerance);
+        if (nextTop > (windowScrollTop + topAlignThreshould)) {
+          this.$el.offset({top: nextTop});
+        }
       }
     },
 
