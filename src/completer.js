@@ -78,7 +78,8 @@
       throw new Error('textcomplete must be called on a Textarea or a ContentEditable.');
     }
 
-    if (element === document.activeElement) {
+    // use ownerDocument to fix iframe / IE issues
+    if (element === this.$el[0].ownerDocument.activeElement) {
       // element has already been focused. Initialize view objects immediately.
       this.initialize()
     } else {
@@ -109,12 +110,26 @@
     adapter:    null,
     dropdown:   null,
     $el:        null,
+    $iframe:    null,
 
     // Public methods
     // --------------
 
     initialize: function () {
       var element = this.$el.get(0);
+      
+      // check if we are in an iframe
+      // we need to alter positioning logic if using an iframe
+      if (this.$el.prop('ownerDocument') !== document && window.frames.length) {
+        for (var iframeIndex = 0; iframeIndex < window.frames.length; iframeIndex++) {
+          if (this.$el.prop('ownerDocument') === window.frames[iframeIndex].document) {
+            this.$iframe = $(window.frames[iframeIndex].frameElement);
+            break;
+          }
+        }
+      }
+      
+      
       // Initialize view objects.
       this.dropdown = new $.fn.textcomplete.Dropdown(element, this, this.option);
       var Adapter, viewName;
