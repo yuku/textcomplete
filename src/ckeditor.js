@@ -23,8 +23,10 @@
           return false;
         }
       }, null, null, 1); // 1 = Priority = Important!
+      // we actually also need the native event, as the CKEditor one is happening to late
+      this.$el.on('keyup.' + this.id, $.proxy(this._onKeyup, this));
     },
-  });
+});
 
   $.fn.textcomplete.CKEditor = CKEditor;
 }(jQuery);
