@@ -24,6 +24,7 @@ module.exports = function (grunt) {
           'src/textarea.js',
           'src/ie_textarea.js',
           'src/content_editable.js',
+          'src/ckeditor.js',
           'src/vendor/textarea_caret.js',
           'src/end.frag'
         ],
