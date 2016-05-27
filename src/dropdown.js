@@ -455,7 +455,10 @@
       var windowScrollBottom = $window.scrollTop() + $window.height();
       var height = this.$el.height();
       if ((this.$el.position().top + height) > windowScrollBottom) {
-        this.$el.offset({top: windowScrollBottom - height});
+        // only do this if we are not in an iframe
+        if (!this.completer.$iframe) {
+          this.$el.offset({top: windowScrollBottom - height});
+        }
       }
     },
 
