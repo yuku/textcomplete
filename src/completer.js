@@ -79,7 +79,7 @@
     }
 
     // use ownerDocument to fix iframe / IE issues
-    if (element === this.$el[0].ownerDocument.activeElement) {
+    if (element === element.ownerDocument.activeElement) {
       // element has already been focused. Initialize view objects immediately.
       this.initialize()
     } else {

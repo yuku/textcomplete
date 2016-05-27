@@ -153,8 +153,7 @@ if (typeof jQuery === 'undefined') {
       throw new Error('textcomplete must be called on a Textarea or a ContentEditable.');
     }
 
-    // use ownerDocument to fix iframe / IE issues
-    if (element === this.$el[0].ownerDocument.activeElement) {
+    if (element === document.activeElement) {
       // element has already been focused. Initialize view objects immediately.
       this.initialize()
     } else {
@@ -185,26 +184,12 @@ if (typeof jQuery === 'undefined') {
     adapter:    null,
     dropdown:   null,
     $el:        null,
-    $iframe:    null,
 
     // Public methods
     // --------------
 
     initialize: function () {
       var element = this.$el.get(0);
-      
-      // check if we are in an iframe
-      // we need to alter positioning logic if using an iframe
-      if (this.$el.prop('ownerDocument') !== document && window.frames.length) {
-        for (var iframeIndex = 0; iframeIndex < window.frames.length; iframeIndex++) {
-          if (this.$el.prop('ownerDocument') === window.frames[iframeIndex].document) {
-            this.$iframe = $(window.frames[iframeIndex].frameElement);
-            break;
-          }
-        }
-      }
-      
-      
       // Initialize view objects.
       this.dropdown = new $.fn.textcomplete.Dropdown(element, this, this.option);
       var Adapter, viewName;
@@ -800,10 +785,7 @@ if (typeof jQuery === 'undefined') {
       var windowScrollBottom = $window.scrollTop() + $window.height();
       var height = this.$el.height();
       if ((this.$el.position().top + height) > windowScrollBottom) {
-        // only do this if we are not in an iframe
-        if (!this.completer.$iframe) {
-          this.$el.offset({top: windowScrollBottom - height});
-        }
+        this.$el.offset({top: windowScrollBottom - height});
       }
     },
 
@@ -1180,9 +1162,7 @@ if (typeof jQuery === 'undefined') {
     // When an dropdown item is selected, it is executed.
     select: function (value, strategy, e) {
       var pre = this.getTextFromHeadToCaret();
-      // use ownerDocument instead of window to support iframes
-      var sel = this.$el[0].ownerDocument.getSelection();
-      
+      var sel = window.getSelection()
       var range = sel.getRangeAt(0);
       var selection = range.cloneRange();
       selection.selectNodeContents(range.startContainer);
@@ -1199,13 +1179,13 @@ if (typeof jQuery === 'undefined') {
         range.deleteContents();
         
         // create temporary elements
-        var preWrapper = this.$el[0].ownerDocument.createElement("div");
+        var preWrapper = document.createElement("div");
         preWrapper.innerHTML = pre;
-        var postWrapper = this.$el[0].ownerDocument.createElement("div");
+        var postWrapper = document.createElement("div");
         postWrapper.innerHTML = post;
         
         // create the fragment thats inserted
-        var fragment = this.$el[0].ownerDocument.createDocumentFragment();
+        var fragment = document.createDocumentFragment();
         var childNode;
         var lastOfPre;
         while (childNode = preWrapper.firstChild) {
@@ -1238,8 +1218,8 @@ if (typeof jQuery === 'undefined') {
     //
     // Dropdown's position will be decided using the result.
     _getCaretRelativePosition: function () {
-      var range = this.$el[0].ownerDocument.getSelection().getRangeAt(0).cloneRange();
-      var node = this.$el[0].ownerDocument.createElement('span');
+      var range = window.getSelection().getRangeAt(0).cloneRange();
+      var node = document.createElement('span');
       range.insertNode(node);
       range.selectNodeContents(node);
       range.deleteContents();
@@ -1248,17 +1228,6 @@ if (typeof jQuery === 'undefined') {
       position.left -= this.$el.offset().left;
       position.top += $node.height() - this.$el.offset().top;
       position.lineHeight = $node.height();
-      
-      // special positioning logic for iframes
-      // this is typically used for contenteditables such as tinymce or ckeditor
-      if (this.completer.$iframe) {
-        var iframePosition = this.completer.$iframe.offset();
-        position.top += iframePosition.top;
-        position.left += iframePosition.left;
-        //subtract scrollTop from element in iframe
-        position.top -= this.$el.scrollTop(); 
-      }
-      
       $node.remove();
       return position;
     },
@@ -1272,7 +1241,7 @@ if (typeof jQuery === 'undefined') {
     //   this.getTextFromHeadToCaret()
     //   // => ' wor'  // not '<b>hello</b> wor'
     getTextFromHeadToCaret: function () {
-      var range = this.$el[0].ownerDocument.getSelection().getRangeAt(0);
+      var range = window.getSelection().getRangeAt(0);
       var selection = range.cloneRange();
       selection.selectNodeContents(range.startContainer);
       return selection.toString().substring(0, range.startOffset);

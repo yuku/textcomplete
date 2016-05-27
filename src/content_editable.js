@@ -22,7 +22,7 @@
     select: function (value, strategy, e) {
       var pre = this.getTextFromHeadToCaret();
       // use ownerDocument instead of window to support iframes
-      var sel = this.$el[0].ownerDocument.getSelection();
+      var sel = this.el.ownerDocument.getSelection();
       
       var range = sel.getRangeAt(0);
       var selection = range.cloneRange();
@@ -40,13 +40,13 @@
         range.deleteContents();
         
         // create temporary elements
-        var preWrapper = this.$el[0].ownerDocument.createElement("div");
+        var preWrapper = this.el.ownerDocument.createElement("div");
         preWrapper.innerHTML = pre;
-        var postWrapper = this.$el[0].ownerDocument.createElement("div");
+        var postWrapper = this.el.ownerDocument.createElement("div");
         postWrapper.innerHTML = post;
         
         // create the fragment thats inserted
-        var fragment = this.$el[0].ownerDocument.createDocumentFragment();
+        var fragment = this.el.ownerDocument.createDocumentFragment();
         var childNode;
         var lastOfPre;
         while (childNode = preWrapper.firstChild) {
@@ -79,8 +79,8 @@
     //
     // Dropdown's position will be decided using the result.
     _getCaretRelativePosition: function () {
-      var range = this.$el[0].ownerDocument.getSelection().getRangeAt(0).cloneRange();
-      var node = this.$el[0].ownerDocument.createElement('span');
+      var range = this.el.ownerDocument.getSelection().getRangeAt(0).cloneRange();
+      var node = this.el.ownerDocument.createElement('span');
       range.insertNode(node);
       range.selectNodeContents(node);
       range.deleteContents();
@@ -113,7 +113,7 @@
     //   this.getTextFromHeadToCaret()
     //   // => ' wor'  // not '<b>hello</b> wor'
     getTextFromHeadToCaret: function () {
-      var range = this.$el[0].ownerDocument.getSelection().getRangeAt(0);
+      var range = this.el.ownerDocument.getSelection().getRangeAt(0);
       var selection = range.cloneRange();
       selection.selectNodeContents(range.startContainer);
       return selection.toString().substring(0, range.startOffset);
