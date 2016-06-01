@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/) by version 1.0
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
+## [1.4.0] - 2016-06-01
+### Added
+- Add CKEditor adapter ([#253](https://github.com/yuku-t/jquery-textcomplete/pull/253)
+
 ## [1.3.5] - 2016-05-27
 ### Fixed
 - better support for contenteditables in iframes (ckeditor, tinymce, etc) ([#252](https://github.com/yuku-t/jquery-textcomplete/pull/252))

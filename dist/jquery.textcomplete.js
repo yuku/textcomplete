@@ -161,6 +161,20 @@ if (typeof jQuery === 'undefined') {
       // Initialize view objects lazily.
       var self = this;
       this.$el.one('focus.' + this.id, function () { self.initialize(); });
+
+      // Special handling for CKEditor: lazy init on instance load
+      if ((!this.option.adapter || this.option.adapter == 'CKEditor') && typeof CKEDITOR != 'undefined' && (this.$el.is('textarea'))) {
+        CKEDITOR.on("instanceReady", function(event) {
+          event.editor.once("focus", function(event2) {
+            // replace the element with the Iframe element and flag it as CKEditor
+            self.$el = $(event.editor.editable().$);
+            if (!self.option.adapter) {
+              self.option.adapter = $.fn.textcomplete['CKEditor'];
+            }
+            self.initialize();
+          });
+        });
+      }
     }
   }
 
@@ -1194,7 +1208,8 @@ if (typeof jQuery === 'undefined') {
           post = newSubstr[1] + post;
           newSubstr = newSubstr[0];
         }
-        pre = pre.replace(strategy.match, newSubstr);
+        pre = pre.replace(strategy.match, newSubstr)
+            .replace(/ $/, "&nbsp"); // &nbsp necessary at least for CKeditor to not eat spaces
         range.selectNodeContents(range.startContainer);
         range.deleteContents();
         
@@ -1280,6 +1295,39 @@ if (typeof jQuery === 'undefined') {
   });
 
   $.fn.textcomplete.ContentEditable = ContentEditable;
+}(jQuery);
+
+// NOTE: TextComplete plugin has contenteditable support but it does not work
+//       fine especially on old IEs.
+//       Any pull requests are REALLY welcome.
+
++function ($) {
+  'use strict';
+
+  // CKEditor adapter
+  // =======================
+  //
+  // Adapter for CKEditor, based on contenteditable elements.
+  function CKEditor (element, completer, option) {
+    this.initialize(element, completer, option);
+  }
+
+  $.extend(CKEditor.prototype, $.fn.textcomplete.ContentEditable.prototype, {
+    _bindEvents: function () {
+      var $this = this;
+      CKEDITOR.instances["issue_notes"].on('key', function(event) {
+        var domEvent = event.data;
+        $this._onKeyup(domEvent);
+        if ($this.completer.dropdown.shown && $this._skipSearch(domEvent)) {
+          return false;
+        }
+      }, null, null, 1); // 1 = Priority = Important!
+      // we actually also need the native event, as the CKEditor one is happening to late
+      this.$el.on('keyup.' + this.id, $.proxy(this._onKeyup, this));
+    },
+});
+
+  $.fn.textcomplete.CKEditor = CKEditor;
 }(jQuery);
 
 // The MIT License (MIT)
