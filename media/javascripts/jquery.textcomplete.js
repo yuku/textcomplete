@@ -153,13 +153,28 @@ if (typeof jQuery === 'undefined') {
       throw new Error('textcomplete must be called on a Textarea or a ContentEditable.');
     }
 
-    if (element === document.activeElement) {
+    // use ownerDocument to fix iframe / IE issues
+    if (element === element.ownerDocument.activeElement) {
       // element has already been focused. Initialize view objects immediately.
       this.initialize()
     } else {
       // Initialize view objects lazily.
       var self = this;
       this.$el.one('focus.' + this.id, function () { self.initialize(); });
+
+      // Special handling for CKEditor: lazy init on instance load
+      if ((!this.option.adapter || this.option.adapter == 'CKEditor') && typeof CKEDITOR != 'undefined' && (this.$el.is('textarea'))) {
+        CKEDITOR.on("instanceReady", function(event) {
+          event.editor.once("focus", function(event2) {
+            // replace the element with the Iframe element and flag it as CKEditor
+            self.$el = $(event.editor.editable().$);
+            if (!self.option.adapter) {
+              self.option.adapter = $.fn.textcomplete['CKEditor'];
+            }
+            self.initialize();
+          });
+        });
+      }
     }
   }
 
@@ -167,6 +182,9 @@ if (typeof jQuery === 'undefined') {
     if (!Completer.DEFAULTS) {
       Completer.DEFAULTS = {
         appendTo: $('body'),
+        className: '',  // deprecated option
+        dropdownClassName: 'dropdown-menu textcomplete-dropdown',
+        maxCount: 10,
         zIndex: '100'
       };
     }
@@ -184,12 +202,26 @@ if (typeof jQuery === 'undefined') {
     adapter:    null,
     dropdown:   null,
     $el:        null,
+    $iframe:    null,
 
     // Public methods
     // --------------
 
     initialize: function () {
       var element = this.$el.get(0);
+      
+      // check if we are in an iframe
+      // we need to alter positioning logic if using an iframe
+      if (this.$el.prop('ownerDocument') !== document && window.frames.length) {
+        for (var iframeIndex = 0; iframeIndex < window.frames.length; iframeIndex++) {
+          if (this.$el.prop('ownerDocument') === window.frames[iframeIndex].document) {
+            this.$iframe = $(window.frames[iframeIndex].frameElement);
+            break;
+          }
+        }
+      }
+      
+      
       // Initialize view objects.
       this.dropdown = new $.fn.textcomplete.Dropdown(element, this, this.option);
       var Adapter, viewName;
@@ -399,7 +431,7 @@ if (typeof jQuery === 'undefined') {
       var $parent = option.appendTo;
       if (!($parent instanceof $)) { $parent = $($parent); }
       var $el = $('<ul></ul>')
-        .addClass('dropdown-menu textcomplete-dropdown')
+        .addClass(option.dropdownClassName)
         .attr('id', 'textcomplete-dropdown-' + option._oid)
         .css({
           display: 'none',
@@ -422,7 +454,7 @@ if (typeof jQuery === 'undefined') {
     footer:    null,
     header:    null,
     id:        null,
-    maxCount:  10,
+    maxCount:  null,
     placement: '',
     shown:     false,
     data:      [],     // Shown zipped data.
@@ -785,7 +817,10 @@ if (typeof jQuery === 'undefined') {
       var windowScrollBottom = $window.scrollTop() + $window.height();
       var height = this.$el.height();
       if ((this.$el.position().top + height) > windowScrollBottom) {
-        this.$el.offset({top: windowScrollBottom - height});
+        // only do this if we are not in an iframe
+        if (!this.completer.$iframe) {
+          this.$el.offset({top: windowScrollBottom - height});
+        }
       }
     },
 
@@ -795,8 +830,14 @@ if (typeof jQuery === 'undefined') {
       // (which makes our elements wrap onto the next line and corrupt the next item), if we're close to the right
       // edge, move left. We don't know how far to move left, so just keep nudging a bit.
       var tolerance = 30; // pixels. Make wider than vertical scrollbar because we might not be able to use that space.
-      while (this.$el.offset().left + this.$el.width() > $window.width() - tolerance) {
-        this.$el.offset({left: this.$el.offset().left - tolerance});
+      var lastOffset = this.$el.offset().left, offset;
+      var width = this.$el.width();
+      var maxLeft = $window.width() - tolerance;
+      while (lastOffset + width > maxLeft) {
+        this.$el.offset({left: lastOffset - tolerance});
+        offset = this.$el.offset().left;
+        if (offset >= lastOffset) { break; }
+        lastOffset = offset;
       }
     },
 
@@ -1156,7 +1197,9 @@ if (typeof jQuery === 'undefined') {
     // When an dropdown item is selected, it is executed.
     select: function (value, strategy, e) {
       var pre = this.getTextFromHeadToCaret();
-      var sel = window.getSelection()
+      // use ownerDocument instead of window to support iframes
+      var sel = this.el.ownerDocument.getSelection();
+      
       var range = sel.getRangeAt(0);
       var selection = range.cloneRange();
       selection.selectNodeContents(range.startContainer);
@@ -1168,18 +1211,19 @@ if (typeof jQuery === 'undefined') {
           post = newSubstr[1] + post;
           newSubstr = newSubstr[0];
         }
-        pre = pre.replace(strategy.match, newSubstr);
+        pre = pre.replace(strategy.match, newSubstr)
+            .replace(/ $/, "&nbsp"); // &nbsp necessary at least for CKeditor to not eat spaces
         range.selectNodeContents(range.startContainer);
         range.deleteContents();
         
         // create temporary elements
-        var preWrapper = document.createElement("div");
+        var preWrapper = this.el.ownerDocument.createElement("div");
         preWrapper.innerHTML = pre;
-        var postWrapper = document.createElement("div");
+        var postWrapper = this.el.ownerDocument.createElement("div");
         postWrapper.innerHTML = post;
         
         // create the fragment thats inserted
-        var fragment = document.createDocumentFragment();
+        var fragment = this.el.ownerDocument.createDocumentFragment();
         var childNode;
         var lastOfPre;
         while (childNode = preWrapper.firstChild) {
@@ -1212,8 +1256,8 @@ if (typeof jQuery === 'undefined') {
     //
     // Dropdown's position will be decided using the result.
     _getCaretRelativePosition: function () {
-      var range = window.getSelection().getRangeAt(0).cloneRange();
-      var node = document.createElement('span');
+      var range = this.el.ownerDocument.getSelection().getRangeAt(0).cloneRange();
+      var node = this.el.ownerDocument.createElement('span');
       range.insertNode(node);
       range.selectNodeContents(node);
       range.deleteContents();
@@ -1222,6 +1266,17 @@ if (typeof jQuery === 'undefined') {
       position.left -= this.$el.offset().left;
       position.top += $node.height() - this.$el.offset().top;
       position.lineHeight = $node.height();
+      
+      // special positioning logic for iframes
+      // this is typically used for contenteditables such as tinymce or ckeditor
+      if (this.completer.$iframe) {
+        var iframePosition = this.completer.$iframe.offset();
+        position.top += iframePosition.top;
+        position.left += iframePosition.left;
+        //subtract scrollTop from element in iframe
+        position.top -= this.$el.scrollTop(); 
+      }
+      
       $node.remove();
       return position;
     },
@@ -1235,7 +1290,7 @@ if (typeof jQuery === 'undefined') {
     //   this.getTextFromHeadToCaret()
     //   // => ' wor'  // not '<b>hello</b> wor'
     getTextFromHeadToCaret: function () {
-      var range = window.getSelection().getRangeAt(0);
+      var range = this.el.ownerDocument.getSelection().getRangeAt(0);
       var selection = range.cloneRange();
       selection.selectNodeContents(range.startContainer);
       return selection.toString().substring(0, range.startOffset);
@@ -1243,6 +1298,39 @@ if (typeof jQuery === 'undefined') {
   });
 
   $.fn.textcomplete.ContentEditable = ContentEditable;
+}(jQuery);
+
+// NOTE: TextComplete plugin has contenteditable support but it does not work
+//       fine especially on old IEs.
+//       Any pull requests are REALLY welcome.
+
++function ($) {
+  'use strict';
+
+  // CKEditor adapter
+  // =======================
+  //
+  // Adapter for CKEditor, based on contenteditable elements.
+  function CKEditor (element, completer, option) {
+    this.initialize(element, completer, option);
+  }
+
+  $.extend(CKEditor.prototype, $.fn.textcomplete.ContentEditable.prototype, {
+    _bindEvents: function () {
+      var $this = this;
+      CKEDITOR.instances["issue_notes"].on('key', function(event) {
+        var domEvent = event.data;
+        $this._onKeyup(domEvent);
+        if ($this.completer.dropdown.shown && $this._skipSearch(domEvent)) {
+          return false;
+        }
+      }, null, null, 1); // 1 = Priority = Important!
+      // we actually also need the native event, as the CKEditor one is happening to late
+      this.$el.on('keyup.' + this.id, $.proxy(this._onKeyup, this));
+    },
+});
+
+  $.fn.textcomplete.CKEditor = CKEditor;
 }(jQuery);
 
 // The MIT License (MIT)
@@ -1266,7 +1354,7 @@ if (typeof jQuery === 'undefined') {
 //
 // https://github.com/component/textarea-caret-position
 
-(function () {
+(function ($) {
 
 // The properties that we copy into a mirrored div.
 // Note that some browsers, such as Firefox,
@@ -1387,13 +1475,9 @@ function getCaretCoordinates(element, position, options) {
   return coordinates;
 }
 
-if (typeof module != 'undefined' && typeof module.exports != 'undefined') {
-  module.exports = getCaretCoordinates;
-} else if(isBrowser){
-  window.$.fn.textcomplete.getCaretCoordinates = getCaretCoordinates;
-}
+$.fn.textcomplete.getCaretCoordinates = getCaretCoordinates;
 
-}());
+}(jQuery));
 
 return jQuery;
 }));

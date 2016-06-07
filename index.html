@@ -300,6 +300,32 @@ $('#input2').textcomplete([
     }
 ]);
 </pre>
+            <h3 id="change-dropdown-class-name">Change dropdown class name</h3>
+            <p>Use <code>dropdownClassName</code> option to change the class attribute of the
+            dropdown element.</p>
+            <div class="textarea-wrapper">
+                <span class="label label-default">#textarea7</span>
+                <textarea class="form-control" id="textarea7" rows="4"></textarea>
+            </div>
+<pre class="brush: js; script">
+$('#textarea7').textcomplete([
+    {
+        words: ['apple', 'google', 'facebook', 'github'],
+        match: /\b(\w{2,})$/,
+        search: function (term, callback) {
+            callback($.map(this.words, function (word) {
+                return word.indexOf(term) === 0 ? word : null;
+            }));
+        },
+        index: 1,
+        replace: function (word) {
+            return word + ' ';
+        }
+    }
+], {
+  dropdownClassName: 'dropdown-menu-textcomplete'
+});
+</pre>
             <h2>License</h2>
             <p>
                 MIT
