@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/) by version 1.0
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
-## [Unreleased]
+## [1.5.0] - 2016-06-07
 ### Added
 - Add dropdownClassName option
 
@@ -297,7 +297,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ### Added
 - Initial release.
 
-[Unreleased]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.4.0...HEAD
+[1.5.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.3.5...v1.4.0
 [1.3.5]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.3.4...v1.3.5
 [1.3.4]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.3.3...v1.3.4
