@@ -131,9 +131,10 @@ var option = {
   zIndex:    zIndexStr,       // '100'
   debounce:  debounceNumber,  // undefined
   adapter:   adapterClass,    // undefined
-  className: classNameStr,    // ''
   onKeydown: onKeydownFunc,   // undefined
-  noResultsMessage: noResultsMessageStrOrFunc  // undefined
+  noResultsMessage: noResultsMessageStrOrFunc,  // undefined
+  dropdownClassName: dropdownClassNameStr, // 'dropdown-menu textcomplete-dropdown'
+  className: classNameStr,    // DEPRECATED ''
 };
 ```
 
@@ -141,7 +142,7 @@ The `maxCountNumber` MUST be a Number and default to 10. Even if `searchFunc` ca
 
 If `placementStr` includes 'top', it positions the drop-down to above the caret. If `placementStr` includes 'absleft' and 'absright', it positions the drop-down absolutely to the very left and right respectively. You can mix them.
 
-You can override the z-index property and the class attribute of dropdown element using `zIndex` and `className` option respectively.
+You can override the z-index property and the class attribute of dropdown element using `zIndex` and `dropdownClassName` option respectively.
 
 If you want to add some additional keyboard shortcut, set a function to `onKeydown` option. The function will be called with two arguments, the keydown event and commands hash.
 

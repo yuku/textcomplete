@@ -107,6 +107,9 @@
     if (!Completer.DEFAULTS) {
       Completer.DEFAULTS = {
         appendTo: $('body'),
+        className: '',  // deprecated option
+        dropdownClassName: 'dropdown-menu textcomplete-dropdown',
+        maxCount: 10,
         zIndex: '100'
       };
     }

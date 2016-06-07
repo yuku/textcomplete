@@ -69,7 +69,7 @@
       var $parent = option.appendTo;
       if (!($parent instanceof $)) { $parent = $($parent); }
       var $el = $('<ul></ul>')
-        .addClass('dropdown-menu textcomplete-dropdown')
+        .addClass(option.dropdownClassName)
         .attr('id', 'textcomplete-dropdown-' + option._oid)
         .css({
           display: 'none',
@@ -92,7 +92,7 @@
     footer:    null,
     header:    null,
     id:        null,
-    maxCount:  10,
+    maxCount:  null,
     placement: '',
     shown:     false,
     data:      [],     // Shown zipped data.
