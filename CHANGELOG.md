@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/) by version 1.0
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
+## [1.6.0] - 2016-06-10
+### Added
+- Fixed issue #258 Control gets stuck when callback function triggered with empty array
+
 ## [1.5.0] - 2016-06-07
 ### Added
 - Add dropdownClassName option
