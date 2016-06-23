@@ -40,7 +40,8 @@
       var p = $.fn.textcomplete.getCaretCoordinates(this.el, this.el.selectionStart);
       return {
         top: p.top + this._calculateLineHeight() - this.$el.scrollTop(),
-        left: p.left - this.$el.scrollLeft()
+        left: p.left - this.$el.scrollLeft(),
+        lineHeight: this._calculateLineHeight()
       };
     },
 
