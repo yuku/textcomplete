@@ -477,8 +477,8 @@ if (typeof jQuery === 'undefined') {
 
     render: function (zippedData) {
       var contentsHtml = this._buildContents(zippedData);
-      var unzippedData = $.map(this.data, function (d) { return d.value; });
-      if (this.data.length) {
+      var unzippedData = $.map(zippedData, function (d) { return d.value; });
+      if (zippedData.length) {
         var strategy = zippedData[0].strategy;
         if (strategy.id) {
           this.$el.attr('data-strategy', strategy.id);
