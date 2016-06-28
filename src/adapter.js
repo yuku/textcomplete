@@ -118,6 +118,7 @@
         case 13: // ENTER
         case 40: // DOWN
         case 38: // UP
+        case 27: // ESC
           return true;
       }
       if (clickEvent.ctrlKey) switch (clickEvent.keyCode) {
