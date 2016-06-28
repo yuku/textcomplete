@@ -6,6 +6,13 @@ This project adheres to [Semantic Versioning](http://semver.org/) by version 1.0
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
+## [1.6.0] - 2016-06-28
+### Added
+- Don't search on Esc key ([#269](https://github.com/yuku-t/jquery-textcomplete/pull/269))
+
+### Fixed
+- Set lineheight for textareas ([#263](https://github.com/yuku-t/jquery-textcomplete/pull/263))
+
 ## [1.5.0] - 2016-06-07
 ### Added
 - Add dropdownClassName option
@@ -297,6 +304,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ### Added
 - Initial release.
 
+[1.6.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.3.5...v1.4.0
 [1.3.5]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.3.4...v1.3.5

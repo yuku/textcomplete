@@ -1042,6 +1042,7 @@ if (typeof jQuery === 'undefined') {
         case 13: // ENTER
         case 40: // DOWN
         case 38: // UP
+        case 27: // ESC
           return true;
       }
       if (clickEvent.ctrlKey) switch (clickEvent.keyCode) {
@@ -1097,7 +1098,8 @@ if (typeof jQuery === 'undefined') {
       var p = $.fn.textcomplete.getCaretCoordinates(this.el, this.el.selectionStart);
       return {
         top: p.top + this._calculateLineHeight() - this.$el.scrollTop(),
-        left: p.left - this.$el.scrollLeft()
+        left: p.left - this.$el.scrollLeft(),
+        lineHeight: this._calculateLineHeight()
       };
     },
 
