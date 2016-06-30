@@ -480,7 +480,7 @@
     },
 
     _applyPlacement: function (position) {
-      position.height = Math.min(this.$el.parent().height(), $(window).height());
+      position.height = Math.min(this.$el.parent().height(), $window.height());
       // If the 'placement' option set to 'top', move the position above the element.
       if (this.placement.indexOf('top') !== -1) {
         // Overwrite the position object to set the 'bottom' property instead of the top.
