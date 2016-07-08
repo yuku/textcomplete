@@ -136,10 +136,6 @@ if (typeof jQuery === 'undefined') {
     return Object.prototype.toString.call(obj) === '[object String]';
   };
 
-  var isFunction = function (obj) {
-    return Object.prototype.toString.call(obj) === '[object Function]';
-  };
-
   var uniqueId = 0;
 
   function Completer(element, option) {
@@ -313,7 +309,7 @@ if (typeof jQuery === 'undefined') {
         var strategy = this.strategies[i];
         var context = strategy.context(text);
         if (context || context === '') {
-          var matchRegexp = isFunction(strategy.match) ? strategy.match(text) : strategy.match;
+          var matchRegexp = $.isFunction(strategy.match) ? strategy.match(text) : strategy.match;
           if (isString(context)) { text = context; }
           var match = text.match(matchRegexp);
           if (match) { return [strategy, match[strategy.index], match]; }
@@ -512,7 +508,7 @@ if (typeof jQuery === 'undefined') {
           return false;
         if($(this).css('position') === 'fixed') {
           pos.top -= $window.scrollTop();
-          pos.left -= $window.scrollLeft();					
+          pos.left -= $window.scrollLeft();
           position = 'fixed';
           return false;
         }
@@ -1076,12 +1072,14 @@ if (typeof jQuery === 'undefined') {
       var pre = this.getTextFromHeadToCaret();
       var post = this.el.value.substring(this.el.selectionEnd);
       var newSubstr = strategy.replace(value, e);
+      var regExp;
       if (typeof newSubstr !== 'undefined') {
         if ($.isArray(newSubstr)) {
           post = newSubstr[1] + post;
           newSubstr = newSubstr[0];
         }
-        pre = pre.replace(strategy.match, newSubstr);
+        regExp = $.isFunction(strategy.match) ? strategy.match(pre) : strategy.match;
+        pre = pre.replace(regExp, newSubstr);
         this.$el.val(pre + post);
         this.el.selectionStart = this.el.selectionEnd = pre.length;
       }
@@ -1148,12 +1146,14 @@ if (typeof jQuery === 'undefined') {
       var pre = this.getTextFromHeadToCaret();
       var post = this.el.value.substring(pre.length);
       var newSubstr = strategy.replace(value, e);
+      var regExp;
       if (typeof newSubstr !== 'undefined') {
         if ($.isArray(newSubstr)) {
           post = newSubstr[1] + post;
           newSubstr = newSubstr[0];
         }
-        pre = pre.replace(strategy.match, newSubstr);
+        regExp = $.isFunction(strategy.match) ? strategy.match(pre) : strategy.match;
+        pre = pre.replace(regExp, newSubstr);
         this.$el.val(pre + post);
         this.el.focus();
         var range = this.el.createTextRange();
@@ -1208,12 +1208,14 @@ if (typeof jQuery === 'undefined') {
       var content = selection.toString();
       var post = content.substring(range.startOffset);
       var newSubstr = strategy.replace(value, e);
+      var regExp;
       if (typeof newSubstr !== 'undefined') {
         if ($.isArray(newSubstr)) {
           post = newSubstr[1] + post;
           newSubstr = newSubstr[0];
         }
-        pre = pre.replace(strategy.match, newSubstr)
+        regExp = $.isFunction(strategy.match) ? strategy.match(pre) : strategy.match;
+        pre = pre.replace(regExp, newSubstr)
             .replace(/ $/, "&nbsp"); // &nbsp necessary at least for CKeditor to not eat spaces
         range.selectNodeContents(range.startContainer);
         range.deleteContents();

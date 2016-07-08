@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/) by version 1.0
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
+## [1.6.1] - 2016-07-08
+### Fixed
+- Support for match functions in select phase ([#272](https://github.com/yuku-t/jquery-textcomplete/pull/272))
+
 ## [1.6.0] - 2016-06-28
 ### Added
 - Don't search on Esc key ([#269](https://github.com/yuku-t/jquery-textcomplete/pull/269))
@@ -304,6 +308,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ### Added
 - Initial release.
 
+[1.6.1]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.3.5...v1.4.0
