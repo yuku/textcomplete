@@ -150,7 +150,7 @@
           return false;
         if($(this).css('position') === 'fixed') {
           pos.top -= $window.scrollTop();
-          pos.left -= $window.scrollLeft();					
+          pos.left -= $window.scrollLeft();
           position = 'fixed';
           return false;
         }
