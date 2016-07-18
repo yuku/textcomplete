@@ -52,7 +52,17 @@
 
     // Override setPosition method.
     if (option.listPosition) { this.setPosition = option.listPosition; }
-    if (option.height) { this.$el.height(option.height); }
+    
+    //Allow height like 'auto', number and string like '200px'
+    if (option.height === 'auto') {
+      this.$el.height(option.height);
+    } else if (typeof option.height === "number"){
+      this.$el.height(Math.min(option.height, $window.height()));
+    } else if (typeof option.height === "string"){
+      var numHeight = Number(option.height.match(/\d+/g)[0]);
+      this.$el.height(Math.min(numHeight, $window.height()));
+    }
+    
     var self = this;
     $.each(['maxCount', 'placement', 'footer', 'header', 'noResultsMessage', 'className'], function (_i, name) {
       if (option[name] != null) { self[name] = option[name]; }
@@ -480,7 +490,6 @@
     },
 
     _applyPlacement: function (position) {
-      position.height = Math.min(this.$el.parent().height(), $window.height());
       // If the 'placement' option set to 'top', move the position above the element.
       if (this.placement.indexOf('top') !== -1) {
         // Overwrite the position object to set the 'bottom' property instead of the top.
