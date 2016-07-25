@@ -150,7 +150,7 @@
           return false;
         if($(this).css('position') === 'fixed') {
           pos.top -= $window.scrollTop();
-          pos.left -= $window.scrollLeft();					
+          pos.left -= $window.scrollLeft();
           position = 'fixed';
           return false;
         }
@@ -480,12 +480,13 @@
     },
 
     _applyPlacement: function (position) {
+      position.height = Math.min(this.$el.parent().height(), $window.height());
       // If the 'placement' option set to 'top', move the position above the element.
       if (this.placement.indexOf('top') !== -1) {
         // Overwrite the position object to set the 'bottom' property instead of the top.
         position = {
           top: 'auto',
-          bottom: this.$el.parent().height() - position.top + position.lineHeight,
+          bottom: position.height - position.top + position.lineHeight,
           left: position.left
         };
       } else {
