@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/) by version 1.0
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
+## [1.6.3] - 2016-08-26
+### Fixed
+- Reverts v1.6.2 ([#284](https://github.com/yuku-t/jquery-textcomplete/pull/284))
+
 ## [1.6.2] - 2016-07-08
 ### Fixed
 - Fix dropdown showing out of viewport ([#262](https://github.com/yuku-t/jquery-textcomplete/pull/262))
