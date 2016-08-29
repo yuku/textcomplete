@@ -467,7 +467,7 @@
       // to the document width so we don't know if we would have overrun it. As a heuristic to avoid that clipping
       // (which makes our elements wrap onto the next line and corrupt the next item), if we're close to the right
       // edge, move left. We don't know how far to move left, so just keep nudging a bit.
-      var tolerance = 30; // pixels. Make wider than vertical scrollbar because we might not be able to use that space.
+      var tolerance = this.option.rightEdgeOffset; // pixels. Make wider than vertical scrollbar because we might not be able to use that space.
       var lastOffset = this.$el.offset().left, offset;
       var width = this.$el.width();
       var maxLeft = $window.width() - tolerance;
