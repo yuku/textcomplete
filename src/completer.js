@@ -100,7 +100,7 @@
   }
 
   Completer.defaults = {
-    appendTo: $('body'),
+    appendTo: 'body',
     className: '',  // deprecated option
     dropdownClassName: 'dropdown-menu textcomplete-dropdown',
     maxCount: 10,
