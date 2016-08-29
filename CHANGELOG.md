@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/) by version 1.0
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
+## [1.7.0] - 2016-08-29
+### Added
+- Add `rightEdgeOffset` option ([#281](https://github.com/yuku-t/jquery-textcomplete/pull/281))
+
 ## [1.6.3] - 2016-08-26
 ### Fixed
 - Reverts v1.6.2 ([#284](https://github.com/yuku-t/jquery-textcomplete/pull/284))
@@ -316,6 +320,8 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ### Added
 - Initial release.
 
+[1.7.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.6.3...v1.7.0
+[1.6.3]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.6.2...v1.6.3
 [1.6.2]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.6.1...v1.6.2
 [1.6.1]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.5.0...v1.6.0

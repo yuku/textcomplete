@@ -122,19 +122,20 @@ The `option` is an optional Object which MAY have `appendTo`, `height` , `maxCou
 
 ```js
 var option = {
-  appendTo:  appendToElement, // $('body')
-  height:    heightNumber,    // undefined
-  maxCount:  maxCountNumber,  // 10
-  placement: placementStr,    // ''
-  header:    headerStrOrFunc, // undefined
-  footer:    footerStrOrFunc, // undefined
-  zIndex:    zIndexStr,       // '100'
-  debounce:  debounceNumber,  // undefined
-  adapter:   adapterClass,    // undefined
-  onKeydown: onKeydownFunc,   // undefined
-  noResultsMessage: noResultsMessageStrOrFunc,  // undefined
-  dropdownClassName: dropdownClassNameStr, // 'dropdown-menu textcomplete-dropdown'
-  className: classNameStr,    // DEPRECATED ''
+  adapter:           adapterClass,              // undefined
+  appendTo:          appendToString,            // 'body'
+  className:         classNameStr,              // DEPRECATED ''
+  debounce:          debounceNumber,            // undefined
+  dropdownClassName: dropdownClassNameStr,      // 'dropdown-menu textcomplete-dropdown'
+  footer:            footerStrOrFunc,           // undefined
+  header:            headerStrOrFunc,           // undefined
+  height:            heightNumber,              // undefined
+  maxCount:          maxCountNumber,            // 10
+  noResultsMessage:  noResultsMessageStrOrFunc, // undefined
+  onKeydown:         onKeydownFunc,             // undefined
+  placement:         placementStr,              // ''
+  rightEdgeOffset:   rightEdgeOffsetInteger,    // 30
+  zIndex:            zIndexStr,                 // '100'
 };
 ```
 
