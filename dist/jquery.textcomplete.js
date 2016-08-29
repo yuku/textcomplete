@@ -143,7 +143,7 @@ if (typeof jQuery === 'undefined') {
     this.id         = 'textcomplete' + uniqueId++;
     this.strategies = [];
     this.views      = [];
-    this.option     = $.extend({}, Completer.defaults, option);
+    this.option     = $.extend({}, Completer._getDefaults(), option);
 
     if (!this.$el.is('input[type=text]') && !this.$el.is('input[type=search]') && !this.$el.is('textarea') && !element.isContentEditable && element.contentEditable != 'true') {
       throw new Error('textcomplete must be called on a Textarea or a ContentEditable.');
@@ -174,14 +174,19 @@ if (typeof jQuery === 'undefined') {
     }
   }
 
-  Completer.defaults = {
-    appendTo: $('body'),
-    className: '',  // deprecated option
-    dropdownClassName: 'dropdown-menu textcomplete-dropdown',
-    maxCount: 10,
-    zIndex: '100',
-    rightEdgeOffset: 30
-  };
+  Completer._getDefaults = function () {
+    if (!Completer.DEFAULTS) {
+      Completer.DEFAULTS = {
+        appendTo: $('body'),
+        className: '',  // deprecated option
+        dropdownClassName: 'dropdown-menu textcomplete-dropdown',
+        maxCount: 10,
+        zIndex: '100'
+      };
+    }
+
+    return Completer.DEFAULTS;
+  }
 
   $.extend(Completer.prototype, {
     // Public properties
@@ -820,7 +825,7 @@ if (typeof jQuery === 'undefined') {
       // to the document width so we don't know if we would have overrun it. As a heuristic to avoid that clipping
       // (which makes our elements wrap onto the next line and corrupt the next item), if we're close to the right
       // edge, move left. We don't know how far to move left, so just keep nudging a bit.
-      var tolerance = this.option.rightEdgeOffset; // pixels. Make wider than vertical scrollbar because we might not be able to use that space.
+      var tolerance = 30; // pixels. Make wider than vertical scrollbar because we might not be able to use that space.
       var lastOffset = this.$el.offset().left, offset;
       var width = this.$el.width();
       var maxLeft = $window.width() - tolerance;
