@@ -6,7 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/) by version 1.0
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
-## master
+## [1.7.2] - 2016-09-12
 ### Fixed
 - Fixed issue #258 Control gets stuck when callback function triggered with empty array ([#261](https://github.com/yuku-t/jquery-textcomplete/pull/261))
 
@@ -328,6 +328,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ### Added
 - Initial release.
 
+[1.7.2]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.7.1...v1.7.2
 [1.7.1]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.7.0...v1.7.1
 [1.7.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.6.3...v1.7.0
 [1.6.3]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.6.2...v1.6.3
