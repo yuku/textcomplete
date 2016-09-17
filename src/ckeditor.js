@@ -16,7 +16,7 @@
   $.extend(CKEditor.prototype, $.fn.textcomplete.ContentEditable.prototype, {
     _bindEvents: function () {
       var $this = this;
-      CKEDITOR.instances["issue_notes"].on('key', function(event) {
+      this.option.ckeditor_instance.on('key', function(event) {
         var domEvent = event.data;
         $this._onKeyup(domEvent);
         if ($this.completer.dropdown.shown && $this._skipSearch(domEvent)) {
