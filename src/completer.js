@@ -91,6 +91,7 @@
             self.$el = $(event.editor.editable().$);
             if (!self.option.adapter) {
               self.option.adapter = $.fn.textcomplete['CKEditor'];
+              self.option.ckeditor_instance = event.editor;
             }
             self.initialize();
           });
