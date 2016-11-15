@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/) by version 1.0
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
+## [1.8.0] - 2016-11-15
+### Added
+- Skip search after pressing shift, ctrl, alt, pageup and pagedown keys ([#292](https://github.com/yuku-t/jquery-textcomplete/pull/292))
+
 ## [1.7.3] - 2016-09-20
 ### Fixed
 - Remove dependency on Redmine / issue_notes undefined ([#288](https://github.com/yuku-t/jquery-textcomplete/pull/288))
@@ -332,6 +336,7 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ### Added
 - Initial release.
 
+[1.8.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.7.3...v1.8.0
 [1.7.3]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.7.2...v1.7.3
 [1.7.2]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.7.1...v1.7.2
 [1.7.1]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.7.0...v1.7.1
