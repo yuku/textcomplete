@@ -400,20 +400,27 @@
     _buildContents: function (zippedData) {
       var datum, i, index;
       var html = '';
+      var headers = 0;
+
       for (i = 0; i < zippedData.length; i++) {
         if (this.data.length === this.maxCount) break;
         datum = zippedData[i];
         if (include(this.data, datum)) { continue; }
         index = this.data.length;
-        this.data.push(datum);
-        html += '<li class="textcomplete-item" data-index="' + index + '"><a>';
-        html +=   datum.strategy.template(datum.value, datum.term);
-        html += '</a></li>';
+        html += '<li class="';
+        if(datum.value.type != null && datum.value.type == 'heading') {
+          html += 'textcomplete-header" ';
+          headers++;
+        } else{
+          html += 'textcomplete-item" data-index="' + (i-headers);
+          this.data.push(datum);
+        }
+        html += '"><a>' + datum.strategy.template(datum.value, datum.term) + '</a></li>';
       }
       return html;
     },
 
-    _renderHeader: function (unzippedData) {
+  _renderHeader: function (unzippedData) {
       if (this.header) {
         if (!this._$header) {
           this._$header = $('<li class="textcomplete-header"></li>').prependTo(this.$el);
