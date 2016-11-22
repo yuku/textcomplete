@@ -505,6 +505,17 @@
         position.right = 0;
         position.left = 'auto';
       }
+
+      if (this.placement.indexOf('bottom') !== -1) {
+        position.top += 5;
+      }
+
+      if (this.placement.indexOf('right') !== -1) {
+        var $el = this.$el,
+            $completerEl = this.$inputEl,
+            w = $el.width() - $completerEl.innerWidth();
+        position.left = $completerEl.offset().left - w - 5;
+      }
       return position;
     }
   });
