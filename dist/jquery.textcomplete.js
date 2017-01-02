@@ -483,7 +483,9 @@ if (typeof jQuery === 'undefined') {
           this._renderContents(contentsHtml);
           this._fitToBottom();
           this._fitToRight();
-          this._activateIndexedItem();
+          if (this.selectFirst) {
+            this._activateIndexedItem();
+          }
         }
         this._setScroll();
       } else if (this.noResultsMessage) {
@@ -518,7 +520,7 @@ if (typeof jQuery === 'undefined') {
     clear: function () {
       this.$el.html('');
       this.data = [];
-      this._index = 0;
+      this._index = null;
       this._$header = this._$footer = this._$noResultsMessage = null;
     },
 
@@ -641,6 +643,10 @@ if (typeof jQuery === 'undefined') {
           this._down();
           break;
         case commands.KEY_ENTER:
+          if (this._index === null) {
+            this.deactivate();
+            break;
+          }
           e.preventDefault();
           this._enter(e);
           break;
@@ -676,7 +682,7 @@ if (typeof jQuery === 'undefined') {
     },
 
     _up: function () {
-      if (this._index === 0) {
+      if (this._index === 0 || this._index === null) {
         this._index = this.data.length - 1;
       } else {
         this._index -= 1;
@@ -686,7 +692,7 @@ if (typeof jQuery === 'undefined') {
     },
 
     _down: function () {
-      if (this._index === this.data.length - 1) {
+      if (this._index === this.data.length - 1 || this._index === null) {
         this._index = 0;
       } else {
         this._index += 1;
@@ -735,11 +741,20 @@ if (typeof jQuery === 'undefined') {
     },
 
     _getActiveElement: function () {
+      if (this._index === null) {
+        this._index = 0;
+      }
       return this.$el.children('.textcomplete-item:nth(' + this._index + ')');
     },
 
     _setScroll: function () {
-      var $activeEl = this._getActiveElement();
+      var $activeEl;
+      if (this._index === null) {
+        $activeEl = this.$el.children('.textcomplete-item:nth(0)');
+      } else {
+        $activeEl = this._getActiveElement();
+      }
+
       var itemTop = $activeEl.position().top;
       var itemHeight = $activeEl.outerHeight();
       var visibleHeight = this.$el.innerHeight();

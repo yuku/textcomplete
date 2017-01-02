@@ -136,8 +136,13 @@ var option = {
   placement:         placementStr,              // ''
   rightEdgeOffset:   rightEdgeOffsetInteger,    // 30
   zIndex:            zIndexStr,                 // '100'
+  selectFirst:       selectFirstBoolean         // 'true'
 };
 ```
+The `selectFirst` MUST be a Boolean: 
+* If `true`, the first element is automatically selected on render.
+* If `false`, no element is selected on render.
+* If `not specified/undefined`, the default is `true`.
 
 The `maxCountNumber` MUST be a Number and default to 10. Even if `searchFunc` callbacks with large array, the array will be truncated into `maxCountNumber` elements.
 
