@@ -98,6 +98,11 @@
     data:      [],     // Shown zipped data.
     className: '',
 
+    // Private properties
+    // ------------------
+    _activationId: 0,
+    _cancelledActivationId: 0,
+
     // Public methods
     // --------------
 
@@ -168,6 +173,14 @@
       this._$header = this._$footer = this._$noResultsMessage = null;
     },
 
+    newActivationId: function () {
+      return ++this._activationId;
+    },
+
+    cancelledActivationId: function (activationId) {
+      return this._cancelledActivationId >= activationId;
+    },
+
     activate: function () {
       if (!this.shown) {
         this.clear();
@@ -186,6 +199,7 @@
         this.completer.fire('textComplete:hide');
         this.shown = false;
       }
+      this._cancelledActivationId = this._activationId;
       return this;
     },
 

@@ -236,23 +236,26 @@
           if (match) { return [strategy, match[strategy.index], match]; }
         }
       }
-      return []
+      return [];
     },
 
-    // Call the search method of selected strategy..
+    // Call the search method of selected strategy.
     _search: lock(function (free, strategy, term, match) {
       var self = this;
+      var thisSearchId = self.dropdown.newActivationId();
       strategy.search(term, function (data, stillSearching) {
-        if (!self.dropdown.shown) {
-          self.dropdown.activate();
+        if (!self.dropdown.cancelledActivationId(thisSearchId)) {
+          if (!self.dropdown.shown) {
+            self.dropdown.activate();
+          }
+          if (self._clearAtNext) {
+            // The first callback in the current lock.
+            self.dropdown.clear();
+            self._clearAtNext = false;
+          }
+          self.dropdown.setPosition(self.adapter.getCaretPosition());
+          self.dropdown.render(self._zip(data, strategy, term));
         }
-        if (self._clearAtNext) {
-          // The first callback in the current lock.
-          self.dropdown.clear();
-          self._clearAtNext = false;
-        }
-        self.dropdown.setPosition(self.adapter.getCaretPosition());
-        self.dropdown.render(self._zip(data, strategy, term));
         if (!stillSearching) {
           // The last callback in the current lock.
           free();
