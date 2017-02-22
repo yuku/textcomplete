@@ -89,6 +89,10 @@
       range.deleteContents();
       var $node = $(node);
       var position = $node.offset();
+      if (position.width === 0) {
+         // jQuery returned us the raw browser ClientRect object; avoid writing to it
+         position = { left: position.left, top: position.top };
+      }
       position.left -= this.$el.offset().left;
       position.top += $node.height() - this.$el.offset().top;
       position.lineHeight = $node.height();
