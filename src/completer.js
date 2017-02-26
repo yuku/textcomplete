@@ -231,8 +231,8 @@
         var context = strategy.context(text);
         if (context || context === '') {
           var matchRegexp = $.isFunction(strategy.match) ? strategy.match(text) : strategy.match;
-          if (isString(context)) { text = context; }
-          var match = text.match(matchRegexp);
+          if (!isString(context)) { context = text; }
+          var match = context.match(matchRegexp);
           if (match) { return [strategy, match[strategy.index], match]; }
         }
       }
