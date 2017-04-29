@@ -100,7 +100,7 @@ function getCaretCoordinates(element, position, options) {
     style.visibility = 'hidden';  // not 'display: none' because we want rendering
 
   // transfer the element's properties to the div
-  properties.forEach(function (prop) {
+  jQuery.each(properties, function (index, prop) {
     style[prop] = computed[prop];
   });
 
