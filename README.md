@@ -1,3 +1,5 @@
+jquery-textcomplete is no longer maintained. Please use [yuku-t/textcomplete](https://github.com/yuku-t/textcomplete) instead.
+
 # Autocomplete for Textarea
 
 [![npm version](https://badge.fury.io/js/jquery-textcomplete.svg)](http://badge.fury.io/js/jquery-textcomplete)
