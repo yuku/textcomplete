@@ -84,9 +84,8 @@
       var $parent = this.option.appendTo;
       if ($parent) {
          if (!($parent instanceof $)) { $parent = $($parent); }
-         var parentOffset = $parent.offsetParent().offset();
-         offset.top -= parentOffset.top;
-         offset.left -= parentOffset.left;
+         offset.top -= $parent.offset().top;
+         offset.left -= $parent.offset().left;
       }
 
       position.top += offset.top;
