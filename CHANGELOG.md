@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/) by version 1.0
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
+## [1.8.1] - 2017-06-27
+### Fixed
+- Attach textcomplete to the active CKEditor only ([#294](https://github.com/yuku-t/jquery-textcomplete/pull/294))
+
 ## [1.8.0] - 2016-11-15
 ### Added
 - Skip search after pressing shift, ctrl, alt, pageup and pagedown keys ([#292](https://github.com/yuku-t/jquery-textcomplete/pull/292))
