@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/) by version 1.0
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
+## [1.8.2] - 2017-07-11
+### Fixed
+- Fix for multiple ckeditors ([#309](https://github.com/yuku-t/jquery-textcomplete/pull/309))
+
 ## [1.8.1] - 2017-06-27
 ### Fixed
 - Attach textcomplete to the active CKEditor only ([#294](https://github.com/yuku-t/jquery-textcomplete/pull/294))

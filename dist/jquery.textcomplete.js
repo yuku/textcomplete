@@ -164,8 +164,8 @@ if (typeof jQuery === 'undefined') {
         CKEDITOR.on("instanceReady", function(event) { //For multiple ckeditors on one page: this needs to be executed each time a ckeditor-instance is ready.
 
           if($.inArray(event.editor.id, initializedEditors) == -1) { //For multiple ckeditors on one page: focus-eventhandler should only be added once for every editor.
-            
             initializedEditors.push(event.editor.id);
+			
             event.editor.on("focus", function(event2) {
 				//replace the element with the Iframe element and flag it as CKEditor
 				self.$el = $(event.editor.editable().$);
