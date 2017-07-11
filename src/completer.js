@@ -62,6 +62,7 @@
   };
 
   var uniqueId = 0;
+  var initializedEditors = [];
 
   function Completer(element, option) {
     this.$el        = $(element);
@@ -85,16 +86,21 @@
 
       // Special handling for CKEditor: lazy init on instance load
       if ((!this.option.adapter || this.option.adapter == 'CKEditor') && typeof CKEDITOR != 'undefined' && (this.$el.is('textarea'))) {
-        CKEDITOR.once("instanceReady", function(event) {
-          event.editor.once("focus", function(event2) {
-            // replace the element with the Iframe element and flag it as CKEditor
-            self.$el = $(event.editor.editable().$);
-            if (!self.option.adapter) {
-              self.option.adapter = $.fn.textcomplete['CKEditor'];
-              self.option.ckeditor_instance = event.editor;
-            }
-            self.initialize();
-          });
+        CKEDITOR.on("instanceReady", function(event) { //For multiple ckeditors on one page: this needs to be executed each time a ckeditor-instance is ready.
+
+          if($.inArray(event.editor.id, initializedEditors) == -1) { //For multiple ckeditors on one page: focus-eventhandler should only be added once for every editor.
+            initializedEditors.push(event.editor.id);
+			
+            event.editor.on("focus", function(event2) {
+				//replace the element with the Iframe element and flag it as CKEditor
+				self.$el = $(event.editor.editable().$);
+				if (!self.option.adapter) {
+					self.option.adapter = $.fn.textcomplete['CKEditor'];
+				}
+				self.option.ckeditor_instance = event.editor; //For multiple ckeditors on one page: in the old code this was not executed when adapter was alread set. So we were ALWAYS working with the FIRST instance.
+              	self.initialize();
+            });
+          }
         });
       }
     }
