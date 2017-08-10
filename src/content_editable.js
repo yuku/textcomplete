@@ -101,8 +101,9 @@
         var iframePosition = this.completer.$iframe.offset();
         position.top += iframePosition.top;
         position.left += iframePosition.left;
-        //subtract scrollTop from element in iframe
-        position.top -= this.$el.scrollTop(); 
+        // We need to get the scrollTop of the html-element inside the iframe and not of the body-element,
+        // because on IE the scrollTop of the body-element (this.$el) is always zero.
+        position.top -= $(this.completer.$iframe[0].contentWindow.document).scrollTop();
       }
       
       $node.remove();

@@ -6,6 +6,10 @@ This project adheres to [Semantic Versioning](http://semver.org/) by version 1.0
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
+## [Unreleased]
+### Fixed
+- On IE: Correct alignment of jquery-textcomplete-dropdown when scrolling down in iframe ([#310](https://github.com/yuku-t/jquery-textcomplete/pull/310))
+
 ## [1.8.3] - 2017-08-29
 ### Fixed
 - Fix splitting text nodes when moving caret in contenteditable ([#311](https://github.com/yuku-t/jquery-textcomplete/pull/311))
@@ -348,6 +352,10 @@ This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 ### Added
 - Initial release.
 
+[Unreleased]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.8.3...HEAD
+[1.8.3]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.8.2...v1.8.3
+[1.8.2]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.8.1...v1.8.2
+[1.8.1]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.8.0...v1.8.1
 [1.8.0]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.7.3...v1.8.0
 [1.7.3]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.7.2...v1.7.3
 [1.7.2]: https://github.com/yuku-t/jquery-textcomplete/compare/v1.7.1...v1.7.2
