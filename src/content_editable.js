@@ -83,10 +83,12 @@
     // Dropdown's position will be decided using the result.
     _getCaretRelativePosition: function () {
       var range = this.el.ownerDocument.getSelection().getRangeAt(0).cloneRange();
+      var wrapperNode = range.endContainer.parentNode;
       var node = this.el.ownerDocument.createElement('span');
       range.insertNode(node);
       range.selectNodeContents(node);
       range.deleteContents();
+      setTimeout(function() { wrapperNode.normalize(); }, 0);
       var $node = $(node);
       var position = $node.offset();
       position.left -= this.$el.offset().left;
