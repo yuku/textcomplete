@@ -2,7 +2,7 @@
   "author": "Yuku Takahashi <taka84u9@gmail.com>",
   "name": "jquery-textcomplete",
   "main": "dist/jquery.textcomplete",
-  "version": "1.8.2",
+  "version": "1.8.3",
   "homepage": "http://yuku-t.com/jquery-textcomplete",
   "repository": {
     "type": "git",
@@ -23,5 +23,8 @@
     "grunt-contrib-uglify": "~0.2.2",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-write-bower-json": "~0.0.1"
+  },
+  "dependencies": {
+    "grunt-cli": "^1.2.0"
   }
 }
