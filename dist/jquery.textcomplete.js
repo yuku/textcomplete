@@ -296,7 +296,7 @@ if (typeof jQuery === 'undefined') {
     // Private properties
     // ------------------
 
-    _clearAtNext: true,
+    _clearAtNext: false,
     _term:        null,
 
     // Private methods
