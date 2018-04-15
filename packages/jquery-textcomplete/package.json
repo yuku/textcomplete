@@ -17,14 +17,12 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "grunt": "~0.4.1",
+    "grunt-cli": "^1.2.0",
     "grunt-contrib-concat": "~0.5.0",
     "grunt-contrib-connect": "~0.3.0",
     "grunt-contrib-uglify": "~0.2.2",
     "grunt-contrib-watch": "~0.6.1",
-    "grunt-write-bower-json": "~0.0.1"
-  },
-  "dependencies": {
-    "grunt-cli": "^1.2.0"
+    "grunt-write-bower-json": "~0.0.1",
+    "grunt": "~0.4.1"
   }
 }
