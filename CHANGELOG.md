@@ -6,7 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/) by version 1.0
 
 This change log adheres to [keepachangelog.com](http://keepachangelog.com).
 
-## [Unreleased]
+## [1.8.5] - 2019-02-17
+### Fixed
+- Move grunt-cli from dependencies to devDependencies ([#314](https://github.com/yuku/jquery-textcomplete/pull/314))
 
 ## [1.8.4] - 2017-08-29
 ### Fixed
