@@ -119,10 +119,15 @@
     //   this.getTextFromHeadToCaret()
     //   // => ' wor'  // not '<b>hello</b> wor'
     getTextFromHeadToCaret: function () {
-      var range = this.el.ownerDocument.getSelection().getRangeAt(0);
-      var selection = range.cloneRange();
-      selection.selectNodeContents(range.startContainer);
-      return selection.toString().substring(0, range.startOffset);
+      var selection = this.el.ownerDocument.getSelection();
+      if(selection.rangeCount)
+      {
+        var range = selection.getRangeAt(0);
+        var selectionClone = range.cloneRange();
+        selectionClone.selectNodeContents(range.startContainer);
+        return selectionClone.toString().substring(0, range.startOffset);
+      }
+      return '';
     }
   });
 
