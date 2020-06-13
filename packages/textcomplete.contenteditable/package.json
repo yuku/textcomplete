@@ -1,0 +1,80 @@
+{
+  "name": "textcomplete.contenteditable",
+  "version": "0.1.1",
+  "description": "A textcomplete editor for content editable",
+  "main": "lib/textcomplete.contenteditable.js",
+  "scripts": {
+    "build": "yarn run clean && run-p build:*",
+    "build:dist": "webpack && webpack --env=min",
+    "build:docs": "run-p build:docs:*",
+    "build:docs:css": "node-sass src/docs/main.scss docs/main.css --importer node_modules/node-sass-import",
+    "build:docs:html": "pug src/docs/index.pug --out docs",
+    "build:docs:js": "webpack --config webpack.docs.config.js",
+    "build:lib": "babel src -d lib -s && for js in src/*.js; do cp $js lib/${js##*/}.flow; done",
+    "clean": "rm -fr dist docs lib",
+    "format": "prettier --no-semi --trailing-comma all --write 'src/*.js'",
+    "gh-release": "npm pack textcomplete.contenteditable && gh-release -a textcomplete.contenteditable-$(cat package.json|jq -r .version).tgz",
+    "karma": "karma start --single-run",
+    "lint": "eslint src/textcomplete.contenteditable.js test/**/*.js",
+    "start": "run-s build:docs:css watch",
+    "test": "run-p lint karma typecheck",
+    "opener": "wait-on http://localhost:8081 && opener http://localhost:8081",
+    "typecheck": "flow check",
+    "watch": "run-p watch:* opener",
+    "watch:css": "node-sass src/docs/main.scss docs/main.css -w --importer node_modules/node-sass-import",
+    "watch:html": "pug src/docs/index.pug -o docs -w",
+    "watch:js": "webpack-dev-server --config webpack.docs.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/yuku-t/textcomplete.contenteditable.git"
+  },
+  "keywords": [
+    "contenteditable",
+    "textcomplete-editor"
+  ],
+  "author": "Yuku Takahashi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yuku-t/textcomplete.contenteditable/issues"
+  },
+  "homepage": "https://github.com/yuku-t/textcomplete.contenteditable#readme",
+  "dependencies": {
+    "textcomplete": "^0.14.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.0.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-espower": "^2.3.2",
+    "babel-plugin-istanbul": "^4.1.5",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-flow": "^6.23.0",
+    "babel-register": "^6.26.0",
+    "eslint": "^4.7.2",
+    "eslint-config-prettier": "^2.6.0",
+    "eslint-plugin-flowtype": "^2.35.1",
+    "flow-bin": "^0.55.0",
+    "getbase": "^3.5.1",
+    "highlight.js": "^9.2.0",
+    "node-sass": "^4.5.3",
+    "node-sass-import": "^1.1.1",
+    "npm-run-all": "^4.1.1",
+    "opener": "^1.4.3",
+    "prettier": "^1.7.0",
+    "pug-cli": "^1.0.0-alpha6",
+    "wait-on": "^2.0.2",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.8.2",
+    "webpack-merge": "^4.1.0"
+  },
+  "peerDependencies": {
+    "textcomplete": "^0.14.2"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "flow"
+    ]
+  }
+}

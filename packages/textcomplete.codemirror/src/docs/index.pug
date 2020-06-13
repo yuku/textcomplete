@@ -1,0 +1,117 @@
+doctype html
+html(lang='en')
+  head
+    title textcomplete.codemirror
+    link(rel='stylesheet' type='text/css' href='./main.css')
+    script(src='./main.js')
+    script.
+      var emojis = {}
+      /**
+        * @callback GitHubEmojiAPICallback
+        * @param {Object} resp
+        * @prop {Object} resp.meta
+        * @prop {Object} resp.data
+        * @see https://developer.github.com/v3/emojis/
+        * @example
+        * callback({
+        *   "meta": {
+        *     "Content-Type": "application/javascript; charset=utf-8",
+        *     ...
+        *   },
+        *   "data": {
+        *     "+1": "https://assets-cdn.github.com/images/icons/emoji/unicode/1f44d.png?v5",
+        *     ...
+        *   }
+        * })
+        */
+      var GitHubEmojiAPICallback = function(resp) {
+        window.emojis = resp.data;
+      };
+    script(src='https://api.github.com/emojis?callback=GitHubEmojiAPICallback')
+  body
+    .banner
+      .container
+        .header.clear
+          h1
+            | textcomplete.codemirror
+    .container
+      .clear
+        .col-12
+          a(href='https://github.com/yuku-t/textcomplete.codemirror') GitHub
+      .clear
+        .col-5-desktop.col-12-
+          .editor
+            textarea#textarea1
+              | # Markdown Editor with CodeMirror
+              | 
+              | ```
+        .col-7-desktop.col-12
+          pre
+            code.javascript.auto-eval.
+              var textarea = document.getElementById('textarea1');
+              var cm = new CodeMirror.fromTextArea(textarea, {
+                mode: 'gfm',
+                theme: 'default'
+              });
+              var editor = new Textcomplete.editors.CodeMirror(cm);
+              var textcomplete = new Textcomplete(editor);
+              var isInCode = false;
+              function check(text) {
+                var match = text.match(/`{3,}/g);
+                if (match && match.length % 2) {
+                  isInCode = true;
+                } else {
+                  match = text.match(/`/g);
+                  isInCode = match && match.length % 2;
+                }
+              }
+              textcomplete.register([
+                { // Emojis
+                  match: /(^|\s):([a-z0-9+\-\_]*)$/,
+                  search: function (term, callback) {
+                    callback(Object.keys(emojis).filter(function (name) {
+                      return name.startsWith(term);
+                    }));
+                  },
+                  template: function (name) {
+                    return '&lt;img src="' + emojis[name] + '"&gt;&lt;/img&gt; ' + name;
+                  },
+                  replace: function (name) {
+                    return '$1:' + name + ': ';
+                  },
+                  context: function (text) {
+                    check(text);
+                    return !isInCode;
+                  }
+                },
+                { // Languages
+                  match: /(^|\n)```([^\s:]*)$/,
+                  search: function (term, callback) {
+                    var results = [];
+                    Object.keys(langs).forEach(function (ext) {
+                      if (ext.startsWith(term)) {
+                        results.push({ name: langs[ext], ext: ext });
+                      }
+                    });
+                    callback(results);
+                  },
+                  template: function (value) {
+                    return [
+                      '&lt;code class="lang-ext"&gt;',
+                      value.ext,
+                      '&lt;/code&gt;&amp;nbsp;&lt;span class="lang-name"&gt;',
+                      value.name,
+                      '&lt;/span&gt;'
+                    ].join('');
+                  },
+                  replace: function (value) {
+                    return '$1```' + value.ext + '\n';
+                  },
+                  context: function (_text) {
+                    return isInCode;
+                  }
+                }
+              ]);
+              cm.doc.setCursor(2, 3);
+              cm.focus();
+              textcomplete.trigger(editor.getBeforeCursor());

@@ -1,0 +1,58 @@
+@import "../../node_modules/getbase/scss/styles";
+@import "../../node_modules/highlight.js/styles/solarized-dark.css";
+
+$height: 18px;
+
+.dropdown-menu {
+  background-color: white;
+  border: 1px solid #ddd;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    border-top: 1px solid #ddd;
+    padding: 2px 5px;
+    margin: 0;
+    clear: both;
+
+    &::first-child {
+      border-top: none;
+    }
+
+    &::hover {
+      background-color: rgb(110, 183, 219);
+    }
+
+    &.active {
+      background-color: rgb(110, 183, 219);
+    }
+  }
+
+  a {
+    height: $height;
+    text-decoration: none;
+    color: #555;
+
+    &::hover {
+      cursor: pointer;
+    }
+  }
+
+  img {
+    vertical-align: text-top;
+    height: $height;
+  }
+
+  .lang-name {
+    float: right;
+  }
+
+  .lang-ext {
+    float: left;
+  }
+
+  code {
+    background-color: transparent;
+  }
+}

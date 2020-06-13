@@ -1,0 +1,15 @@
+---
+engines:
+  duplication:
+    enabled: true
+    exclude_paths:
+    - test
+    config:
+      languages:
+        javascript:
+          mass_threshold: 100 # Defualt: 40
+  eslint:
+    enabled: true
+ratings:
+  paths:
+  - "src/*.js"
