@@ -1,0 +1,52 @@
+@import "../../node_modules/getbase/css/styles.css";
+@import "../../node_modules/highlight.js/styles/solarized-dark.css";
+
+textarea {
+  font-size: 18px;
+}
+
+.dropdown-menu {
+  background-color: white;
+  border: 1px solid #ddd;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown-menu li {
+  border-top: 1px solid #ddd;
+  padding: 2px 5px;
+  margin: 0;
+}
+
+.dropdown-menu li:first-child {
+  border-top: none;
+}
+
+.dropdown-menu li:hover,
+.dropdown-menu .active {
+  background-color: rgb(110, 183, 219);
+}
+
+.dropdown-menu a {
+  height: 18px;
+  text-decoration: none;
+  color: #555;
+}
+
+.dropdown-menu a:hover {
+  cursor: pointer;
+}
+
+.dropdown-menu img {
+  vertical-align: text-top;
+  height: 18px;
+}
+
+.editor {
+  margin: 1em 0 1em;
+}
+
+textarea {
+  width: 100%;
+}

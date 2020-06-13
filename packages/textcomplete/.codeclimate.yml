@@ -1,0 +1,13 @@
+version: "2"
+checks:
+  similar-code:
+    config:
+      threshold: 100
+plugins:
+  eslint:
+    enabled: true
+    channel: "eslint-4"
+exclude_patterns:
+  - "karma.conf.js"
+  - "webpack.config.js"
+  - "test/"

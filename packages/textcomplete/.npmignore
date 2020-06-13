@@ -1,0 +1,16 @@
+.babelrc
+.codeclimate.yml
+.editorconfig
+.eslintignore
+.eslintrc
+.gitattributes
+.publish
+.travis.yml
+coverage
+doc
+lib/main.js
+npm-debug.log
+src
+test
+textcomplete
+textcomplete-*

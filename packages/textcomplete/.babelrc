@@ -1,0 +1,14 @@
+{
+  "presets": [
+    "es2015",
+    "flow"
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        "espower",
+        "istanbul"
+      ]
+    }
+  }
+}

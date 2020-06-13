@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+- node
+cache:
+  yarn: true
+addons:
+  code_climate:
+    repo_token: ee56fb46fc4df8db9ea8012690d87529d1bb03cbe0ee125e0668d7a11446522b
+  firefox: latest
+before_install:
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+after_script:
+- npm install -g codeclimate-test-reporter
+- codeclimate-test-reporter < coverage/*/lcov.info
+notifications:
+  email: false
