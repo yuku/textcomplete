@@ -1,2 +1,2 @@
-dist/* linguist-vendored
-src/vendor/* linguist-vendored
+packages/jquery-textcomplete/dist/* linguist-vendored
+packages/jquery-textcomplete/src/vendor/* linguist-vendored
