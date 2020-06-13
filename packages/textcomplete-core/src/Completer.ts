@@ -1,7 +1,6 @@
 import { EventEmitter } from "eventemitter3"
 
 import { Strategy, StrategyProps } from "./Strategy"
-import { Query } from "./Query"
 import { SearchResult } from "./SearchResult"
 
 export class Completer extends EventEmitter {
@@ -18,19 +17,11 @@ export class Completer extends EventEmitter {
   }
 
   run(beforeCursor: string): void {
-    const query = this.extractQuery(beforeCursor)
-    if (query) {
-      query.execute(this.handleQueryResult)
-    } else {
-      this.handleQueryResult([])
-    }
-  }
-
-  private extractQuery(beforeCursor: string): Query<unknown> | void {
     for (const strategy of this.strategies) {
-      const query = Query.create(strategy, beforeCursor)
-      if (query) return query
+      const executed = strategy.execute(beforeCursor, this.handleQueryResult)
+      if (executed) return
     }
+    this.handleQueryResult([])
   }
 
   private handleQueryResult = <T>(searchResults: SearchResult<T>[]) => {

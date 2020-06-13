@@ -19,7 +19,7 @@ export class Textarea extends Editor {
   /**
    * @implements {@link Editor#applySearchResult}
    */
-  applySearchResult<T>(searchResult: SearchResult<T>): void {
+  applySearchResult(searchResult: SearchResult): void {
     const beforeCursor = this.getBeforeCursor()
     if (beforeCursor != null) {
       const replace = searchResult.replace(beforeCursor, this.getAfterCursor())

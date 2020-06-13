@@ -2,6 +2,7 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "packages": [
+    "docs",
     "packages/textcomplete-core",
     "packages/textcomplete"
   ],

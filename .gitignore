@@ -4,3 +4,4 @@ dist
 yarn.lock
 .vscode/*
 !.vscode/textcomplete.code-workspace
+docs/.cache

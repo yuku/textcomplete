@@ -11,7 +11,11 @@
     {
       "name": "textarea",
       "path": "../packages/textcomplete",
-    }
+    },
+    {
+      "name": "docs",
+      "path": "../docs",
+    },
   ],
   "settings": {
     "editor.wordWrap": "on",

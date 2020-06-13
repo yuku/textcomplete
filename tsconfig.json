@@ -3,6 +3,7 @@
     "target": "ES2019",
     "module": "commonjs",
     "lib": ["ES2019", "DOM"],
+    "jsx": "react",  // for docs with vscode
     "sourceMap": true,
     "declaration": true,
     "esModuleInterop": true,

@@ -78,13 +78,13 @@ export class Dropdown extends EventEmitter {
       .map(
         (r, index) => new DropdownItem(this, index, r, this.option?.item || {})
       )
-    this.activeIndex = 0
     this.setStrategyId(searchResults[0])
       .renderEdge(searchResults, "header")
       .renderItems()
       .renderEdge(searchResults, "footer")
       .show()
       .setOffset(cursorOffset)
+      .activate(0)
     this.emit("rendered", createCustomEvent("rendered"))
     return this
   }
@@ -106,7 +106,7 @@ export class Dropdown extends EventEmitter {
     const event = createCustomEvent("select", { cancelable: true, detail })
     this.emit("select", event)
     if (event.defaultPrevented) return this
-    this.destroy()
+    this.hide()
     this.emit("selected", createCustomEvent("selected", { detail }))
     return this
   }
@@ -142,6 +142,7 @@ export class Dropdown extends EventEmitter {
       if (event.defaultPrevented) return this
       this.el.style.display = "none"
       this.shown = false
+      this.clear()
       this.emit("hidden", createCustomEvent("hidden"))
     }
     return this
@@ -151,6 +152,8 @@ export class Dropdown extends EventEmitter {
   clear(): this {
     this.items.forEach((i) => i.destroy())
     this.items = []
+    this.el.innerHTML = ""
+    this.activeIndex = null
     return this
   }
 
@@ -216,7 +219,6 @@ export class Dropdown extends EventEmitter {
   private renderItems(): this {
     const fragment = document.createDocumentFragment()
     for (const item of this.items) {
-      this.items.push(item)
       fragment.appendChild(item.el)
     }
     this.el.appendChild(fragment)

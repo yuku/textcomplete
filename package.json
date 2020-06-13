@@ -2,10 +2,12 @@
   "name": "root",
   "private": true,
   "workspaces": [
+    "docs",
     "packages/textcomplete-core",
     "packages/textcomplete"
   ],
   "scripts": {
+    "docs": "lerna run start --scope docs --stream --no-prefix",
     "format:eslint": "eslint --fix 'packages/**/*.ts'",
     "format:prettier": "prettier --write 'packages/**/*.ts'",
     "format": "run-s format:eslint format:prettier",

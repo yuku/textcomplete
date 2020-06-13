@@ -1,0 +1,38 @@
+$border-color: #ddd;
+
+.textcomplete-dropdown {
+  border: 1px solid $border-color;
+  background-color: white;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    margin: 0;
+
+    &:last-child {
+      border-top: 1px solid $border-color;
+    }
+  }
+
+  .textcomplete-item {
+    border-top: 1px solid $border-color;
+    padding: 2px 5px;
+    cursor: pointer;
+
+    &:first-child {
+      border-top: none;
+    }
+
+    &:hover,
+    &.active {
+      background-color: rgb(110, 183, 219);
+    }
+
+    img {
+      height: 1rem;
+      margin-bottom: 0;
+      vertical-align: middle;
+    }
+  }
+}

@@ -13,8 +13,5 @@
   },
   "dependencies": {
     "eventemitter3": "^4.0.4"
-  },
-  "devDependencies": {
-    "typescript": "^3.9.5"
   }
 }

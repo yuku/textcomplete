@@ -6,7 +6,7 @@ import { Completer } from "./Completer"
 import { SearchResult } from "./SearchResult"
 import { StrategyProps } from "./Strategy"
 
-interface TextcompleteOption {
+export interface TextcompleteOption {
   dropdown?: DropdownOption
 }
 
@@ -28,12 +28,12 @@ export class Textcomplete extends EventEmitter {
 
   constructor(
     private readonly editor: Editor,
-    strategies: StrategyProps<unknown>[],
-    option: TextcompleteOption
+    strategies: StrategyProps[],
+    option?: TextcompleteOption
   ) {
     super()
     this.completer = new Completer(strategies)
-    this.dropdown = Dropdown.create(option.dropdown || {})
+    this.dropdown = Dropdown.create(option?.dropdown || {})
     this.startListening()
   }
 

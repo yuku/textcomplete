@@ -3,7 +3,7 @@ import { Strategy } from "./Strategy"
 const MAIN = /\$&/g
 const PLACE = /\$(\d)/g
 
-export class SearchResult<T> {
+export class SearchResult<T = unknown> {
   constructor(
     public readonly data: T,
     private readonly term: string,
