@@ -1,0 +1,39 @@
+{
+  "folders": [
+    {
+      "name": "root",
+      "path": "../",
+    },
+    {
+      "name": "core",
+      "path": "../packages/textcomplete-core",
+    },
+    {
+      "name": "textarea",
+      "path": "../packages/textcomplete",
+    }
+  ],
+  "settings": {
+    "editor.wordWrap": "on",
+    "editor.formatOnSave": false,
+    "[typescript]": {
+      "editor.formatOnSave": true
+    },
+    "[typescriptreact]": {
+      "editor.formatOnSave": true
+    },
+    "[javascript]": {
+      "editor.formatOnSave": true
+    },
+    "[javascriptreact]": {
+      "editor.formatOnSave": true
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "editorconfig.editorconfig",
+      "esbenp.prettier-vscode",
+    ]
+  }
+}

@@ -1,0 +1,4 @@
+packages/*
+!packages/textcomplete-core
+!packages/textcomplete
+packages/*/dist
