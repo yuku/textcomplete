@@ -1,7 +1,19 @@
-# textcomplete
+# @textcomplete/textarea
 
-> Autocomplete for Textarea elements.
+> Textcomplete editor implementation for Textarea elements.
+
+## Install
 
 ```bash
-npm add --save textcomplete
+npm install --save @textcomplete/core @texttcomplete/textarea
+```
+
+## Synopsis
+
+```js
+const { Textcomplete } = require("@textcomplete/core")
+const { Textarea } = require("@textcomplete/textarea")
+
+const editor = new Textarea(textareaElement)
+const textcomplete = new Textcomplete(editor, strategies, option)
 ```
