@@ -29,7 +29,6 @@ export const App: FC = () => {
           option={{ dropdown: { maxCount: 3 } }}
           defaultValue="Hello, this is the textcomplete :smi"
         />
-        ,
       </section>
     </div>
   )

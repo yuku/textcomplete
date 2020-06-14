@@ -10,7 +10,7 @@
     },
     {
       "name": "textarea",
-      "path": "../packages/textcomplete",
+      "path": "../packages/textcomplete-textarea",
     },
     {
       "name": "docs",
