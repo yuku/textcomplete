@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "build": "rm -fr dist cache && parcel build index.pug",
+    "build": "rm -fr dist cache && parcel build index.pug --public-url /textcomplete",
     "format:eslint": "eslint --fix '**/*.ts' '**/*.tsx'",
     "format:prettier": "prettier --write '**/*.ts' '**/*.tsx'",
     "format": "run-s format:eslint format:prettier",
