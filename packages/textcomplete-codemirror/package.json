@@ -15,6 +15,7 @@
     "@types/codemirror": "^0.0.96"
   },
   "devDependencies": {
+    "@textcomplete/core": "^0.0.0",
     "codemirror": "^5.54"
   },
   "peerDependencies": {
