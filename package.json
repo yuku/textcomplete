@@ -7,7 +7,8 @@
   ],
   "scripts": {
     "build": "lerna run build",
-    "docs": "run-s build start",
+    "build:packages": "lerna run build --ignore docs",
+    "docs": "run-s build:packages start",
     "lint": "lerna run lint --parallel",
     "start": "lerna run start --scope docs --stream --no-prefix",
     "test": "lerna run test --parallel"
