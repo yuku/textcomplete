@@ -1,37 +1,23 @@
-// @flow
+import { Editor, CursorOffset, SearchResult } from "@textcomplete/core"
+import { isSafari, getLineHeightPx } from "@textcomplete/utils"
 
-import Editor from "textcomplete/lib/editor"
-import SearchResult from "textcomplete/lib/search_result"
-import { calculateElementOffset, getLineHeightPx } from "textcomplete/lib/utils"
-
-const CALLBACK_METHODS = ["onInput", "onKeydown"]
-
-export default class extends Editor {
-  el: HTMLElement
-  selection: Selection
-
-  constructor(el: HTMLElement) {
+export class ContenteditableEditor extends Editor {
+  constructor(public readonly el: HTMLElement) {
     super()
-    this.el = el
-    this.document = el.ownerDocument
-    this.view = this.document.defaultView
-    this.selection = this.view.getSelection()
-
-    CALLBACK_METHODS.forEach(method => {
-      ;(this: any)[method] = (this: any)[method].bind(this)
-    })
-
+    if (isSafari()) return
     this.startListening()
   }
 
-  destroy() {
+  destroy(): this {
     super.destroy()
     this.stopListening()
-    ;(this: any).el = null
     return this
   }
 
-  applySearchResult(searchResult: SearchResult) {
+  /**
+   * @implements {@link Editor#applySearchResult}
+   */
+  applySearchResult(searchResult: SearchResult): void {
     const before = this.getBeforeCursor()
     const after = this.getAfterCursor()
     if (before != null && after != null) {
@@ -39,7 +25,11 @@ export default class extends Editor {
       if (Array.isArray(replace)) {
         const range = this.getRange()
         range.selectNode(range.startContainer)
-        this.document.execCommand("insertText", false, replace[0] + replace[1])
+        this.el.ownerDocument.execCommand(
+          "insertText",
+          false,
+          replace[0] + replace[1]
+        )
         range.detach()
         const newRange = this.getRange()
         newRange.setStart(newRange.startContainer, replace[0].length)
@@ -48,17 +38,20 @@ export default class extends Editor {
     }
   }
 
-  getCursorOffset() {
+  /**
+   * @implements {@link Editor#getCursorOffset}
+   */
+  getCursorOffset(): CursorOffset {
     const range = this.getRange()
     const rangeRects = range.getBoundingClientRect()
 
-    const docRects = this.document.body.getBoundingClientRect()
+    const docRects = this.el.ownerDocument.body.getBoundingClientRect()
     const container = range.startContainer
-    const el: HTMLElement = (container instanceof Text
+    const el = (container instanceof Text
       ? container.parentElement
-      : container: any)
+      : container) as HTMLElement
 
-    const left = rangeRects.left - docRects.left
+    const left = rangeRects.left
     const lineHeight = getLineHeightPx(el)
     const top = rangeRects.top - docRects.top + lineHeight
     return this.el.dir !== "rtl"
@@ -66,7 +59,10 @@ export default class extends Editor {
       : { right: document.documentElement.clientWidth - left, lineHeight, top }
   }
 
-  getBeforeCursor() {
+  /**
+   * @implements {@link Editor#getBeforeCursor}
+   */
+  getBeforeCursor(): string | null {
     const range = this.getRange()
     if (range.collapsed && range.startContainer instanceof Text) {
       return range.startContainer.wholeText.substring(0, range.startOffset)
@@ -74,7 +70,7 @@ export default class extends Editor {
     return null
   }
 
-  getAfterCursor() {
+  private getAfterCursor(): string | null {
     const range = this.getRange()
     if (range.collapsed && range.startContainer instanceof Text) {
       return range.startContainer.wholeText.substring(range.startOffset)
@@ -82,17 +78,40 @@ export default class extends Editor {
     return null
   }
 
-  /** @private */
-  onInput(_: Event) {
-    if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
-      // Safari behaves much stranger than Chrome and Firefox.
-      return
+  private getRange(force?: boolean): Range {
+    const selection = this.el.ownerDocument.defaultView?.getSelection()
+    if (selection == null) {
+      throw new Error("The element does not belong to view")
     }
+
+    for (let i = 0, l = selection.rangeCount; i < l; i++) {
+      const range = selection.getRangeAt(i)
+      if (this.el.contains(range.startContainer)) {
+        return range
+      }
+    }
+    // The element is not active.
+    if (force) {
+      throw new Error("Unexpected")
+    }
+    const activeElement = this.el.ownerDocument.activeElement
+    this.el.focus()
+    const range = this.getRange(true)
+
+    // Activate previous active element
+    if (activeElement) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const el = activeElement as any
+      el.focus && el.focus()
+    }
+    return range
+  }
+
+  private onInput = (): void => {
     this.emitChangeEvent()
   }
 
-  /** @private */
-  onKeydown(e: KeyboardEvent) {
+  private onKeydown = (e: KeyboardEvent): void => {
     const code = this.getCode(e)
     let event
     if (code === "UP" || code === "DOWN") {
@@ -107,34 +126,13 @@ export default class extends Editor {
     }
   }
 
-  /** @private */
-  startListening() {
+  private startListening = (): void => {
     this.el.addEventListener("input", this.onInput)
     this.el.addEventListener("keydown", this.onKeydown)
   }
 
-  /** @private */
-  stopListening() {
+  private stopListening = (): void => {
     this.el.removeEventListener("input", this.onInput)
     this.el.removeEventListener("keydown", this.onKeydown)
-  }
-
-  /** @private */
-  getRange(force: ?boolean): Range {
-    for (let i = 0, l = this.selection.rangeCount; i < l; i++) {
-      const range = this.selection.getRangeAt(i)
-      if (this.el.contains(range.startContainer)) {
-        return range
-      }
-    }
-    // The element is not active.
-    if (force) {
-      throw new Error("Unexpected")
-    }
-    const activeElement = this.document.activeElement
-    this.el.focus()
-    const range = this.getRange(true)
-    activeElement && activeElement.focus()
-    return range
   }
 }

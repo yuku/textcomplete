@@ -1,9 +1,0 @@
-.publish
-coverage
-dist
-lib
-node_modules
-npm-debug.log
-powered-test
-textcomplete.contenteditable
-/textcomplete.contenteditable-*
