@@ -9,5 +9,5 @@ jobs:
         with:
           node-version: 12.x
       - run: yarn install --no-lockfile && yarn lerna bootstrap
-      - run: yarn lint
-      - run: yarn test
+      - run: yarn lerna run lint --parallel
+      - run: yarn lerna run test --parallel

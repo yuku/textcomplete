@@ -17,10 +17,10 @@ export class CodeMirrorEditor extends Editor {
   /**
    * @implements {@link Editor#applySearchResult}
    */
-  applySearchResult(searchResult: SearchResult) {
+  applySearchResult(searchResult: SearchResult): void {
     const replace = searchResult.replace(
       this.getBeforeCursor(),
-      this.getAfterCursor(),
+      this.getAfterCursor()
     )
     if (Array.isArray(replace)) {
       this.cm.setValue(replace[0] + replace[1])
@@ -41,7 +41,7 @@ export class CodeMirrorEditor extends Editor {
   /**
    * @implements {@link Editor#getBeforeCursor}
    */
-  getBeforeCursor() {
+  getBeforeCursor(): string {
     const { line, ch } = this.cm.getCursor()
     const lines = this.getLines()
     const linesBeforeCursor = lines.slice(0, line)
@@ -91,7 +91,7 @@ export class CodeMirrorEditor extends Editor {
     this.cm.on("keydown", this.onKeydown)
     this.cm.on("keyup", this.onKeyup)
   }
-  
+
   private stopListening(): void {
     this.cm.off("keydown", this.onKeydown)
     this.cm.off("keyup", this.onKeyup)
