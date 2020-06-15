@@ -1,4 +1,4 @@
-import React, { FC } from "react"
+import React, { FC, useEffect } from "react"
 
 import { EMOJI_STRATEGY } from "./strategy"
 import { Textarea } from "./components/Textarea"
@@ -10,6 +10,12 @@ const EDITORS = "editors"
 const CURRENT_YEAR = new Date().getFullYear()
 
 export const App: FC = () => {
+  useEffect(() => {
+    if (location.hash === "") {
+      // Without this code, window initially scrolls to bottom by unknown reason.
+      scroll(0, 0)
+    }
+  }, [])
   return (
     <>
       <header>
