@@ -8,10 +8,6 @@ jquery-textcomplete is no longer maintained. Please use [yuku-t/textcomplete](ht
 
 Introduces autocompleting power to textareas, like a GitHub comment form has.
 
-![Demo](http://yuku-t.com/jquery-textcomplete/media/images/demo.gif)
-
-[Demo](http://yuku-t.com/jquery-textcomplete/).
-
 ## Synopsis
 
 ```js

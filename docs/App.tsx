@@ -4,8 +4,10 @@ import { EMOJI_STRATEGY } from "./strategy"
 import { Textarea } from "./components/Textarea"
 import { Usage } from "./sections/Usage"
 import { Editors } from "./sections/Editors"
+import { Style } from "./sections/Style"
 
 const USAGE = "usage"
+const STYLE = "style"
 const EDITORS = "editors"
 const CURRENT_YEAR = new Date().getFullYear()
 
@@ -26,6 +28,8 @@ export const App: FC = () => {
         <nav>
           <a href={`#${USAGE}`}>Usage</a>
           {" / "}
+          <a href={`#${STYLE}`}>Style</a>
+          {" / "}
           <a href={`#${EDITORS}`}>Editors</a>
           {" / "}
           <a href="https://github.com/yuku/textcomplete">GitHub</a>
@@ -41,6 +45,7 @@ export const App: FC = () => {
         />
       </section>
       <Usage id={USAGE} />
+      <Style id={STYLE} />
       <Editors id={EDITORS} />
       <footer style={{ textAlign: "center" }}>
         <p>

@@ -6,7 +6,7 @@ import theme from "prism-react-renderer/themes/vsDark"
 
 interface Props {
   code: string
-  language: Language
+  language: Language | "html"
 }
 
 export const Code: FC<Props> = ({ code, language }) => (
