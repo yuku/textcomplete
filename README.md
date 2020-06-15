@@ -2,6 +2,8 @@
 
 > Autocomplete for textarea elements
 
+![](./docs/images/demo.gif)
+
 ## Packages
 
 Textcomplete consists of subpackages:
