@@ -6,11 +6,13 @@
 
 Textcomplete consists of subpackages:
 
-Name                     | Description
--------------------------|------------------------------
-@textcomplete/core       | Core of Textcomplete.
-@textcomplete/textarea   | Editor for Textarea elements.
-@textcomplete/codemirror | Editor for CodeMirror.
+Name                          | Description
+------------------------------|-------------------------------
+@textcomplete/core            | Core of Textcomplete.
+@textcomplete/textarea        | Editor for Textarea elements.
+@textcomplete/contenteditable | Editor for contenteditable.
+@textcomplete/codemirror      | Editor for CodeMirror.
+@textcomplete/utils           | Utility functions for editors.
 
 ## Development
 
