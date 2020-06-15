@@ -1,35 +1,49 @@
 import React, { FC } from "react"
 
-import { startsWith } from "./emoji"
-import { Textarea } from "./Textarea"
+import { EMOJI_STRATEGY } from "./strategy"
+import { Textarea } from "./components/Textarea"
+import { Usage } from "./sections/Usage"
+import { Editors } from "./sections/Editors"
+
+const USAGE = "usage"
+const EDITORS = "editors"
+const CURRENT_YEAR = new Date().getFullYear()
 
 export const App: FC = () => {
   return (
-    <div>
+    <>
       <header>
         <h1>Textcomplete</h1>
-        <small>Autocomplete for Textarea</small>
+        <p>
+          <i>Autocomplete for Textarea and more.</i>
+        </p>
+        <nav>
+          <a href={`#${USAGE}`}>Usage</a>
+          {" / "}
+          <a href={`#${EDITORS}`}>Editors</a>
+          {" / "}
+          <a href="https://github.com/yuku/textcomplete">GitHub</a>
+        </nav>
       </header>
       <section>
         <Textarea
           triggerImmediately
-          strategies={[
-            {
-              id: "emoji",
-              match: /\B:([\-+\w]*)$/,
-              index: 1,
-              search: async (term, callback) => {
-                callback(await startsWith(term))
-              },
-              replace: ([key]) => `:${key}: `,
-              template: ([key, url]) =>
-                `<img src="${url}"/>&nbsp;<small>:${key}:</small>`,
-            },
-          ]}
+          focus
+          strategies={[EMOJI_STRATEGY]}
           option={{ dropdown: { maxCount: 3 } }}
-          defaultValue="Hello, this is the textcomplete :smi"
+          defaultValue="Hello, this is textcomplete demo :smi"
         />
       </section>
-    </div>
+      <Usage id={USAGE} />
+      <Editors id={EDITORS} />
+      <footer style={{ textAlign: "center" }}>
+        <p>
+          <small>
+            &copy; Yuku Takahashi {CURRENT_YEAR} - This software is licensed
+            under the MTI license
+          </small>
+        </p>
+      </footer>
+    </>
   )
 }

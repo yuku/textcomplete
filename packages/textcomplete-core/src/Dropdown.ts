@@ -10,7 +10,7 @@ export interface DropdownOption {
   footer?: ((results: unknown[]) => string) | string
   header?: ((results: unknown[]) => string) | string
   maxCount?: number
-  placement?: "top" | "auto"
+  placement?: "auto" | "top" | "bottom"
   rotate?: boolean
   style?: CSSStyleDeclaration
   parent?: HTMLElement
@@ -22,12 +22,13 @@ interface DropdownItemOption {
 }
 
 // Default constants for Dropdown
-const DEFAULT_DROPDOWN_MAX_COUNT = 10
-const DEFAULT_DROPDOWN_CLASS_NAME = "dropdown-menu textcomplete-dropdown"
+export const DEFAULT_DROPDOWN_MAX_COUNT = 10
+export const DEFAULT_DROPDOWN_PLACEMENT = "auto"
+export const DEFAULT_DROPDOWN_CLASS_NAME = "dropdown-menu textcomplete-dropdown"
 
 // Default constants for DropdownItem
-const DEFAULT_DROPDOWN_ITEM_CLASS_NAME = "textcomplete-item"
-const DEFAULT_DROPDOWN_ACTIVE_ITEM_CLASS_NAME = `${DEFAULT_DROPDOWN_ITEM_CLASS_NAME} active`
+export const DEFAULT_DROPDOWN_ITEM_CLASS_NAME = "textcomplete-item"
+export const DEFAULT_DROPDOWN_ITEM_ACTIVE_CLASS_NAME = `${DEFAULT_DROPDOWN_ITEM_CLASS_NAME} active`
 
 export class Dropdown extends EventEmitter {
   private shown = false
@@ -42,7 +43,7 @@ export class Dropdown extends EventEmitter {
       {
         display: "none",
         position: "absolute",
-        zIndex: "10000",
+        zIndex: "1000",
       },
       option.style
     )
@@ -265,18 +266,16 @@ export class Dropdown extends EventEmitter {
 
       let forceTop = false
 
-      if (this.option.placement === "auto") {
-        const dropdownHeight = this.items.length * cursorOffset.lineHeight
+      const placement = this.option.placement || DEFAULT_DROPDOWN_PLACEMENT
 
-        if (
+      if (placement === "auto") {
+        const dropdownHeight = this.items.length * cursorOffset.lineHeight
+        forceTop =
           cursorOffset.clientTop != null &&
           cursorOffset.clientTop + dropdownHeight > doc.clientHeight
-        ) {
-          forceTop = true
-        }
       }
 
-      if (this.option.placement === "top" || forceTop) {
+      if (placement === "top" || forceTop) {
         this.el.style.bottom = `${
           doc.clientHeight - cursorOffset.top + cursorOffset.lineHeight
         }px`
@@ -304,7 +303,7 @@ class DropdownItem {
   ) {
     this.className = this.props.className || DEFAULT_DROPDOWN_ITEM_CLASS_NAME
     this.activeClassName =
-      this.props.activeClassName || DEFAULT_DROPDOWN_ACTIVE_ITEM_CLASS_NAME
+      this.props.activeClassName || DEFAULT_DROPDOWN_ITEM_ACTIVE_CLASS_NAME
 
     const li = document.createElement("li")
     li.className = this.active ? this.activeClassName : this.className

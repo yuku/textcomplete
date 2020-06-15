@@ -1,6 +1,6 @@
 # @textcomplete/textarea
 
-> Textcomplete editor implementation for Textarea elements.
+> Textcomplete editor for HTMLTextAreaElement.
 
 ## Install
 

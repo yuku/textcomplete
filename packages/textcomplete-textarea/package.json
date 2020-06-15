@@ -1,11 +1,11 @@
 {
   "name": "@textcomplete/textarea",
   "version": "0.0.0",
-  "description": "Textcomplete editor for Textarea elements",
+  "description": "Textcomplete editor for HTMLTextAreaElement",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "https://github.com/yuku/textcomplete",
-  "homepage": "https://github.com/yuku/textcomplete",
+  "homepage": "https://yuku.takahashi.coffee/textcomplete",
   "author": "Yuku Takahashi",
   "license": "MIT",
   "scripts": {

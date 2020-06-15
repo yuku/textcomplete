@@ -2,6 +2,7 @@ node_modules
 bower_components
 dist
 yarn.lock
+package-lock.json
 .vscode/*
 !.vscode/textcomplete.code-workspace
 docs/.cache

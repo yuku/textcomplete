@@ -7,9 +7,13 @@
     "start": "parcel index.pug"
   },
   "dependencies": {
+    "@textcomplete/codemirror": "^0.0.0",
+    "@textcomplete/core": "^0.0.0",
+    "@textcomplete/textarea": "^0.0.0",
+    "codemirror": "^5.54.0",
+    "prism-react-renderer": "^1.1.1",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "textcomplete": "^0.0.0"
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "@types/react": "^16.9.36",

@@ -13,6 +13,10 @@
       "path": "../packages/textcomplete-textarea",
     },
     {
+      "name": "codemirror",
+      "path": "../packages/textcomplete-codemirror",
+    },
+    {
       "name": "docs",
       "path": "../docs",
     },
