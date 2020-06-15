@@ -2,9 +2,10 @@
   "name": "root",
   "private": true,
   "workspaces": [
-    "docs",
     "packages/textcomplete-core",
-    "packages/textcomplete"
+    "packages/textcomplete-textarea",
+    "packages/textcomplete-codemirror",
+    "docs"
   ],
   "scripts": {
     "docs": "lerna run start --scope docs --stream --no-prefix",

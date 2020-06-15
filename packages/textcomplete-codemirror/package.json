@@ -1,7 +1,7 @@
 {
-  "name": "@textcomplete/textarea",
+  "name": "@textcomplete/codemirror",
   "version": "0.0.0",
-  "description": "Textcomplete editor for Textarea elements",
+  "description": "Textcomplete editor for CodeMirror",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "https://github.com/yuku/textcomplete",
@@ -12,11 +12,13 @@
     "build": "rm -fr dist && tsc"
   },
   "dependencies": {
-    "@types/textarea-caret": "^3.0.0",
-    "textarea-caret": "^3.1.0",
-    "undate": "^0.3.0"
+    "@types/codemirror": "^0.0.96"
+  },
+  "devDependencies": {
+    "codemirror": "^5.54"
   },
   "peerDependencies": {
+    "codemirror": "^5.54",
     "@textcomplete/core": "^0.0.0"
   }
 }

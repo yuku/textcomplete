@@ -4,7 +4,7 @@ import { Editor, CursorOffset, SearchResult } from "@textcomplete/core"
 
 import { calculateElementOffset, getLineHeightPx } from "./utils"
 
-export class Textarea extends Editor {
+export class TextareaEditor extends Editor {
   constructor(private readonly el: HTMLTextAreaElement) {
     super()
     this.startListening()
