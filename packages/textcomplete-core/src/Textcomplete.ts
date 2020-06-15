@@ -115,6 +115,12 @@ export class Textcomplete extends EventEmitter {
     }
   }
 
+  private handleResize = (): void => {
+    if (this.dropdown.isShown()) {
+      this.dropdown.setOffset(this.editor.getCursorOffset())
+    }
+  }
+
   private startListening() {
     this.editor
       .on("move", this.handleMove)
@@ -126,9 +132,17 @@ export class Textcomplete extends EventEmitter {
       this.dropdown.on(eventName, (e) => this.emit(eventName, e))
     }
     this.completer.on("hit", this.handleHit)
+    this.dropdown.el.ownerDocument.defaultView?.addEventListener(
+      "resize",
+      this.handleResize
+    )
   }
 
   private stopListening() {
+    this.dropdown.el.ownerDocument.defaultView?.removeEventListener(
+      "resize",
+      this.handleResize
+    )
     this.completer.removeAllListeners()
     this.dropdown.removeAllListeners()
     this.editor

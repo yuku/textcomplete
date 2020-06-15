@@ -199,6 +199,47 @@ export class Dropdown extends EventEmitter {
     return this.activeIndex != null ? this.items[this.activeIndex] : null
   }
 
+  setOffset(cursorOffset: CursorOffset): this {
+    const doc = document.documentElement
+    if (doc) {
+      const elementWidth = this.el.offsetWidth
+      if (cursorOffset.left) {
+        const browserWidth = doc.clientWidth
+        if (cursorOffset.left + elementWidth > browserWidth) {
+          cursorOffset.left = browserWidth - elementWidth
+        }
+        this.el.style.left = `${cursorOffset.left}px`
+      } else if (cursorOffset.right) {
+        if (cursorOffset.right - elementWidth < 0) {
+          cursorOffset.right = 0
+        }
+        this.el.style.right = `${cursorOffset.right}px`
+      }
+
+      let forceTop = false
+
+      const placement = this.option.placement || DEFAULT_DROPDOWN_PLACEMENT
+
+      if (placement === "auto") {
+        const dropdownHeight = this.items.length * cursorOffset.lineHeight
+        forceTop =
+          cursorOffset.clientTop != null &&
+          cursorOffset.clientTop + dropdownHeight > doc.clientHeight
+      }
+
+      if (placement === "top" || forceTop) {
+        this.el.style.bottom = `${
+          doc.clientHeight - cursorOffset.top + cursorOffset.lineHeight
+        }px`
+        this.el.style.top = "auto"
+      } else {
+        this.el.style.top = `${cursorOffset.top}px`
+        this.el.style.bottom = "auto"
+      }
+    }
+    return this
+  }
+
   private getNextActiveIndex(): number | null {
     if (this.activeIndex == null) throw new Error()
     return this.activeIndex < this.items.length - 1
@@ -244,47 +285,6 @@ export class Dropdown extends EventEmitter {
         ? option(searchResults.map((s) => s.data))
         : option || ""
     this.el.appendChild(li)
-    return this
-  }
-
-  private setOffset(cursorOffset: CursorOffset): this {
-    const doc = document.documentElement
-    if (doc) {
-      const elementWidth = this.el.offsetWidth
-      if (cursorOffset.left) {
-        const browserWidth = doc.clientWidth
-        if (cursorOffset.left + elementWidth > browserWidth) {
-          cursorOffset.left = browserWidth - elementWidth
-        }
-        this.el.style.left = `${cursorOffset.left}px`
-      } else if (cursorOffset.right) {
-        if (cursorOffset.right - elementWidth < 0) {
-          cursorOffset.right = 0
-        }
-        this.el.style.right = `${cursorOffset.right}px`
-      }
-
-      let forceTop = false
-
-      const placement = this.option.placement || DEFAULT_DROPDOWN_PLACEMENT
-
-      if (placement === "auto") {
-        const dropdownHeight = this.items.length * cursorOffset.lineHeight
-        forceTop =
-          cursorOffset.clientTop != null &&
-          cursorOffset.clientTop + dropdownHeight > doc.clientHeight
-      }
-
-      if (placement === "top" || forceTop) {
-        this.el.style.bottom = `${
-          doc.clientHeight - cursorOffset.top + cursorOffset.lineHeight
-        }px`
-        this.el.style.top = "auto"
-      } else {
-        this.el.style.top = `${cursorOffset.top}px`
-        this.el.style.bottom = "auto"
-      }
-    }
     return this
   }
 }
