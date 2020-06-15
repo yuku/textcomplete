@@ -10,7 +10,6 @@ import {
 import { DEFAULT_INDEX } from "../../packages/textcomplete-core/src/Strategy"
 
 import { Code } from "../components/Code"
-import { Section } from "../components/Section"
 
 interface Props {
   id: string
@@ -127,7 +126,8 @@ const SAMPLE_OPTION = `
 `
 
 export const Usage: FC<Props> = ({ id }) => (
-  <Section id={id} title="Usage">
+  <section>
+    <h1 id={id}>Usage</h1>
     <Code code="npm install --save @textcomplete/core" language="bash" />
     <p>
       You also need to install an <a href="#editors">editor</a> package. An
@@ -139,117 +139,126 @@ export const Usage: FC<Props> = ({ id }) => (
       with an editor:
     </p>
     <Code code={INITIALIZE_CODE} language="javascript" />
-    <h3>How it works</h3>
-    <ol>
-      <li>(An input event is triggered to the underlying HTML element.)</li>
-      <li>
-        The <code>editor</code> emits a change event.
-      </li>
-      <li>
-        For each registered strategy:
-        <ol>
-          <li>[Context phase] Test context (Optional).</li>
-          <li>
-            [Match phase] Try extracting a search term. If it fails, continue to
-            the next strategy.
-          </li>
-          <li>
-            [Search phase] Gather candidates using the search term. The way how
-            to gather them is completely up to you.
-          </li>
-          <li>[Render phase] Show a dropdown UI rendering the candidates.</li>
-        </ol>
-      </li>
-      <li>
-        When user selects a dropdown item by either clicking it or pushing an
-        enter key, the <code>editor</code>&apos;s value is updated.
-      </li>
-    </ol>
-    <h3 id="strategy">Strategy</h3>
-    <p>
-      A <code>strategy</code> object represents a rule of autocompletion. The{" "}
-      <code>match</code>, <code>search</code> and <code>replace</code> keys are
-      required.
-    </p>
-    <Code code={SAMPLE_STRATEGY} language="typescript" />
-    <h3 id="strategy">Option</h3>
-    <p>
-      An <code>option</code> object affects rest of behavior.
-    </p>
-    <Code code={SAMPLE_OPTION} language="typescript" />
-    <h3 id="events">Events</h3>
-    <p>
-      Textcomplete provides custom events for most actions. Generally, these
-      come in an infinitive and past participle form - where the infinitive (ex.{" "}
-      <code>show</code>) is triggered at the start of an event, and its past
-      participle form (ex. <code>shown</code>) is triggered on the completion of
-      an action.
-    </p>
-    <p>
-      An infinitive events provide <code>preventDefault</code> functionality.
-      This provides the ability to stop the execution of an action before it
-      starts.
-    </p>
-    <table>
-      <thead>
-        <tr>
-          <th style={{ minWidth: "100px" }}>Event Type</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>show</td>
-          <td>Fired immediately when the dropdown is going to be shown.</td>
-        </tr>
-        <tr>
-          <td>shown</td>
-          <td>
-            Fired when the dropdown has been made visible to the user (will wait
-            for CSS transitions to complete).
-          </td>
-        </tr>
-        <tr>
-          <td>render</td>
-          <td>
-            Fired immediately when dropdown items are goint to be visible to the
-            user.
-          </td>
-        </tr>
-        <tr>
-          <td>rendered</td>
-          <td>
-            Fired when the dropdown items have been visible to the user (will
-            wait for CSS transitions to complete).
-          </td>
-        </tr>
-        <tr>
-          <td>select</td>
-          <td>Fired immediately when a dropdown item is selected.</td>
-        </tr>
-        <tr>
-          <td>selected</td>
-          <td>
-            Fired when the selected dropdown item was applied to the editor
-            (will wait for CSS transitions to complete).
-          </td>
-        </tr>
-        <tr>
-          <td>hide</td>
-          <td>Fired immediately when the dropdown is going to be hidden.</td>
-        </tr>
-        <tr>
-          <td>hidden</td>
-          <td>
-            Fired when the dropdown has finished being hidden from the user
-            (will wait for CSS transitions to complete).
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <p>
-      The native <code>input</code> event is dispatched to the textarea element
-      when its value is changed because a search result has been selected.
-    </p>
-  </Section>
+    <section>
+      <h2>How it works</h2>
+      <ol>
+        <li>(An input event is triggered to the underlying HTML element.)</li>
+        <li>
+          The <code>editor</code> emits a change event.
+        </li>
+        <li>
+          For each registered strategy:
+          <ol>
+            <li>[Context phase] Test context (Optional).</li>
+            <li>
+              [Match phase] Try extracting a search term. If it fails, continue
+              to the next strategy.
+            </li>
+            <li>
+              [Search phase] Gather candidates using the search term. The way
+              how to gather them is completely up to you.
+            </li>
+            <li>[Render phase] Show a dropdown UI rendering the candidates.</li>
+          </ol>
+        </li>
+        <li>
+          When user selects a dropdown item by either clicking it or pushing an
+          enter key, the <code>editor</code>&apos;s value is updated.
+        </li>
+      </ol>
+    </section>
+    <section>
+      <h2 id="strategy">Strategy</h2>
+      <p>
+        A <code>strategy</code> object represents a rule of autocompletion. The{" "}
+        <code>match</code>, <code>search</code> and <code>replace</code> keys
+        are required.
+      </p>
+      <Code code={SAMPLE_STRATEGY} language="typescript" />
+    </section>
+    <section>
+      <h2 id="strategy">Option</h2>
+      <p>
+        An <code>option</code> object affects rest of behavior.
+      </p>
+      <Code code={SAMPLE_OPTION} language="typescript" />
+    </section>
+    <section>
+      <h2 id="events">Events</h2>
+      <p>
+        Textcomplete provides custom events for most actions. Generally, these
+        come in an infinitive and past participle form - where the infinitive
+        (ex. <code>show</code>) is triggered at the start of an event, and its
+        past participle form (ex. <code>shown</code>) is triggered on the
+        completion of an action.
+      </p>
+      <p>
+        An infinitive events provide <code>preventDefault</code> functionality.
+        This provides the ability to stop the execution of an action before it
+        starts.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th style={{ minWidth: "100px" }}>Event Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>show</td>
+            <td>Fired immediately when the dropdown is going to be shown.</td>
+          </tr>
+          <tr>
+            <td>shown</td>
+            <td>
+              Fired when the dropdown has been made visible to the user (will
+              wait for CSS transitions to complete).
+            </td>
+          </tr>
+          <tr>
+            <td>render</td>
+            <td>
+              Fired immediately when dropdown items are goint to be visible to
+              the user.
+            </td>
+          </tr>
+          <tr>
+            <td>rendered</td>
+            <td>
+              Fired when the dropdown items have been visible to the user (will
+              wait for CSS transitions to complete).
+            </td>
+          </tr>
+          <tr>
+            <td>select</td>
+            <td>Fired immediately when a dropdown item is selected.</td>
+          </tr>
+          <tr>
+            <td>selected</td>
+            <td>
+              Fired when the selected dropdown item was applied to the editor
+              (will wait for CSS transitions to complete).
+            </td>
+          </tr>
+          <tr>
+            <td>hide</td>
+            <td>Fired immediately when the dropdown is going to be hidden.</td>
+          </tr>
+          <tr>
+            <td>hidden</td>
+            <td>
+              Fired when the dropdown has finished being hidden from the user
+              (will wait for CSS transitions to complete).
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p>
+        The native <code>input</code> event is dispatched to the textarea
+        element when its value is changed because a search result has been
+        selected.
+      </p>
+    </section>
+  </section>
 )

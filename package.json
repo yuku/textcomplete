@@ -2,13 +2,15 @@
   "name": "root",
   "private": true,
   "workspaces": [
-    "packages/textcomplete-core",
-    "packages/textcomplete-textarea",
-    "packages/textcomplete-codemirror",
+    "packages/textcomplete-*",
     "docs"
   ],
   "scripts": {
-    "docs": "lerna run start --scope docs --stream --no-prefix"
+    "build": "lerna run build",
+    "docs": "run-s build start",
+    "lint": "lerna run lint --parallel",
+    "start": "lerna run start --scope docs --stream --no-prefix",
+    "test": "lerna run test --parallel"
   },
   "devDependencies": {
     "lerna": "^3.22.1",

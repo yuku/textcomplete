@@ -18,7 +18,6 @@ Name                     | Description
 
 ```bash
 yarn install
-yarn lerna run build
 yarn lerna bootstrap
 yarn docs
 ```

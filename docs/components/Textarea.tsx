@@ -44,7 +44,7 @@ export const Textarea: FC<Props> = (props) => {
       if (triggerImmediately) {
         const value = ref.current.value
         ref.current.setSelectionRange(value.length, value.length)
-        textcomplete.trigger(value)
+        textcomplete.trigger(editor.getBeforeCursor())
       }
       return () => {
         textcomplete.destroy()

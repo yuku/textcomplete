@@ -1,8 +1,7 @@
 import { update } from "undate"
 import getCaretCoordinates from "textarea-caret"
 import { Editor, CursorOffset, SearchResult } from "@textcomplete/core"
-
-import { calculateElementOffset, getLineHeightPx } from "./utils"
+import { calculateElementOffset, getLineHeightPx } from "@textcomplete/utils"
 
 export class TextareaEditor extends Editor {
   constructor(private readonly el: HTMLTextAreaElement) {

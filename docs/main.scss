@@ -36,3 +36,16 @@ $border-color: #ddd;
     }
   }
 }
+
+section {
+  margin-bottom: 3rem;
+}
+
+h1 {
+  padding-bottom: .5rem;
+  border-bottom: 1px solid $border-color;
+}
+
+h2 {
+  border: none;
+}

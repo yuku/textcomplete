@@ -13,6 +13,10 @@
       "path": "../packages/textcomplete-textarea",
     },
     {
+      "name": "contenteditable",
+      "path": "../packages/textcomplete-contenteditable",
+    },
+    {
       "name": "codemirror",
       "path": "../packages/textcomplete-codemirror",
     },

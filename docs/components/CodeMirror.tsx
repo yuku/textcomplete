@@ -36,7 +36,7 @@ export const CodeMirror: FC<Props> = (props) => {
       const textcomplete = new Textcomplete(editor, strategies, option)
       if (triggerImmediately) {
         cm.setCursor(0, cm.getValue().length)
-        textcomplete.trigger(cm.getValue())
+        textcomplete.trigger(editor.getBeforeCursor())
       }
       return () => {
         textcomplete.destroy()

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@textcomplete/codemirror": "^0.0.0",
+    "@textcomplete/contenteditable": "^0.0.0",
     "@textcomplete/core": "^0.0.0",
     "@textcomplete/textarea": "^0.0.0",
     "codemirror": "^5.54.0",

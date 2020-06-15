@@ -8,6 +8,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - run: yarn install --no-lockfile && yarn lerna bootstrap
-      - run: yarn lerna run lint --parallel
-      - run: yarn lerna run test --parallel
+      - run: yarn install --no-lockfile
+      - run: yarn lerna bootstrap
+      - run: yarn build
+      - run: yarn lint
+      - run: yarn test
