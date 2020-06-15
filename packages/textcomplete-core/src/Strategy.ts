@@ -18,7 +18,7 @@ export interface StrategyProps<T = unknown> {
   id?: string
 }
 
-export const DEFAULT_INDEX = 2
+export const DEFAULT_INDEX = 1
 
 export class Strategy<T> {
   private cache: Record<string, T[]> = {}

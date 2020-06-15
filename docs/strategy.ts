@@ -8,7 +8,6 @@ const INLINECODE = /`/g
 export const EMOJI_STRATEGY: StrategyProps = {
   id: "emoji",
   match: /\B:([\-+\w]*)$/,
-  index: 1,
   search: async (term, callback) => {
     callback(await startsWith(term))
   },
