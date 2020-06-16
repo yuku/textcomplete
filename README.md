@@ -1,6 +1,6 @@
 # Textcomplete
 
-> Autocomplete for textarea elements
+> Autocomplete for HTMLTextAreaElement and more.
 
 ![](./docs/images/demo.gif)
 
@@ -9,11 +9,11 @@
 Textcomplete consists of subpackages:
 
 Name                          | Description
-------------------------------|-------------------------------
+------------------------------|-------------------------------------------
 @textcomplete/core            | Core of Textcomplete.
-@textcomplete/textarea        | Editor for Textarea elements.
-@textcomplete/contenteditable | Editor for contenteditable.
-@textcomplete/codemirror      | Editor for CodeMirror.
+@textcomplete/textarea        | Editor for HTMLTextAreaEleemnt.
+@textcomplete/contenteditable | Editor for contenteditable. (Experimental)
+@textcomplete/codemirror      | Editor for CodeMirror. (Experimental)
 @textcomplete/utils           | Utility functions for editors.
 
 ## Development

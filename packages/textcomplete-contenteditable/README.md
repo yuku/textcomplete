@@ -1,3 +1,3 @@
 # @textcomplete/contenteditable
 
-> Textcomplete editor for contenteditable
+> Textcomplete editor for contenteditable. (Experimental)

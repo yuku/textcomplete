@@ -1,3 +1,3 @@
 # @textcomplete/codemirror
 
-> Textcomplete editor for CodeMirror.
+> Textcomplete editor for CodeMirror. (Experimental)
