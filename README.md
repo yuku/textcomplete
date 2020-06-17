@@ -27,3 +27,16 @@ yarn docs
 ```
 
 then open http://localhost:1234.
+
+### Release
+
+```bash
+yarn lerna version
+yarn browse-tag
+```
+
+then create a release for the shown tag.
+
+## License
+
+&copy; Yuku Takahashi- This software is licensed under the MTI license.

@@ -6,6 +6,7 @@
     "docs"
   ],
   "scripts": {
+    "browse-tag": "open https://github.com/yuku/textcomplete/releases/tag/v$(node -p 'require(\"./lerna.json\").version')",
     "build": "lerna run build",
     "build:packages": "lerna run build --ignore docs",
     "docs": "run-s build:packages start",
