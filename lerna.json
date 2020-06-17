@@ -1,10 +1,13 @@
 {
-  "version": "0.0.0",
+  "version": "0.1.0",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
     "version": {
-      "ignoreChanges": ["docs", "*.md"],
+      "ignoreChanges": [
+        "docs",
+        "*.md"
+      ],
       "allowBransh": "master"
     }
   },
