@@ -1,0 +1,19 @@
+name: Publish
+on:
+  release:
+    types: [created]
+env:
+  CI: true
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+          registry-url: https://registry.npmjs.org
+      - run: yarn install --no-lockfile
+      - run: yarn lerna publish from-git --yes --no-push --no-git-tag-version
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
