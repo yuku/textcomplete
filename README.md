@@ -39,4 +39,4 @@ then create a release for the shown tag.
 
 ## License
 
-&copy; Yuku Takahashi- This software is licensed under the MTI license.
+&copy; Yuku Takahashi - This software is licensed under the MIT license.
