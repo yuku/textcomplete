@@ -6,3 +6,4 @@ package-lock.json
 .vscode/*
 !.vscode/textcomplete.code-workspace
 docs/.cache
+lerna-debug.log

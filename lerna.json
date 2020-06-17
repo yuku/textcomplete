@@ -3,8 +3,9 @@
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
-    "publish": {
-      "ignoreChanges": ["docs", "*.md"]
+    "version": {
+      "ignoreChanges": ["docs", "*.md"],
+      "allowBransh": "master"
     }
   },
   "packages": [
