@@ -1,6 +1,11 @@
 import { update } from "undate"
 import getCaretCoordinates from "textarea-caret"
-import { Editor, CursorOffset, SearchResult } from "@textcomplete/core"
+import {
+  Editor,
+  CursorOffset,
+  SearchResult,
+  createCustomEvent,
+} from "@textcomplete/core"
 import { calculateElementOffset, getLineHeightPx } from "@textcomplete/utils"
 
 export class TextareaEditor extends Editor {
@@ -25,7 +30,9 @@ export class TextareaEditor extends Editor {
       this.el.focus() // Clicking a dropdown item removes focus from the element.
       if (Array.isArray(replace)) {
         update(this.el, replace[0], replace[1])
-        if (this.el) this.el.dispatchEvent(new Event("input"))
+        if (this.el) {
+          this.el.dispatchEvent(createCustomEvent("input"))
+        }
       }
     }
   }
