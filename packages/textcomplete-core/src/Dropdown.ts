@@ -314,7 +314,6 @@ class DropdownItem {
     li.appendChild(span)
 
     li.addEventListener("mousedown", this.onClick)
-    li.addEventListener("mouseover", this.onMouseover)
     li.addEventListener("touchstart", this.onClick)
 
     this.el = li
@@ -324,7 +323,6 @@ class DropdownItem {
     const li = this.el
     li.parentNode?.removeChild(li)
     li.removeEventListener("mousedown", this.onClick, false)
-    li.removeEventListener("mouseover", this.onMouseover, false)
     li.removeEventListener("touchstart", this.onClick, false)
     return this
   }
@@ -349,9 +347,5 @@ class DropdownItem {
   private onClick = (e: MouseEvent | TouchEvent): void => {
     e.preventDefault()
     this.dropdown.select(this)
-  }
-
-  private onMouseover = (): void => {
-    this.dropdown.activate(this.index)
   }
 }
