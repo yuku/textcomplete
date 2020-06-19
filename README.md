@@ -31,8 +31,7 @@ then open http://localhost:1234.
 ### Release
 
 ```bash
-yarn lerna version
-yarn browse-tag
+yarn release
 ```
 
 then create a release for the shown tag.

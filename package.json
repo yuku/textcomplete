@@ -11,6 +11,7 @@
     "build:packages": "lerna run build --ignore docs",
     "docs": "run-s build:packages start",
     "lint": "lerna run lint --parallel",
+    "release": "lerna bootstrap && yarn build:packages && lerna version && yarn browse-tag",
     "start": "lerna run start --scope docs --stream --no-prefix",
     "test": "lerna run test --parallel"
   },
