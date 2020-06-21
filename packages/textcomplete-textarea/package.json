@@ -23,7 +23,7 @@
     "undate": "^0.3.0"
   },
   "devDependencies": {
-    "@textcomplete/core": "^0.0.0",
+    "@textcomplete/core": "^0.1.2",
     "@typescript-eslint/eslint-plugin": "^3.2.0",
     "@typescript-eslint/parser": "^3.2.0",
     "eslint": "^7.2.0",
@@ -33,7 +33,7 @@
     "typescript": "^3.9.5"
   },
   "peerDependencies": {
-    "@textcomplete/core": "^0.0.0"
+    "@textcomplete/core": "^0.1.2"
   },
   "publishConfig": {
     "access": "public"

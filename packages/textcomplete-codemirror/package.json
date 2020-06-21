@@ -30,7 +30,7 @@
     "typescript": "^3.9.5"
   },
   "peerDependencies": {
-    "@textcomplete/core": "^0.0.0",
+    "@textcomplete/core": "^0.1.2",
     "codemirror": "^5.54"
   },
   "publishConfig": {
