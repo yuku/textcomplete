@@ -1,6 +1,6 @@
 {
   "name": "@textcomplete/textarea",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Textcomplete editor for HTMLTextAreaElement",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,14 +16,14 @@
     "lint": "eslint 'src/**/*.ts'"
   },
   "dependencies": {
-    "@textcomplete/core": "^0.1.2",
-    "@textcomplete/utils": "^0.1.2",
+    "@textcomplete/core": "^0.1.3",
+    "@textcomplete/utils": "^0.1.3",
     "@types/textarea-caret": "^3.0.0",
     "textarea-caret": "^3.1.0",
     "undate": "^0.3.0"
   },
   "devDependencies": {
-    "@textcomplete/core": "^0.1.2",
+    "@textcomplete/core": "^0.1.3",
     "@typescript-eslint/eslint-plugin": "^3.2.0",
     "@typescript-eslint/parser": "^3.2.0",
     "eslint": "^7.2.0",
@@ -33,7 +33,7 @@
     "typescript": "^3.9.5"
   },
   "peerDependencies": {
-    "@textcomplete/core": "^0.1.2"
+    "@textcomplete/core": "^0.1.3"
   },
   "publishConfig": {
     "access": "public"
