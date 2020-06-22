@@ -51,7 +51,7 @@ export const App: FC = () => {
         <p>
           <small>
             &copy; Yuku Takahashi {CURRENT_YEAR} - This software is licensed
-            under the MTI license
+            under the MIT license
           </small>
         </p>
       </footer>

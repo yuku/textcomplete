@@ -2,7 +2,13 @@
 
 > Autocomplete for HTMLTextAreaElement and more.
 
+![Publish](https://github.com/yuku/textcomplete/workflows/Publish/badge.svg)
+![Test](https://github.com/yuku/textcomplete/workflows/Test/badge.svg)
+![GitHub pages](https://github.com/yuku/textcomplete/workflows/GitHub%20pages/badge.svg)
+
 ![](./docs/images/demo.gif)
+
+[Document](https://yuku.takahashi.coffee/textcomplete/).
 
 ## Packages
 
