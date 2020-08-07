@@ -1,6 +1,6 @@
 import { SearchResult } from "./SearchResult"
 
-type SearchCallback<T> = (results: T[]) => void
+export type SearchCallback<T> = (results: T[]) => void
 type ReplaceResult = [string, string] | string | null
 
 export interface StrategyProps<T = unknown> {
