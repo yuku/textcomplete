@@ -3,7 +3,8 @@ import { SearchResult } from "./SearchResult"
 export type SearchCallback<T> = (results: T[]) => void
 type ReplaceResult = [string, string] | string | null
 
-export interface StrategyProps<T = unknown> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface StrategyProps<T = any> {
   match: RegExp | ((regexp: string | RegExp) => RegExpMatchArray | null)
   search: (
     term: string,
