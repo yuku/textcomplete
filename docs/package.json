@@ -1,7 +1,7 @@
 {
   "name": "docs",
   "private": true,
-  "version": "0.1.5",
+  "version": "0.1.6",
   "scripts": {
     "build": "rm -fr dist cache && parcel build index.pug --public-url /textcomplete",
     "format:eslint": "eslint --fix '**/*.ts' '**/*.tsx'",
@@ -11,10 +11,10 @@
     "start": "parcel index.pug"
   },
   "dependencies": {
-    "@textcomplete/codemirror": "^0.1.5",
-    "@textcomplete/contenteditable": "^0.1.5",
-    "@textcomplete/core": "^0.1.5",
-    "@textcomplete/textarea": "^0.1.5",
+    "@textcomplete/codemirror": "^0.1.6",
+    "@textcomplete/contenteditable": "^0.1.6",
+    "@textcomplete/core": "^0.1.6",
+    "@textcomplete/textarea": "^0.1.6",
     "codemirror": "^5.54.0",
     "prism-react-renderer": "^1.1.1",
     "react": "^16.13.1",
