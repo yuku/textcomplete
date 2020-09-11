@@ -1,6 +1,6 @@
 {
   "name": "@textcomplete/textarea",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Textcomplete editor for HTMLTextAreaElement",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,8 +16,8 @@
     "lint": "eslint 'src/**/*.ts'"
   },
   "dependencies": {
-    "@textcomplete/core": "^0.1.5",
-    "@textcomplete/utils": "^0.1.5",
+    "@textcomplete/core": "^0.1.6",
+    "@textcomplete/utils": "^0.1.6",
     "@types/textarea-caret": "^3.0.0",
     "textarea-caret": "^3.1.0",
     "undate": "^0.3.0"
