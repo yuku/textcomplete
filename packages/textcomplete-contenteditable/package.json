@@ -1,6 +1,6 @@
 {
   "name": "@textcomplete/contenteditable",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Textcomplete editor for contenteditable",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,10 +16,10 @@
     "lint": "eslint 'src/**/*.ts'"
   },
   "dependencies": {
-    "@textcomplete/utils": "^0.1.6"
+    "@textcomplete/utils": "^0.1.7"
   },
   "devDependencies": {
-    "@textcomplete/core": "^0.1.6",
+    "@textcomplete/core": "^0.1.7",
     "@typescript-eslint/eslint-plugin": "^3.2.0",
     "@typescript-eslint/parser": "^3.2.0",
     "eslint": "^7.2.0",
