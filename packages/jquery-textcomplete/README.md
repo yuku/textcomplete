@@ -29,7 +29,7 @@ $('textarea').textcomplete([{
 
 ## Documents
 
-See [doc](https://github.com/yuku-t/jquery-textcomplete/tree/master/doc) dir.
+See [doc](https://github.com/yuku/textcomplete/tree/main/packages/jquery-textcomplete/doc) dir.
 
 ## License
 
