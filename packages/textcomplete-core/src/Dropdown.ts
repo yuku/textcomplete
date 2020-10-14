@@ -78,14 +78,7 @@ export class Dropdown extends EventEmitter {
     this.items = searchResults
       .slice(0, this.option.maxCount || DEFAULT_DROPDOWN_MAX_COUNT)
       .map(
-        (r, index) =>
-          new DropdownItem(
-            this,
-            index,
-            r,
-            this.option?.item || {},
-            this.activate.bind(this, index)
-          )
+        (r, index) => new DropdownItem(this, index, r, this.option?.item || {})
       )
     this.setStrategyId(searchResults[0])
       .renderEdge(searchResults, "header")
@@ -190,15 +183,12 @@ export class Dropdown extends EventEmitter {
 
   activate(index: number): this {
     if (this.activeIndex !== index) {
-      this.deactivateAll()
+      if (this.activeIndex != null) {
+        this.items[this.activeIndex].deactivate()
+      }
       this.activeIndex = index
       this.items[index].activate()
     }
-    return this
-  }
-
-  deactivateAll(): this {
-    this.items.forEach((i) => i.deactivate())
     return this
   }
 
@@ -312,8 +302,7 @@ class DropdownItem {
     private readonly dropdown: Dropdown,
     private readonly index: number,
     public readonly searchResult: SearchResult<unknown>,
-    private readonly props: DropdownItemOption,
-    private readonly activationHandler: any
+    private readonly props: DropdownItemOption
   ) {
     this.className = this.props.className || DEFAULT_DROPDOWN_ITEM_CLASS_NAME
     this.activeClassName =
@@ -329,7 +318,6 @@ class DropdownItem {
 
     li.addEventListener("mousedown", this.onClick)
     li.addEventListener("touchstart", this.onClick)
-    li.addEventListener("mouseenter", activationHandler)
 
     this.el = li
   }
