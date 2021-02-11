@@ -41,7 +41,7 @@ export class Strategy<T> {
   ): boolean {
     const match = this.matchWithContext(beforeCursor)
     if (!match) return false
-    const term = match[this.props.index || DEFAULT_INDEX]
+    const term = match[this.props.index ?? DEFAULT_INDEX]
     this.search(
       term,
       (results: T[]) => {
