@@ -8,7 +8,7 @@
 ## Install
 
 ```bash
-npm install --save @textcomplete/core @texttcomplete/contenteditable
+npm install --save @textcomplete/core @textcomplete/contenteditable
 ```
 
 ## Synopsis

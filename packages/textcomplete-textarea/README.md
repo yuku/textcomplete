@@ -7,7 +7,7 @@
 ## Install
 
 ```bash
-npm install --save @textcomplete/core @texttcomplete/textarea
+npm install --save @textcomplete/core @textcomplete/textarea
 ```
 
 ## Synopsis

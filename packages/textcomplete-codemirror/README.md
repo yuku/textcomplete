@@ -7,7 +7,7 @@
 ## Install
 
 ```bash
-npm install --save @textcomplete/core @texttcomplete/codemirror codemirror
+npm install --save @textcomplete/core @textcomplete/codemirror codemirror
 ```
 
 ## Synopsis
