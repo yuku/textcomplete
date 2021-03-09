@@ -16,14 +16,13 @@
     "lint": "eslint 'src/**/*.ts'"
   },
   "dependencies": {
-    "@textcomplete/core": "^0.1.9",
     "@textcomplete/utils": "^0.1.9",
     "@types/textarea-caret": "^3.0.0",
     "textarea-caret": "^3.1.0",
     "undate": "^0.3.0"
   },
   "devDependencies": {
-    "@textcomplete/core": "^0.1.3",
+    "@textcomplete/core": "^0.1.9",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
     "@typescript-eslint/parser": "^4.17.0",
     "eslint": "^7.21.0",
@@ -33,7 +32,7 @@
     "typescript": "^4.2.3"
   },
   "peerDependencies": {
-    "@textcomplete/core": "^0.1.3"
+    "@textcomplete/core": "^0.1.9"
   },
   "publishConfig": {
     "access": "public"
