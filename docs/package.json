@@ -31,7 +31,7 @@
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.4",
     "lerna": "^4.0.0",
-    "parcel-bundler": "^1.12.4",
+    "parcel-bundler": "1.12.3",
     "prettier": "^2.0.5",
     "pug": "^3.0.2",
     "sass": "^1.32.8"
