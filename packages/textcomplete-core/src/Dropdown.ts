@@ -36,7 +36,7 @@ export class Dropdown extends EventEmitter {
   private items: DropdownItem[] = []
   private activeIndex: number | null = null
 
-  static create<T>(option: DropdownOption): Dropdown {
+  static create(option: DropdownOption): Dropdown {
     const ul = document.createElement("ul")
     ul.className = option.className || DEFAULT_DROPDOWN_CLASS_NAME
     Object.assign(
