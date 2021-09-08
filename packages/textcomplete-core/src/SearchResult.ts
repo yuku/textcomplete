@@ -10,23 +10,46 @@ export class SearchResult<T = unknown> {
     private readonly strategy: Strategy<T>
   ) {}
 
-  replace(beforeCursor: string, afterCursor: string): [string, string] | void {
+  getReplacementData(beforeCursor: string): {
+    start: number
+    end: number
+    beforeCursor: string
+    afterCursor: string
+  } | null {
     let result = this.strategy.replace(this.data)
-    if (result == null) return
+    if (result == null) return null
+
+    let afterCursor = ""
     if (Array.isArray(result)) {
-      afterCursor = result[1] + afterCursor
+      afterCursor = result[1]
       result = result[0]
     }
     const match = this.strategy.match(beforeCursor)
-    if (match == null || match.index == null) return
+    if (match == null || match.index == null) return null
     const replacement = result
       .replace(MAIN, match[0])
       .replace(PLACE, (_, p) => match[parseInt(p)])
+
+    return {
+      start: match.index,
+      end: match.index + match[0].length,
+      beforeCursor: replacement,
+      afterCursor: afterCursor,
+    }
+  }
+
+  replace(beforeCursor: string, afterCursor: string): [string, string] | void {
+    const replacement = this.getReplacementData(beforeCursor)
+
+    if (replacement === null) return
+
+    afterCursor = replacement.afterCursor + afterCursor
+
     return [
       [
-        beforeCursor.slice(0, match.index),
-        replacement,
-        beforeCursor.slice(match.index + match[0].length),
+        beforeCursor.slice(0, replacement.start),
+        replacement.beforeCursor,
+        beforeCursor.slice(replacement.end),
       ].join(""),
       afterCursor,
     ]
