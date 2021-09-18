@@ -15,11 +15,9 @@
     "format": "run-s format:eslint format:prettier",
     "lint": "eslint 'src/**/*.ts'"
   },
-  "dependencies": {
-    "@types/codemirror": "^0.0.96"
-  },
   "devDependencies": {
     "@textcomplete/core": "^0.1.9",
+    "@types/codemirror": "^0.0.96",
     "codemirror": "^5.54"
   },
   "peerDependencies": {
