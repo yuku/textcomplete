@@ -17,8 +17,8 @@
     "@textcomplete/textarea": "^0.1.9",
     "codemirror": "^5.54.0",
     "prism-react-renderer": "^1.1.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@types/react": "^17.0.3",
@@ -26,7 +26,7 @@
     "eslint": "^7.21.0",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.4",
-    "parcel-bundler": "1.12.3",
+    "parcel-bundler": "1.12.5",
     "pug": "^3.0.2",
     "sass": "^1.32.8"
   }
