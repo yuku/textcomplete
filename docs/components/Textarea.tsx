@@ -26,13 +26,8 @@ const DEFAULT_STYLE: CSSProperties = {
 }
 
 export const Textarea: FC<Props> = (props) => {
-  const {
-    strategies,
-    triggerImmediately,
-    option,
-    focus,
-    ...passthrough
-  } = props
+  const { strategies, triggerImmediately, option, focus, ...passthrough } =
+    props
   const ref = useRef<HTMLTextAreaElement>(null)
   useEffect(() => {
     if (ref.current) {

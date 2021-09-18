@@ -47,9 +47,9 @@ export class ContenteditableEditor extends Editor {
 
     const docRects = this.el.ownerDocument.body.getBoundingClientRect()
     const container = range.startContainer
-    const el = (container instanceof Text
-      ? container.parentElement
-      : container) as HTMLElement
+    const el = (
+      container instanceof Text ? container.parentElement : container
+    ) as HTMLElement
 
     const left = rangeRects.left
     const lineHeight = getLineHeightPx(el)
