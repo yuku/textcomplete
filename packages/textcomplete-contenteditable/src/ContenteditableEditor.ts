@@ -4,7 +4,6 @@ import { isSafari, getLineHeightPx } from "@textcomplete/utils"
 export class ContenteditableEditor extends Editor {
   constructor(public readonly el: HTMLElement) {
     super()
-    if (isSafari()) return
     this.startListening()
   }
 
@@ -23,16 +22,18 @@ export class ContenteditableEditor extends Editor {
     if (before != null && after != null) {
       const replace = searchResult.replace(before, after)
       if (Array.isArray(replace)) {
+        let beforeCursor = replace[0]
+        if (isSafari()) beforeCursor = beforeCursor.replace(before, "")
         const range = this.getRange()
         range.selectNode(range.startContainer)
         this.el.ownerDocument.execCommand(
           "insertText",
           false,
-          replace[0] + replace[1]
+          beforeCursor + replace[1]
         )
         range.detach()
         const newRange = this.getRange()
-        newRange.setStart(newRange.startContainer, replace[0].length)
+        newRange.setStart(newRange.startContainer, beforeCursor.length)
         newRange.collapse(true)
       }
     }
