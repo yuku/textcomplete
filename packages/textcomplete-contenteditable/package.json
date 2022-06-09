@@ -1,6 +1,6 @@
 {
   "name": "@textcomplete/contenteditable",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Textcomplete editor for contenteditable",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

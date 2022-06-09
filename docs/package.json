@@ -1,7 +1,7 @@
 {
   "name": "docs",
   "private": true,
-  "version": "0.1.11",
+  "version": "0.1.12",
   "scripts": {
     "build": "rm -fr dist cache && parcel build index.pug --public-url /textcomplete",
     "format:eslint": "eslint --fix '**/*.ts' '**/*.tsx'",
@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@textcomplete/codemirror": "^0.1.11",
-    "@textcomplete/contenteditable": "^0.1.11",
+    "@textcomplete/contenteditable": "^0.1.12",
     "@textcomplete/core": "^0.1.11",
     "@textcomplete/textarea": "^0.1.11",
     "codemirror": "^5.54.0",
