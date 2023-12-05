@@ -16,12 +16,12 @@
     "lint": "eslint 'src/**/*.ts'"
   },
   "devDependencies": {
-    "@textcomplete/core": "^0.1.11",
+    "@textcomplete/core": "^0.1.12",
     "@types/codemirror": "^5.60.2",
     "codemirror": "^5.54"
   },
   "peerDependencies": {
-    "@textcomplete/core": "^0.1.9",
+    "@textcomplete/core": "^0.1.12",
     "codemirror": "^5.54"
   },
   "publishConfig": {

@@ -16,13 +16,13 @@
     "lint": "eslint 'src/**/*.ts'"
   },
   "dependencies": {
-    "@textcomplete/utils": "^0.1.11"
+    "@textcomplete/utils": "^0.1.12"
   },
   "devDependencies": {
-    "@textcomplete/core": "^0.1.11"
+    "@textcomplete/core": "^0.1.12"
   },
   "peerDependencies": {
-    "@textcomplete/core": "^0.1.9"
+    "@textcomplete/core": "^0.1.12"
   },
   "publishConfig": {
     "access": "public"

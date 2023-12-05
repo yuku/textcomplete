@@ -17,7 +17,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "eventemitter3": "^4.0.4"
+    "eventemitter3": "^5.0.1"
   },
   "publishConfig": {
     "access": "public"
