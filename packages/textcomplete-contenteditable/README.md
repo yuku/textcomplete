@@ -1,9 +1,10 @@
 # @textcomplete/contenteditable
 
-> Textcomplete editor for contenteditable. (Experimental)
+Textcomplete editor for contenteditable. (Experimental)
 
 [![npm version](https://badge.fury.io/js/@textcomplete%2Fcontenteditable.svg)](http://badge.fury.io/js/@textcomplete%2Fcontenteditable)
 
+Check the live demo [here](https://yuku.takahashi.coffee/textcomplete/#textcomplete-contenteditable).
 
 ## Install
 

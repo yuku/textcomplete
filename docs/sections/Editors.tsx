@@ -62,7 +62,7 @@ export const Editors: FC<Props> = ({ id }) => (
       />
     </section>
     <section>
-      <h2>Contenteditable</h2>
+      <h2 id="textcomplete-contenteditable">Contenteditable</h2>
       <p>
         <code>@textcomplete/contenteditable</code> provides a textcomplete
         editor implementation for a contenteditable element. This package is

@@ -1,8 +1,10 @@
 # @textcomplete/textarea
 
-> Textcomplete editor for HTMLTextAreaElement.
+Textcomplete editor for HTMLTextAreaElement.
 
 [![npm version](https://badge.fury.io/js/@textcomplete%2Ftextarea.svg)](http://badge.fury.io/js/@textcomplete%2Ftextarea)
+
+Check the live demo [here](https://yuku.takahashi.coffee/textcomplete/#textcomplete-textarea).
 
 ## Install
 
