@@ -3,11 +3,11 @@
   "private": true,
   "version": "0.1.12",
   "scripts": {
-    "build": "rm -fr dist .cache && parcel build index.pug --public-url /textcomplete",
-    "format:eslint": "eslint --fix '**/*.ts' '**/*.tsx'",
-    "format:prettier": "prettier --write '**/*.ts' '**/*.tsx'",
+    "build": "rimraf dist .cache && parcel build index.pug --public-url /textcomplete",
+    "format:eslint": "eslint --fix **/*.ts **/*.tsx",
+    "format:prettier": "prettier --write **/*.ts **/*.tsx",
     "format": "run-s format:eslint format:prettier",
-    "lint": "eslint '**/*.ts' '**/*.tsx'",
+    "lint": "eslint **/*.ts **/*.tsx",
     "start": "parcel index.pug"
   },
   "dependencies": {
@@ -23,9 +23,9 @@
   "devDependencies": {
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.2",
-    "eslint": "^7.21.0",
-    "eslint-plugin-react": "^7.20.0",
-    "eslint-plugin-react-hooks": "^4.0.4",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "parcel-bundler": "1.12.5",
     "pug": "^3.0.2",
     "sass": "^1.32.8"

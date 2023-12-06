@@ -109,20 +109,23 @@ export abstract class Editor extends EventEmitter {
    * @see {@link Textarea} for live example.
    */
   protected getCode(e: KeyboardEvent): KeyCode {
-    return e.keyCode === 9 // tab
-      ? "ENTER"
-      : e.keyCode === 13 // enter
-      ? "ENTER"
-      : e.keyCode === 27 // esc
-      ? "ESC"
-      : e.keyCode === 38 // up
-      ? "UP"
-      : e.keyCode === 40 // down
-      ? "DOWN"
-      : e.keyCode === 78 && e.ctrlKey // ctrl-n
-      ? "DOWN"
-      : e.keyCode === 80 && e.ctrlKey // ctrl-p
-      ? "UP"
-      : "OTHER"
+    switch (e.keyCode) {
+      case 9: // tab
+      case 13: // enter
+        return "ENTER"
+      case 27: // esc
+        return "ESC"
+      case 38: // up
+        return "UP"
+      case 40: // down
+        return "DOWN"
+      case 78: // ctrl-n
+        if (e.ctrlKey) return "DOWN"
+        break
+      case 80: // ctrl-p
+        if (e.ctrlKey) return "UP"
+        break
+    }
+    return "OTHER"
   }
 }

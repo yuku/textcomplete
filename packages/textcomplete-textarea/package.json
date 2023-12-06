@@ -9,11 +9,11 @@
   "author": "Yuku Takahashi",
   "license": "MIT",
   "scripts": {
-    "build": "rm -fr dist && tsc",
-    "format:eslint": "eslint --fix 'src/**/*.ts'",
-    "format:prettier": "prettier --write 'src/**/*.ts'",
+    "build": "rimraf dist && tsc",
+    "format:eslint": "eslint --fix src/**/*.ts",
+    "format:prettier": "prettier --write src/**/*.ts",
     "format": "run-s format:eslint format:prettier",
-    "lint": "eslint 'src/**/*.ts'"
+    "lint": "eslint src/**/*.ts"
   },
   "dependencies": {
     "@textcomplete/utils": "^0.1.12",

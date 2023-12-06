@@ -9,26 +9,16 @@
   "author": "Yuku Takahashi",
   "license": "MIT",
   "scripts": {
-    "build": "rm -fr dist && tsc",
-    "format:eslint": "eslint --fix 'src/**/*.ts'",
-    "format:prettier": "prettier --write 'src/**/*.ts'",
+    "build": "rimraf dist && tsc",
+    "format:eslint": "eslint --fix src/**/*.ts",
+    "format:prettier": "prettier --write src/**/*.ts",
     "format": "run-s format:eslint format:prettier",
-    "lint": "eslint 'src/**/*.ts'"
+    "lint": "eslint src/**/*.ts"
   },
   "devDependencies": {
-    "@textcomplete/core": "^0.1.12",
-    "@typescript-eslint/eslint-plugin": "^4.17.0",
-    "@typescript-eslint/parser": "^4.17.0",
-    "eslint": "^7.21.0",
-    "eslint-config-prettier": "^8.1.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "^2.0.5",
-    "typescript": "^5.3.2"
+    "@textcomplete/core": "^0.1.12"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "prettier": {
-    "semi": false
   }
 }
