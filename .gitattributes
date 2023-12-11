@@ -1,2 +1,4 @@
 packages/jquery-textcomplete/dist/* linguist-vendored
 packages/jquery-textcomplete/src/vendor/* linguist-vendored
+
+* text=auto eol=lf

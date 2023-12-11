@@ -1,7 +1,6 @@
 {
   "version": "0.1.12",
   "npmClient": "yarn",
-  "useWorkspaces": true,
   "command": {
     "version": {
       "ignoreChanges": [
@@ -14,5 +13,6 @@
   "packages": [
     "packages/textcomplete-*",
     "docs"
-  ]
+  ],
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }

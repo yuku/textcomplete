@@ -7,12 +7,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 14.x
+          node-version: 18.x
       - run: yarn install
-      - run: yarn lerna bootstrap
       - run: yarn build
       - run: yarn lint
       - run: yarn test

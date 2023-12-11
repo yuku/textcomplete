@@ -9,15 +9,15 @@
   "author": "Yuku Takahashi",
   "license": "MIT",
   "scripts": {
-    "build": "rm -fr dist && tsc",
-    "format:eslint": "eslint --fix 'src/**/*.ts'",
-    "format:prettier": "prettier --write 'src/**/*.ts'",
+    "build": "rimraf dist && tsc",
+    "format:eslint": "eslint --fix src/**/*.ts",
+    "format:prettier": "prettier --write src/**/*.ts",
     "format": "run-s format:eslint format:prettier",
-    "lint": "eslint 'src/**/*.ts'",
+    "lint": "eslint src/**/*.ts",
     "test": "jest"
   },
   "dependencies": {
-    "eventemitter3": "^4.0.4"
+    "eventemitter3": "^5.0.1"
   },
   "publishConfig": {
     "access": "public"

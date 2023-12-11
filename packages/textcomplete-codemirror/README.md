@@ -1,8 +1,10 @@
 # @textcomplete/codemirror
 
-> Textcomplete editor for CodeMirror. (Experimental)
+Textcomplete editor for CodeMirror. (Experimental)
 
 [![npm version](https://badge.fury.io/js/@textcomplete%2Fcodemirror.svg)](http://badge.fury.io/js/@textcomplete%2Fcodemirror)
+
+Check the live demo [here](https://yuku.takahashi.coffee/textcomplete/#textcomplete-codemirror).
 
 ## Install
 
