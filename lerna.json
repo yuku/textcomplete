@@ -1,18 +1,12 @@
 {
-  "version": "0.1.12",
+  "version": "0.1.13",
   "npmClient": "yarn",
   "command": {
     "version": {
-      "ignoreChanges": [
-        "docs",
-        "*.md"
-      ],
+      "ignoreChanges": ["docs", "*.md"],
       "allowBransh": "master"
     }
   },
-  "packages": [
-    "packages/textcomplete-*",
-    "docs"
-  ],
+  "packages": ["packages/textcomplete-*", "docs"],
   "$schema": "node_modules/lerna/schemas/lerna-schema.json"
 }
